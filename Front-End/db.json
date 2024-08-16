@@ -1,0 +1,211 @@
+{
+  "hotels": [
+    {
+      "id": 1,
+      "name": "Fenet Hotel",
+      "image": "img/dark-bed-room.JPG",
+      "amenities": ["Wifi", "Gym", "Pool", "Restaurant"],
+      "location": "Hawassa, Ethiopia",
+      "rooms": [
+        { "type": "Budget room", "price": "1300 " },
+        { "type": "Suite room", "price": "1600 " },
+        { "type": "Deluxe room", "price": "2500 " }
+      ],
+      "hotel_rooms": [
+        {
+          "images": [
+            "img/dark-bed-room.JPG",
+            "img/bedroom.JPG",
+            "img/fenet.JPG"
+          ],
+          "type": "Row House",
+          "name": "Fenet ",
+          "address": "123 Anywhere ST. any city",
+          "price": "1300 ",
+          "details": "2 Bed | 1 Bath | 1 Car"
+        },
+        {
+          "images": [
+            "img/dark-bed-room.JPG",
+            "img/bedroom.JPG",
+            "img/fenet.JPG"
+          ],
+          "type": "Row House",
+          "name": "Fenet ",
+          "address": "123 Anywhere ST. any city",
+          "price": "1300 ",
+          "details": "2 Bed | 1 Bath | 1 Car"
+        },
+        {
+          "images": [
+            "img/dark-bed-room.JPG",
+            "img/bedroom.JPG",
+            "img/fenet.JPG"
+          ],
+          "type": "Row House",
+          "name": "Fenet ",
+          "address": "123 Anywhere ST. any city",
+          "price": "1300 ",
+          "details": "2 Bed | 1 Bath | 1 Car"
+        }
+      ],
+      "mapSrc": "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d247.47991024325358!2d38.49086586609796!3d7.047007169189547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2set!4v1715790257421!5m2!1sen!2set",
+      "videoSrc": "img/fenet.mp4"
+    },
+    {
+      "id": 2,
+      "name": "South Star International Hotel",
+      "image": "img/south-star-international-hotel.jpg",
+      "amenities": ["Wifi", "Spa", "Pool", "Restaurant"],
+      "rooms": [
+        { "type": "Standard room", "price": 1200 },
+        { "type": "Executive room", "price": 1800 },
+        { "type": "Presidential suite", "price": 3500 }
+      ],
+      "hotel_rooms": [
+        {
+          "images": [
+            "img/dark-bed-room.JPG",
+            "img/bedroom.JPG",
+            "img/fenet.JPG"
+          ],
+          "type": "Row House",
+          "name": "Fenet ",
+          "address": "123 Anywhere ST. any city",
+          "price": "1300 ",
+          "details": "2 Bed | 1 Bath | 1 Car"
+        },
+        {
+          "images": [
+            "img/dark-bed-room.JPG",
+            "img/bedroom.JPG",
+            "img/fenet.JPG"
+          ],
+          "type": "Row House",
+          "name": "Fenet ",
+          "address": "123 Anywhere ST. any city",
+          "price": "1300 ",
+          "details": "2 Bed | 1 Bath | 1 Car"
+        },
+        {
+          "images": [
+            "img/dark-bed-room.JPG",
+            "img/bedroom.JPG",
+            "img/fenet.JPG"
+          ],
+          "type": "Row House",
+          "name": "Fenet ",
+          "address": "123 Anywhere ST. any city",
+          "price": "1300 ",
+          "details": "2 Bed | 1 Bath | 1 Car"
+        }
+      ],
+      "mapSrc": "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d247.47991024325358!2d38.49086586609796!3d7.047007169189547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2set!4v1715790257421!5m2!1sen!2set",
+      "videoSrc": "img/fenet.mp4"
+    },
+    {
+      "id": 3,
+      "name": "Godolias Resort",
+      "image": "img/godolias.jpg",
+      "amenities": ["Wifi", "Spa", "Pool", "Restaurant"],
+      "rooms": [
+        { "type": "Standard room", "price": 1200 },
+        { "type": "Executive room", "price": 1800 },
+        { "type": "Presidential suite", "price": 3500 }
+      ],
+
+      "hotel_rooms": [
+        {
+          "images": [
+            "img/dark-bed-room.JPG",
+            "img/bedroom.JPG",
+            "img/fenet.JPG"
+          ],
+          "type": "Row House",
+          "name": "Fenet ",
+          "address": "123 Anywhere ST. any city",
+          "price": "1300 ",
+          "details": "2 Bed | 1 Bath | 1 Car"
+        },
+        {
+          "images": [
+            "img/dark-bed-room.JPG",
+            "img/bedroom.JPG",
+            "img/fenet.JPG"
+          ],
+          "type": "Row House",
+          "name": "Fenet ",
+          "address": "123 Anywhere ST. any city",
+          "price": "1300 ",
+          "details": "2 Bed | 1 Bath | 1 Car"
+        },
+        {
+          "images": [
+            "img/dark-bed-room.JPG",
+            "img/bedroom.JPG",
+            "img/fenet.JPG"
+          ],
+          "type": "Row House",
+          "name": "Fenet ",
+          "address": "123 Anywhere ST. any city",
+          "price": "1300 ",
+          "details": "2 Bed | 1 Bath | 1 Car"
+        }
+      ],
+      "mapSrc": "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d247.47991024325358!2d38.49086586609796!3d7.047007169189547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2set!4v1715790257421!5m2!1sen!2set",
+      "videoSrc": "img/fenet.mp4"
+    },
+    {
+      "id": 4,
+      "name": "Rori International Hotel",
+      "image": "img/rori-hotel.jpg",
+      "amenities": ["Wifi", "Gym", "Pool", "Restaurant"],
+      "location": "Hawassa, Ethiopia",
+      "rooms": [
+        { "type": "Budget room", "price": "1300 " },
+        { "type": "Suite room", "price": "1600 " },
+        { "type": "Deluxe room", "price": "2500 " }
+      ],
+      "hotel_rooms": [
+        {
+          "images": [
+            "img/dark-bed-room.JPG",
+            "img/bedroom.JPG",
+            "img/fenet.JPG"
+          ],
+          "type": "Row House",
+          "name": "Fenet ",
+          "address": "123 Anywhere ST. any city",
+          "price": "1300 ",
+          "details": "2 Bed | 1 Bath | 1 Car"
+        },
+        {
+          "images": [
+            "img/dark-bed-room.JPG",
+            "img/bedroom.JPG",
+            "img/fenet.JPG"
+          ],
+          "type": "Row House",
+          "name": "Fenet ",
+          "address": "123 Anywhere ST. any city",
+          "price": "1300 ",
+          "details": "2 Bed | 1 Bath | 1 Car"
+        },
+        {
+          "images": [
+            "img/dark-bed-room.JPG",
+            "img/bedroom.JPG",
+            "img/fenet.JPG"
+          ],
+          "type": "Row House",
+          "name": "Fenet ",
+          "address": "123 Anywhere ST. any city",
+          "price": "1300 ",
+          "details": "2 Bed | 1 Bath | 1 Car"
+        }
+      ],
+      "mapSrc": "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d247.47991024325358!2d38.49086586609796!3d7.047007169189547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2set!4v1715790257421!5m2!1sen!2set",
+      "videoSrc": "img/fenet.mp4"
+    }
+  ]
+}
