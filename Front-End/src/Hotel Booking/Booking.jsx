@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import HeroBooking from "./HeroBooking";
-import GoogleMap from "./GoogleMap";
 import RoomSuits from "./RoomSuits";
 import Video from "./Video";
-import Testimonial from "./Testimonial";
 import Footer from "./Footer";
 import "./Hotel.css";
 
@@ -25,11 +22,8 @@ function Booking() {
 
   return (
     <>
-      <HeroBooking hotel={hotel} />
-      <GoogleMap mapSrc={hotel.mapSrc} />
       <RoomSuits rooms={hotel.hotel_rooms} />
       <Video videoSrc={hotel.videoSrc} />
-      <Testimonial />
       <Footer />
     </>
   );
