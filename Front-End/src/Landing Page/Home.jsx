@@ -1,11 +1,9 @@
 import Navbar from "./Navbar.jsx";
-import HeroComponent from "./HeroComponent.jsx";
+import HeroComponent from "./HeroSection.jsx";
 import HotDeals from "./HotDeals.jsx";
-import SpecialOffers from "./SpecialOffers.jsx";
 import AboutUs from "./AboutUs.jsx";
 import ContactUs from "./ContactUs.jsx";
-import "./index.css";
-import "./responsive.css";
+
 
 export default function Home() {
   return (
@@ -13,7 +11,6 @@ export default function Home() {
       <Navbar />
       <HeroComponent />
       <HotDeals />
-      <SpecialOffers />
       <AboutUs />
       <ContactUs />
     </>

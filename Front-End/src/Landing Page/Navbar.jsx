@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import styles from './Navbar.module.css';
 
 const Navbar = () => {
   const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
@@ -15,57 +16,57 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar">
-      <div className="logo">
+    <nav className={styles.navbar}>
+      <div className={styles.logo}>
         <img src="img/nafLogo.png" alt="Logo" />
       </div>
       <p
-        className={`fa-solid fas menu-icon  ${
+        className={`${styles.menuIcon} ${
           isMobileMenuActive ? "active" : ""
         }`}
         onClick={handleMenuToggle}
       >
         X
       </p>
-      <div className="nav-links">
-        <Link to="/" className="nav-link" onClick={handleLinkClick}>
+      <div className={styles.navLinks}>
+        <Link to="/" className={styles.navLink} onClick={handleLinkClick}>
           Home
         </Link>
-        <Link className="nav-link" onClick={handleLinkClick}>
+        <Link className={styles.navLink} onClick={handleLinkClick}>
           About
         </Link>
-        <Link className="nav-link" onClick={handleLinkClick}>
+        <Link className={styles.navLink} onClick={handleLinkClick}>
           Hot Deals
         </Link>
-        <Link className="nav-link" onClick={handleLinkClick}>
+        <Link className={styles.navLink} onClick={handleLinkClick}>
           Contact Us
         </Link>
       </div>
-      <div className="nav-buttons">
+      <div className={styles.navButtons}>
         <Link
           to="/registration"
-          className="nav-button"
+          className={styles.navButton}
           onClick={handleLinkClick}
         >
           Sign Up / Login
         </Link>
       </div>
-      <div className={`mobile-menu ${isMobileMenuActive ? "active" : ""}`}>
-        <Link to="/" className="nav-link" onClick={handleLinkClick}>
+      <div className={`${styles.mobileMenu} ${isMobileMenuActive ? "active" : ""}`}>
+        <Link to="/" className={styles.navLink} onClick={handleLinkClick}>
           Home
         </Link>
-        <Link className="nav-link" onClick={handleLinkClick}>
+        <Link className={styles.navLink} onClick={handleLinkClick}>
           About
         </Link>
-        <Link className="nav-link" onClick={handleLinkClick}>
+        <Link className={styles.navLink} onClick={handleLinkClick}>
           Hot Deals
         </Link>
-        <Link className="nav-link" onClick={handleLinkClick}>
+        <Link className={styles.navLink} onClick={handleLinkClick}>
           Contact Us
         </Link>
         <Link
           to="/registration"
-          className="nav-button"
+          className={styles.navButton}
           onClick={handleLinkClick}
         >
           Sign Up / Login

@@ -1,39 +1,51 @@
-import React from "react";
-
-export default function ContactUs({ allSectionsRef }) {
+import styles from "./ContactUs.module.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTelegram, faInstagram, faTiktok } from '@fortawesome/free-brands-svg-icons';
+export default function ContactUs() {
   return (
-    <section id="contact-us" className="contact-section">
-      <div className="contact-us-container">
-        <span className="brand-name">NAF SMMA.</span>
-        <div className="contact-content">
-          <div className="contact-info">
+    <section>
+      <div className={styles.contactusContainer}>
+        <span className={styles.brandName}>NAF SMMA.</span>
+        <div className={styles.contactContent}>
+          <div className={styles.contactInfo}>
             <h1>Let's Talk</h1>
-            <div className="info-item">Hawassa, Ethiopia</div>
-            <div className="info-item">+251-915-67-7200</div>
-            <div className="info-item">NAFdigital@gmail.com</div>
+            <div className={styles.icons}>
+              <a href="https://t.me/your-profile" target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon icon={faTelegram}  className={styles.icon}/>
+              </a>
+              <a href="https://instagram.com/your-profile" target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon icon={faInstagram}  className={styles.icon}/>
+              </a>
+              <a href="https://www.tiktok.com/@your-profile" target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon icon={faTiktok}  className={styles.icon}/>
+              </a>
+            </div>
+            <div className={styles.infoItem}>Hawassa, Ethiopia</div>
+            <div className={styles.infoItem}>+251-915-67-7200</div>
+            <div className={styles.infoItem}>NAFdigital@gmail.com</div>
           </div>
-          <form id="contact-form" className="contact-form">
+          <form className={styles.contactForm}>
             <input
               type="text"
               placeholder="Full Name"
               required
-              className="input-field"
+              className={styles.inputField}
             />
             <input
               type="email"
               placeholder="Email"
               required
-              className="input-field"
+              className={styles.inputField}
             />
             <textarea
               placeholder="Message"
               cols="30"
               rows="6"
               required
-              className="textarea-field"
+              className={styles.textareaField}
             ></textarea>
-            <div className="button-container">
-              <button type="submit" className="submit-button">
+            <div className={styles.buttonContainer}>
+              <button type="submit" className={styles.submitButton}>
                 Send Message
               </button>
             </div>

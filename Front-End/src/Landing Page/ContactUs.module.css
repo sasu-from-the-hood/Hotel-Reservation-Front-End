@@ -1,0 +1,86 @@
+.contactusContainer {
+  padding: 4rem;
+  background: #343539;
+}
+
+.brandName {
+  font-size: 24px;
+  color: white;
+}
+
+.contactContent {
+  display: flex;
+  margin-top: 3rem;
+  gap: 2rem;
+}
+
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  flex-basis: 50rem;
+}
+
+.contactInfo h1 {
+  margin-bottom: 20px;
+  font-size: 36px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.infoItem {
+  border: 1px solid #af8c53;
+  padding: 1rem;
+  margin-bottom: 10px;
+  width: 320px;
+  color: #fff;
+}
+
+.contactForm {
+  display: flex;
+  flex: 1;
+  flex-basis: 50rem;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inputField,
+.textareaField {
+  background-color: transparent;
+  border: 1px solid #af8c53;
+  padding: 15px;
+  color: white;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.submitButton {
+  border: 1px solid #af8c53;
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #726f6f;
+  cursor: pointer;
+}
+.icons{
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 13px;
+  
+}
+.icon {
+  color: #fff;
+  transition: margin-top .3s;
+  font-size: 1.8rem;
+}
+.icon:hover{
+  margin-top: -13px;
+}
+@media (max-width: 800px) {
+  
+  .contactContent {
+    flex-wrap: wrap;
+  }
+}
