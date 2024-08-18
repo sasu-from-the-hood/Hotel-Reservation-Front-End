@@ -1,5 +1,6 @@
 node_modules
-Front-End/public/img/fenet.mp4
+./public/img/fenet.mp4
+fenet.mp4
 # Logs
 logs
 *.log

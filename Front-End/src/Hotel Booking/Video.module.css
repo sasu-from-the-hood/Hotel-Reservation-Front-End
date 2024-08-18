@@ -1,0 +1,16 @@
+.videoContainer {
+  width: 100%;
+  padding: 2.5rem;
+  background: #343539;
+}
+
+.videoContainer video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  padding-bottom: 20px;
+}
+.videoContainer p {
+  text-align: center;
+  font-size: 1.2rem;
+}

@@ -1,0 +1,43 @@
+.propertyCard {
+  width: 100%;
+  cursor: pointer;
+  box-shadow: -1px 1px 4px 3px rgba(0, 0, 0, 0.25);
+  padding: 2px;
+  transition: box-shadow 0.2s;
+}
+
+.propertyCard:hover {
+  box-shadow: -1px 1px 5px 4px rgba(0, 0, 0, 0.39);
+}
+.propertyCard img {
+  width: 100%;
+  padding-bottom: 1rem;
+}
+
+.propertyCard hr {
+  border: 1px solid #af8c53;
+}
+
+.propertyCardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.hotDealsTitle {
+  text-align: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  letter-spacing: 0.2rem;
+}
+
+.hotDealsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 1.4rem;
+  padding: 1rem 4rem;
+}

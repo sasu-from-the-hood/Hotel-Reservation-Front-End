@@ -1,8 +1,8 @@
+import styles from "./HotelRoom.module.css";
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import "./HotelRoom.css";
 
 export default function HotelRoom() {
   const location = useLocation();
@@ -27,13 +27,13 @@ export default function HotelRoom() {
   };
 
   return (
-    <div className="hotel-room-container">
-      <div className="hotel-room-left-col">
+    <div className={styles.hotelRoomContainer}>
+      <div className={styles.hotelRoomLeftCol}>
         <img src={`/${room.images[currentImageIndex]}`} alt={room.name} />
-        <button className="next-btn" onClick={handleNextImage}>
+        <button className={styles.nextBtn} onClick={handleNextImage}>
           <FontAwesomeIcon icon={faArrowRight} size="2x" />
         </button>
-        <button className="prev-btn" onClick={handlePrevImage}>
+        <button className={styles.prevBtn} onClick={handlePrevImage}>
           <FontAwesomeIcon icon={faArrowLeft} size="2x" />
         </button>
         <div>
@@ -44,7 +44,7 @@ export default function HotelRoom() {
         </div>
       </div>
 
-      <div className="hotel-room-right-col">
+      <div className={styles.hotelRoomRightCol}>
         <form>
           <h1>Check Availability</h1>
           <input type="date" placeholder="Arrival Date" />

@@ -1,0 +1,44 @@
+.footerContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 2rem;
+  padding: 2.5rem 5rem;
+  place-items: center;
+}
+
+.footerSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.footerTitle {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.footerContent {
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+.footerContent span {
+  color: black;
+}
+.footerSocial {
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.icon {
+  cursor: pointer;
+  transition: margin-top 0.5s;
+}
+.icon:hover {
+  margin-top: -12px;
+}

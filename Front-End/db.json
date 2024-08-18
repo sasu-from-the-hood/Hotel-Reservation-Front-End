@@ -10,8 +10,11 @@
         { "type": "Budget room", "price": "1300" },
         { "type": "Suite room", "price": "1600 " },
         { "type": "Deluxe room", "price": "2500" },
-        { "loc": "Location", "link": "https://maps.app.goo.gl/33o75UoBNADAsLjLA" ,
-        "place" : "menehariya" }
+        {
+          "loc": "Location",
+          "link": "https://maps.app.goo.gl/33o75UoBNADAsLjLA",
+          "place": "menehariya"
+        }
       ],
       "hotel_rooms": [
         {
@@ -20,7 +23,7 @@
             "img/bedroom.JPG",
             "img/fenet.JPG"
           ],
-          "type": "Row House",
+          "type": "Single Room",
           "name": "Fenet ",
           "address": "123 Anywhere ST. any city",
           "price": "1300 ",
@@ -32,7 +35,7 @@
             "img/bedroom.JPG",
             "img/fenet.JPG"
           ],
-          "type": "Row House",
+          "type": "Family Room",
           "name": "Fenet ",
           "address": "123 Anywhere ST. any city",
           "price": "1300 ",
@@ -44,14 +47,25 @@
             "img/bedroom.JPG",
             "img/fenet.JPG"
           ],
-          "type": "Row House",
+          "type": "Double Room",
+          "name": "Fenet ",
+          "address": "123 Anywhere ST. any city",
+          "price": "1300 ",
+          "details": "2 Bed | 1 Bath | 1 Car"
+        },
+        {
+          "images": [
+            "img/dark-bed-room.JPG",
+            "img/bedroom.JPG",
+            "img/fenet.JPG"
+          ],
+          "type": "Deluxe Room",
           "name": "Fenet ",
           "address": "123 Anywhere ST. any city",
           "price": "1300 ",
           "details": "2 Bed | 1 Bath | 1 Car"
         }
       ],
-      
       "videoSrc": "img/fenet.mp4"
     },
     {
@@ -63,8 +77,11 @@
         { "type": "Standard room", "price": 1200 },
         { "type": "Executive room", "price": 1800 },
         { "type": "Presidential suite", "price": 3500 },
-        { "loc": "Location", "link": "https://maps.app.goo.gl/DUFo9ehs7R4WKuE6A" ,
-        "place" : "alamura" }
+        {
+          "loc": "Location",
+          "link": "https://maps.app.goo.gl/DUFo9ehs7R4WKuE6A",
+          "place": "alamura"
+        }
       ],
       "hotel_rooms": [
         {
@@ -73,7 +90,7 @@
             "img/bedroom.JPG",
             "img/fenet.JPG"
           ],
-          "type": "Row House",
+          "type": "Executive Room",
           "name": "Fenet ",
           "address": "123 Anywhere ST. any city",
           "price": "1300 ",
@@ -85,7 +102,7 @@
             "img/bedroom.JPG",
             "img/fenet.JPG"
           ],
-          "type": "Row House",
+          "type": "Family Room",
           "name": "Fenet ",
           "address": "123 Anywhere ST. any city",
           "price": "1300 ",
@@ -97,14 +114,14 @@
             "img/bedroom.JPG",
             "img/fenet.JPG"
           ],
-          "type": "Row House",
+          "type": "Single Room",
           "name": "Fenet ",
           "address": "123 Anywhere ST. any city",
           "price": "1300 ",
           "details": "2 Bed | 1 Bath | 1 Car"
         }
       ],
-      
+
       "videoSrc": "img/fenet.mp4"
     },
     {
@@ -116,8 +133,11 @@
         { "type": "Standard room", "price": 1200 },
         { "type": "Executive room", "price": 1800 },
         { "type": "Presidential suite", "price": 3500 },
-        { "loc": "Location", "link": "https://maps.app.goo.gl/58q15NWyXSr1vLTv6" ,
-        "place" : "atote" }
+        {
+          "loc": "Location",
+          "link": "https://maps.app.goo.gl/58q15NWyXSr1vLTv6",
+          "place": "atote"
+        }
       ],
 
       "hotel_rooms": [
@@ -127,7 +147,7 @@
             "img/bedroom.JPG",
             "img/fenet.JPG"
           ],
-          "type": "Row House",
+          "type": "Double Room",
           "name": "Fenet ",
           "address": "123 Anywhere ST. any city",
           "price": "1300 ",
@@ -139,7 +159,7 @@
             "img/bedroom.JPG",
             "img/fenet.JPG"
           ],
-          "type": "Row House",
+          "type": "Family Room",
           "name": "Fenet ",
           "address": "123 Anywhere ST. any city",
           "price": "1300 ",
@@ -151,14 +171,14 @@
             "img/bedroom.JPG",
             "img/fenet.JPG"
           ],
-          "type": "Row House",
+          "type": "Single Room",
           "name": "Fenet ",
           "address": "123 Anywhere ST. any city",
           "price": "1300 ",
           "details": "2 Bed | 1 Bath | 1 Car"
         }
       ],
-      
+
       "videoSrc": "img/fenet.mp4"
     },
     {
@@ -171,8 +191,11 @@
         { "type": "Budget room", "price": "1300 " },
         { "type": "Suite room", "price": "1600 " },
         { "type": "Deluxe room", "price": "2500 " },
-        { "loc": "Location", "link": "https://maps.app.goo.gl/GJFydEjtr892AKoN8",
-        "place" : "piyasa" }
+        {
+          "loc": "Location",
+          "link": "https://maps.app.goo.gl/GJFydEjtr892AKoN8",
+          "place": "piyasa"
+        }
       ],
       "hotel_rooms": [
         {
@@ -181,7 +204,7 @@
             "img/bedroom.JPG",
             "img/fenet.JPG"
           ],
-          "type": "Row House",
+          "type": "Single Room",
           "name": "Fenet ",
           "address": "123 Anywhere ST. any city",
           "price": "1300 ",
@@ -193,7 +216,7 @@
             "img/bedroom.JPG",
             "img/fenet.JPG"
           ],
-          "type": "Row House",
+          "type": "Double Room",
           "name": "Fenet ",
           "address": "123 Anywhere ST. any city",
           "price": "1300 ",
@@ -205,14 +228,13 @@
             "img/bedroom.JPG",
             "img/fenet.JPG"
           ],
-          "type": "Row House",
+          "type": "Double Room",
           "name": "Fenet ",
           "address": "123 Anywhere ST. any city",
           "price": "1300 ",
           "details": "2 Bed | 1 Bath | 1 Car"
         }
       ],
-      
       "videoSrc": "img/fenet.mp4"
     }
   ]

@@ -1,4 +1,4 @@
-import React from "react";
+import styles from "./RoomCatagory.module.css";
 import { useNavigate } from "react-router-dom";
 
 export default function RoomSuits({ rooms }) {
@@ -9,17 +9,17 @@ export default function RoomSuits({ rooms }) {
   }
 
   if (!rooms || rooms.length === 0) {
-    return <div>No hot deals available</div>;
+    return <div>No Room Catagory available</div>;
   }
 
   return (
-    <section id="hot-deals" className="hot-deals-section">
-      <h1 className="hot-deals-title">Hot Deals</h1>
-      <div className="hot-deals-grid">
+    <section>
+      <h1 className={styles.hotDealsTitle}>Room Catagory</h1>
+      <div className={styles.hotDealsGrid}>
         {rooms.map((deal, i) => (
           <div
             key={i}
-            className="property-card"
+            className={styles.propertyCard}
             onClick={() => handleCardClick(deal)}
             role="button"
             aria-label={`View details for ${deal.type}`}
@@ -30,7 +30,7 @@ export default function RoomSuits({ rooms }) {
               alt={deal.type || "Property Image"}
             />
             <hr className="property-card-divider" />
-            <div className="property-card-content">
+            <div className={styles.propertyCardContent}>
               <span>{deal.type || "No Type"}</span>
               <span>{deal.address || "No Address"}</span>
               <span>{deal.details || "No Details"}</span>

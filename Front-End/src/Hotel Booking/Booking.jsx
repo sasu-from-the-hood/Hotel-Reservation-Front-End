@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import RoomSuits from "./RoomSuits";
+import RoomSuits from "./RoomCatagory";
 import Video from "./Video";
 import Footer from "./Footer";
-import "./Hotel.css";
 
 function Booking() {
   const { id } = useParams();
