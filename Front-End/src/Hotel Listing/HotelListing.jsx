@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./HotelListing.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDownAZ,faWifi,
+import {
+  faArrowDownAZ,
+  faWifi,
   faDumbbell,
   faWaterLadder,
-  faBurger, } from "@fortawesome/free-solid-svg-icons";
+  faBurger,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function HotelListing() {
   const [hotels, setHotels] = useState([]);
-  const [defaultHotels, setDefaultHotels] = useState([]); 
+  const [defaultHotels, setDefaultHotels] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isSorted, setIsSorted] = useState(false);
   const navigate = useNavigate();
@@ -38,7 +41,7 @@ export default function HotelListing() {
       );
       setHotels(sortedHotels);
     }
-    setIsSorted(!isSorted); 
+    setIsSorted(!isSorted);
   };
 
   const filteredHotels = hotels.filter((hotel) =>
@@ -69,12 +72,12 @@ export default function HotelListing() {
                 <div>
                   <h4>{hotel.name}</h4>
                   <span>
-                  <span>
-                    <FontAwesomeIcon icon={faWifi} className="icons" />
-                    <FontAwesomeIcon icon={faDumbbell} className="icons" />
-                    <FontAwesomeIcon icon={faWaterLadder} className="icons" />
-                    <FontAwesomeIcon icon={faBurger} className="icons" />
-                  </span>
+                    <span>
+                      <FontAwesomeIcon icon={faWifi} className="icons" />
+                      <FontAwesomeIcon icon={faDumbbell} className="icons" />
+                      <FontAwesomeIcon icon={faWaterLadder} className="icons" />
+                      <FontAwesomeIcon icon={faBurger} className="icons" />
+                    </span>
                   </span>
                 </div>
               </div>
@@ -83,21 +86,21 @@ export default function HotelListing() {
                 <div className={styles.hotelServices}>
                   {hotel.rooms.map((room, index) => (
                     <>
-                    <div key={index}>
-                      <span>{room.type}</span>
-                      <span>{room.price}</span>
-                    </div>
-                    <div>
-                      {}
-                      <span>{room.loc}</span>
-                      <a 
-                        href={room.link} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                      >
-                        {room.place}
-                      </a>
-                    </div> 
+                      <div key={index}>
+                        <span>{room.type}</span>
+                        <span>{room.price}</span>
+                      </div>
+                      <div>
+                        {}
+                        <span>{room.loc}</span>
+                        <a
+                          href={room.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {room.place}
+                        </a>
+                      </div>
                     </>
                   ))}
                 </div>

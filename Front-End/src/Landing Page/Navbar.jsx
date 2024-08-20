@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import styles from './Navbar.module.css';
+import styles from "./Navbar.module.css";
 
 const Navbar = () => {
   const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
@@ -9,7 +9,17 @@ const Navbar = () => {
     setIsMobileMenuActive((prev) => !prev);
   };
 
-  const handleLinkClick = () => {
+  const handleLinkClick = (e, targetId) => {
+    e.preventDefault();
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+      window.scrollTo({
+        top: targetElement.offsetTop,
+        behavior: "smooth",
+      });
+    }
+
     if (isMobileMenuActive) {
       setIsMobileMenuActive(false);
     }
@@ -22,23 +32,39 @@ const Navbar = () => {
       </div>
       <p
         className={`${styles.menuIcon} ${
-          isMobileMenuActive ? "active" : ""
+          isMobileMenuActive ? styles.active : ""
         }`}
         onClick={handleMenuToggle}
       >
         X
       </p>
       <div className={styles.navLinks}>
-        <Link to="/" className={styles.navLink} onClick={handleLinkClick}>
+        <Link
+          to="#home"
+          className={styles.navLink}
+          onClick={(e) => handleLinkClick(e, "home")}
+        >
           Home
         </Link>
-        <Link className={styles.navLink} onClick={handleLinkClick}>
-          About
-        </Link>
-        <Link className={styles.navLink} onClick={handleLinkClick}>
+        <Link
+          to="#hot-deals"
+          className={styles.navLink}
+          onClick={(e) => handleLinkClick(e, "hot-deals")}
+        >
           Hot Deals
         </Link>
-        <Link className={styles.navLink} onClick={handleLinkClick}>
+        <Link
+          to="#about-us"
+          className={styles.navLink}
+          onClick={(e) => handleLinkClick(e, "about-us")}
+        >
+          About Us
+        </Link>
+        <Link
+          to="#contact-us"
+          className={styles.navLink}
+          onClick={(e) => handleLinkClick(e, "contact-us")}
+        >
           Contact Us
         </Link>
       </div>
@@ -46,28 +72,48 @@ const Navbar = () => {
         <Link
           to="/registration"
           className={styles.navButton}
-          onClick={handleLinkClick}
+          onClick={handleMenuToggle}
         >
           Sign Up / Login
         </Link>
       </div>
-      <div className={`${styles.mobileMenu} ${isMobileMenuActive ? "active" : ""}`}>
-        <Link to="/" className={styles.navLink} onClick={handleLinkClick}>
+      <div
+        className={`${styles.mobileMenu} ${
+          isMobileMenuActive ? styles.active : ""
+        }`}
+      >
+        <Link
+          to="#home"
+          className={styles.navLink}
+          onClick={(e) => handleLinkClick(e, "home")}
+        >
           Home
         </Link>
-        <Link className={styles.navLink} onClick={handleLinkClick}>
-          About
-        </Link>
-        <Link className={styles.navLink} onClick={handleLinkClick}>
+        <Link
+          to="#hot-deals"
+          className={styles.navLink}
+          onClick={(e) => handleLinkClick(e, "hot-deals")}
+        >
           Hot Deals
         </Link>
-        <Link className={styles.navLink} onClick={handleLinkClick}>
+        <Link
+          to="#about-us"
+          className={styles.navLink}
+          onClick={(e) => handleLinkClick(e, "about-us")}
+        >
+          About Us
+        </Link>
+        <Link
+          to="#contact-us"
+          className={styles.navLink}
+          onClick={(e) => handleLinkClick(e, "contact-us")}
+        >
           Contact Us
         </Link>
         <Link
           to="/registration"
           className={styles.navButton}
-          onClick={handleLinkClick}
+          onClick={handleMenuToggle}
         >
           Sign Up / Login
         </Link>

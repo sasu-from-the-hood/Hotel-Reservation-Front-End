@@ -1,23 +1,39 @@
 import styles from "./ContactUs.module.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTelegram, faInstagram, faTiktok } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTelegram,
+  faInstagram,
+  faTiktok,
+} from "@fortawesome/free-brands-svg-icons";
 export default function ContactUs() {
   return (
-    <section>
+    <section id="contact-us">
       <div className={styles.contactusContainer}>
         <span className={styles.brandName}>NAF SMMA.</span>
         <div className={styles.contactContent}>
           <div className={styles.contactInfo}>
-            <h1>Let's Talk</h1>
+            <h1>Contact Us</h1>
             <div className={styles.icons}>
-              <a href="https://t.me/your-profile" target="_blank" rel="noopener noreferrer">
-                <FontAwesomeIcon icon={faTelegram}  className={styles.icon}/>
+              <a
+                href="https://t.me/your-profile"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FontAwesomeIcon icon={faTelegram} className={styles.icon} />
               </a>
-              <a href="https://instagram.com/your-profile" target="_blank" rel="noopener noreferrer">
-                <FontAwesomeIcon icon={faInstagram}  className={styles.icon}/>
+              <a
+                href="https://instagram.com/your-profile"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FontAwesomeIcon icon={faInstagram} className={styles.icon} />
               </a>
-              <a href="https://www.tiktok.com/@your-profile" target="_blank" rel="noopener noreferrer">
-                <FontAwesomeIcon icon={faTiktok}  className={styles.icon}/>
+              <a
+                href="https://www.tiktok.com/@your-profile"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FontAwesomeIcon icon={faTiktok} className={styles.icon} />
               </a>
             </div>
             <div className={styles.infoItem}>Hawassa, Ethiopia</div>
@@ -25,7 +41,7 @@ export default function ContactUs() {
             <div className={styles.infoItem}>NAFdigital@gmail.com</div>
           </div>
           <form className={styles.contactForm}>
-            <input
+            {/* <input
               type="text"
               placeholder="Full Name"
               required
@@ -48,7 +64,7 @@ export default function ContactUs() {
               <button type="submit" className={styles.submitButton}>
                 Send Message
               </button>
-            </div>
+            </div> */}
           </form>
         </div>
       </div>

@@ -17,7 +17,20 @@
 .propertyCard hr {
   border: 1px solid #af8c53;
 }
-
+.bookNow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+.bookNow button {
+  border: none;
+  padding: 0.6rem;
+  cursor: pointer;
+  color: #fff;
+  background-color: rgb(31, 31, 226);
+  border-radius: 10px;
+}
 .propertyCardContent {
   display: flex;
   flex-direction: column;

@@ -1,4 +1,4 @@
-import styles from './HotDeals.module.css';
+import styles from "./HotDeals.module.css";
 
 const hotDeals = [
   {
@@ -23,7 +23,7 @@ const hotDeals = [
 
 const HotDeals = () => {
   return (
-    <section className={styles.section}>
+    <section id="hot-deals" className={styles.section}>
       <h1 className={styles.title}>Hot Deals</h1>
       <div className={styles.gridContainer}>
         {hotDeals.map((deals, index) => (
@@ -37,7 +37,7 @@ function HotDealCard({ deal }) {
   return (
     <section>
       <div className={styles.propertyCard}>
-        <img  src={`${deal.image}`} alt={deal.type} />
+        <img src={`${deal.image}`} alt={deal.type} />
         <hr className={styles.divider} />
         <div className={styles.propertyDetails}>
           <span>{deal.type}</span>

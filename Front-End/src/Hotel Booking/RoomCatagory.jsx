@@ -36,6 +36,9 @@ export default function RoomSuits({ rooms }) {
               <span>{deal.details || "No Details"}</span>
             </div>
             <hr className="property-card-divider" />
+            <div className={styles.bookNow}>
+              <button>BOOK NOW</button>
+            </div>
           </div>
         ))}
       </div>

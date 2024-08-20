@@ -1,3 +1,6 @@
+html {
+  scroll-behavior: smooth;
+}
 .navbar {
   background-color: #fff;
   height: 5rem;
@@ -51,10 +54,10 @@
 }
 
 .navButton {
-  border: 1px solid #af8c53;
+  border: none;
   border-radius: 9999px;
-  background-color: transparent;
-  color: #726f6f;
+  background-color: rgb(47, 47, 250);
+  color: #fff;
   padding: 0.5rem 1rem;
   cursor: pointer;
   text-decoration: none;

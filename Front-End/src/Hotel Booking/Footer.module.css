@@ -38,7 +38,9 @@
 .icon {
   cursor: pointer;
   transition: margin-top 0.5s;
+  color: rgb(54, 54, 243);
 }
 .icon:hover {
   margin-top: -12px;
+  color: rgb(39, 39, 241);
 }

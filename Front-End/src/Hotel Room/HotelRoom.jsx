@@ -65,7 +65,11 @@ export default function HotelRoom() {
             <option value="2">2</option>
             <option value="3">3</option>
           </select>
-          <input type="submit" value="RESERVE NOW" />
+          <input
+            type="submit"
+            className={styles.submitBtn}
+            value="RESERVE NOW"
+          />
         </form>
       </div>
     </div>

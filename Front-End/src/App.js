@@ -2,7 +2,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./Landing Page/Home.jsx";
-import Registration from "./components/Registration";
+import Registration from "./components/Registration.js";
 import AdminDashboard from "./Admin/AdminDashboard.jsx";
 import HotelListing from "./Hotel Listing/HotelListing.jsx";
 import Booking from "./Hotel Booking/Booking.jsx";
