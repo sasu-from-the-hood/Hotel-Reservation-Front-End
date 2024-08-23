@@ -12,7 +12,7 @@ main {
 .search {
   width: 90%;
   border: none;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   padding: 10px;
   border-radius: 20px;
   margin: 20px 0;
@@ -21,6 +21,7 @@ main {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
   gap: 2rem;
+  /* justify-content: center; */
 }
 .hotelListGrid img {
   width: 100%;
@@ -35,6 +36,9 @@ main {
   border-top-left-radius: 22px;
   border-bottom-left-radius: 22px;
   border-bottom-right-radius: 22px;
+  max-width: 23rem;
+  width: 100%;
+  margin: 0 auto;
 }
 .sortBtn {
   border: none;
@@ -47,13 +51,28 @@ main {
 .hotelService {
   position: relative;
 }
+.hotelService p {
+  position: absolute;
+  font-size: 14px;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.23);
+  color: rgb(236, 236, 62);
+}
 .hotelService div span {
   display: flex;
   gap: 0.5rem;
 }
-.hotelService div h4,
-.icons {
+.hotelService div h4 {
   color: #fff;
+}
+.icons {
+  color: rgb(47, 47, 250);
+}
+.icon {
+  color: #2c2b2b;
 }
 .hotelServices div a {
   color: rgb(106, 183, 209);
@@ -87,7 +106,7 @@ main {
   justify-content: space-between;
   text-align: center;
 }
-.hotelServices div span{
+.hotelServices div span {
   color: #2c2b2b;
 }
 .btn {

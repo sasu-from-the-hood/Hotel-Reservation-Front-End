@@ -1,43 +1,57 @@
+import React from "react";
 import styles from "./RoomCatagory.module.css";
 import { useNavigate } from "react-router-dom";
 
-export default function RoomSuits({ rooms }) {
+export default function RoomSuits({ categories }) {
   const navigate = useNavigate();
 
-  function handleCardClick(room) {
-    navigate(`/hotel-room/${room.id}`, { state: { room } });
+  function handleCardClick(category) {
+    navigate(`/hotel-room/${category.category_id}`, {
+      state: { room: category },
+    });
   }
 
-  if (!rooms || rooms.length === 0) {
-    return <div>No Room Catagory available</div>;
+  if (!Array.isArray(categories)) {
+    console.error("Expected categories to be an array but got:", categories);
+    return <div>Invalid data format</div>;
+  }
+
+  if (categories.length === 0) {
+    return <div>No Room Category available</div>;
   }
 
   return (
     <section>
-      <h1 className={styles.hotDealsTitle}>Room Catagory</h1>
+      <h1 className={styles.hotDealsTitle}>Room Category</h1>
       <div className={styles.hotDealsGrid}>
-        {rooms.map((deal, i) => (
+        {categories.map((category) => (
           <div
-            key={i}
+            key={category.category_id}
             className={styles.propertyCard}
-            onClick={() => handleCardClick(deal)}
             role="button"
-            aria-label={`View details for ${deal.type}`}
+            aria-label={`View details for ${category.category_name}`}
           >
             <img
               className="property-card-image"
-              src={`/${deal.images[0]}`}
-              alt={deal.type || "Property Image"}
+              src={`/${category.image || "img/default.jpg"}`}
+              alt={category.category_name || "Category Image"}
             />
             <hr className="property-card-divider" />
             <div className={styles.propertyCardContent}>
-              <span>{deal.type || "No Type"}</span>
-              <span>{deal.address || "No Address"}</span>
-              <span>{deal.details || "No Details"}</span>
+              <div>
+                <span>{category.category_name}</span>
+                <span>Price: {category.price.toFixed(2)} ETB</span>
+              </div>
+              <div>
+                <span>Total Rooms: {category.total_rooms}</span>
+                <span>Available Rooms: {category.available_rooms}</span>
+              </div>
             </div>
             <hr className="property-card-divider" />
             <div className={styles.bookNow}>
-              <button>BOOK NOW</button>
+              <button onClick={() => handleCardClick(category)}>
+                BOOK NOW
+              </button>
             </div>
           </div>
         ))}

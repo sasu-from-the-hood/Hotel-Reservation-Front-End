@@ -74,12 +74,14 @@ const Registration = () => {
                 placeholder="Phone number"
                 required
               />
-              <input
-                type="file"
-                placeholder="Your National or Govermental Id"
-                name="file"
-                required
-              />
+              <div>
+                <label>ID Card Front :</label>
+                <input type="file" accept="image/*" required />
+              </div>
+              <div>
+                <label>ID Card Back :</label>
+                <input type="file" accept="image/*" required />
+              </div>
               <input
                 type="password"
                 placeholder="Password"

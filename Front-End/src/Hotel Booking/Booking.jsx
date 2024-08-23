@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RoomSuits from "./RoomCatagory";
-import Video from "./Video";
+// import Video from "./Video";
 import Footer from "./Footer";
 
 function Booking() {
   const { id } = useParams();
-  const [hotel, setHotel] = useState(null);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/hotels/${id}`)
+    fetch(`http://localhost:5000/categories?hotel_id=${id}`)
       .then((response) => response.json())
-      .then((data) => setHotel(data))
-      .catch((error) => console.error("Error fetching hotel:", error));
+      .then((data) => setCategories(data))
+      .catch((error) => console.error("Error fetching categories:", error));
   }, [id]);
 
-  if (!hotel) {
+  if (categories.length === 0) {
     return <div>Loading...</div>;
   }
 
   return (
     <>
-      <RoomSuits rooms={hotel.hotel_rooms} />
-      <Video videoSrc={hotel.videoSrc} />
+      <RoomSuits categories={categories} />
+      {/* <Video videoSrc={"path/to/video"} /> */}
       <Footer />
     </>
   );

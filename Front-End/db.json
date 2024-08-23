@@ -1,241 +1,113 @@
 {
   "hotels": [
     {
-      "id": 1,
-      "name": "Fenet Hotel",
-      "image": "img/dark-bed-room.JPG",
-      "amenities": ["Wifi", "Gym", "Pool", "Restaurant"],
-      "location": "Hawassa, Ethiopia",
-      "rooms": [
-        { "type": "Budget room", "price": "1300" },
-        { "type": "Suite room", "price": "1600 " },
-        { "type": "Deluxe room", "price": "2500" },
-        {
-          "loc": "Location",
-          "link": "https://maps.app.goo.gl/33o75UoBNADAsLjLA",
-          "place": "menehariya"
-        }
-      ],
-      "hotel_rooms": [
-        {
-          "images": [
-            "img/dark-bed-room.JPG",
-            "img/bedroom.JPG",
-            "img/fenet.JPG"
-          ],
-          "type": "Single Room",
-          "name": "Fenet ",
-          "address": "123 Anywhere ST. any city",
-          "price": "1300 ",
-          "details": "2 Bed | 1 Bath | 1 Car"
-        },
-        {
-          "images": [
-            "img/dark-bed-room.JPG",
-            "img/bedroom.JPG",
-            "img/fenet.JPG"
-          ],
-          "type": "Family Room",
-          "name": "Fenet ",
-          "address": "123 Anywhere ST. any city",
-          "price": "1300 ",
-          "details": "2 Bed | 1 Bath | 1 Car"
-        },
-        {
-          "images": [
-            "img/dark-bed-room.JPG",
-            "img/bedroom.JPG",
-            "img/fenet.JPG"
-          ],
-          "type": "Double Room",
-          "name": "Fenet ",
-          "address": "123 Anywhere ST. any city",
-          "price": "1300 ",
-          "details": "2 Bed | 1 Bath | 1 Car"
-        },
-        {
-          "images": [
-            "img/dark-bed-room.JPG",
-            "img/bedroom.JPG",
-            "img/fenet.JPG"
-          ],
-          "type": "Deluxe Room",
-          "name": "Fenet ",
-          "address": "123 Anywhere ST. any city",
-          "price": "1300 ",
-          "details": "2 Bed | 1 Bath | 1 Car"
-        }
-      ],
-      "videoSrc": "img/fenet.mp4"
+      "hotel_id": 1,
+      "hotel_name": "Rori Internationl Hotel",
+      "rating": 4.5,
+      "location": "https://maps.app.goo.gl/GJFydEjtr892AKoN8",
+      "subaccount_id": "sub_123",
+      "photo": "img/rori-hotel.jpg"
     },
     {
-      "id": 2,
-      "name": "South Star International Hotel",
-      "image": "img/south-star-international-hotel.jpg",
-      "amenities": ["Wifi", "Spa", "Pool", "Restaurant"],
-      "rooms": [
-        { "type": "Standard room", "price": 1200 },
-        { "type": "Executive room", "price": 1800 },
-        { "type": "Presidential suite", "price": 3500 },
-        {
-          "loc": "Location",
-          "link": "https://maps.app.goo.gl/DUFo9ehs7R4WKuE6A",
-          "place": "alamura"
-        }
-      ],
-      "hotel_rooms": [
-        {
-          "images": [
-            "img/dark-bed-room.JPG",
-            "img/bedroom.JPG",
-            "img/fenet.JPG"
-          ],
-          "type": "Executive Room",
-          "name": "Fenet ",
-          "address": "123 Anywhere ST. any city",
-          "price": "1300 ",
-          "details": "2 Bed | 1 Bath | 1 Car"
-        },
-        {
-          "images": [
-            "img/dark-bed-room.JPG",
-            "img/bedroom.JPG",
-            "img/fenet.JPG"
-          ],
-          "type": "Family Room",
-          "name": "Fenet ",
-          "address": "123 Anywhere ST. any city",
-          "price": "1300 ",
-          "details": "2 Bed | 1 Bath | 1 Car"
-        },
-        {
-          "images": [
-            "img/dark-bed-room.JPG",
-            "img/bedroom.JPG",
-            "img/fenet.JPG"
-          ],
-          "type": "Single Room",
-          "name": "Fenet ",
-          "address": "123 Anywhere ST. any city",
-          "price": "1300 ",
-          "details": "2 Bed | 1 Bath | 1 Car"
-        }
-      ],
+      "hotel_id": 2,
+      "hotel_name": "Godoliyas International Hotel",
+      "rating": 4.5,
+      "location": "https://maps.app.goo.gl/58q15NWyXSr1vLTv6",
+      "subaccount_id": "sub_123",
+      "photo": "img/godolias.jpg"
+    },
 
-      "videoSrc": "img/fenet.mp4"
+    {
+      "hotel_id": 3,
+      "hotel_name": "South Star International Hotel",
+      "rating": 4.0,
+      "location": "https://maps.app.goo.gl/DUFo9ehs7R4WKuE6A",
+      "subaccount_id": "sub_456",
+      "photo": "img/south-star-international-hotel.jpg"
+    }
+  ],
+  "categories": [
+    {
+      "category_id": 1,
+      "hotel_id": 1,
+      "category_name": "Deluxe Room",
+      "price": 150.0,
+      "total_rooms": 20,
+      "available_rooms": 5,
+      "image": "img/bedroom.JPG"
     },
     {
-      "id": 3,
-      "name": "Godolias Resort",
-      "image": "img/godolias.jpg",
-      "amenities": ["Wifi", "Spa", "Pool", "Restaurant"],
-      "rooms": [
-        { "type": "Standard room", "price": 1200 },
-        { "type": "Executive room", "price": 1800 },
-        { "type": "Presidential suite", "price": 3500 },
-        {
-          "loc": "Location",
-          "link": "https://maps.app.goo.gl/58q15NWyXSr1vLTv6",
-          "place": "atote"
-        }
-      ],
-
-      "hotel_rooms": [
-        {
-          "images": [
-            "img/dark-bed-room.JPG",
-            "img/bedroom.JPG",
-            "img/fenet.JPG"
-          ],
-          "type": "Double Room",
-          "name": "Fenet ",
-          "address": "123 Anywhere ST. any city",
-          "price": "1300 ",
-          "details": "2 Bed | 1 Bath | 1 Car"
-        },
-        {
-          "images": [
-            "img/dark-bed-room.JPG",
-            "img/bedroom.JPG",
-            "img/fenet.JPG"
-          ],
-          "type": "Family Room",
-          "name": "Fenet ",
-          "address": "123 Anywhere ST. any city",
-          "price": "1300 ",
-          "details": "2 Bed | 1 Bath | 1 Car"
-        },
-        {
-          "images": [
-            "img/dark-bed-room.JPG",
-            "img/bedroom.JPG",
-            "img/fenet.JPG"
-          ],
-          "type": "Single Room",
-          "name": "Fenet ",
-          "address": "123 Anywhere ST. any city",
-          "price": "1300 ",
-          "details": "2 Bed | 1 Bath | 1 Car"
-        }
-      ],
-
-      "videoSrc": "img/fenet.mp4"
+      "category_id": 2,
+      "hotel_id": 1,
+      "category_name": "Suite",
+      "price": 250.0,
+      "total_rooms": 10,
+      "available_rooms": 2,
+      "image": "img/dark-bed-room.JPG"
     },
     {
-      "id": 4,
-      "name": "Rori International Hotel",
-      "image": "img/rori-hotel.jpg",
-      "amenities": ["Wifi", "Gym", "Pool", "Restaurant"],
-      "location": "Hawassa, Ethiopia",
-      "rooms": [
-        { "type": "Budget room", "price": "1300 " },
-        { "type": "Suite room", "price": "1600 " },
-        { "type": "Deluxe room", "price": "2500 " },
-        {
-          "loc": "Location",
-          "link": "https://maps.app.goo.gl/GJFydEjtr892AKoN8",
-          "place": "piyasa"
-        }
-      ],
-      "hotel_rooms": [
-        {
-          "images": [
-            "img/dark-bed-room.JPG",
-            "img/bedroom.JPG",
-            "img/fenet.JPG"
-          ],
-          "type": "Single Room",
-          "name": "Fenet ",
-          "address": "123 Anywhere ST. any city",
-          "price": "1300 ",
-          "details": "2 Bed | 1 Bath | 1 Car"
-        },
-        {
-          "images": [
-            "img/dark-bed-room.JPG",
-            "img/bedroom.JPG",
-            "img/fenet.JPG"
-          ],
-          "type": "Double Room",
-          "name": "Fenet ",
-          "address": "123 Anywhere ST. any city",
-          "price": "1300 ",
-          "details": "2 Bed | 1 Bath | 1 Car"
-        },
-        {
-          "images": [
-            "img/dark-bed-room.JPG",
-            "img/bedroom.JPG",
-            "img/fenet.JPG"
-          ],
-          "type": "Double Room",
-          "name": "Fenet ",
-          "address": "123 Anywhere ST. any city",
-          "price": "1300 ",
-          "details": "2 Bed | 1 Bath | 1 Car"
-        }
-      ],
-      "videoSrc": "img/fenet.mp4"
+      "category_id": 3,
+      "hotel_id": 1,
+      "category_name": "Suite",
+      "price": 250.0,
+      "total_rooms": 10,
+      "available_rooms": 2,
+      "image": "img/dark-bed-room.JPG"
+    },
+    {
+      "category_id": 4,
+      "hotel_id": 2,
+      "category_name": "Standard Room",
+      "price": 100.0,
+      "total_rooms": 30,
+      "available_rooms": 10,
+      "image": "img/fenet-bed-room.jpg"
+    },
+    {
+      "category_id": 5,
+      "hotel_id": 2,
+      "category_name": "Ocean View Room",
+      "price": 200.0,
+      "total_rooms": 15,
+      "available_rooms": 3,
+      "image": "img/bedroom.JPG"
+    },
+
+    {
+      "category_id": 6,
+      "hotel_id": 2,
+      "category_name": "Suite",
+      "price": 250.0,
+      "total_rooms": 10,
+      "available_rooms": 2,
+      "image": "img/dark-bed-room.JPG"
+    },
+    {
+      "category_id": 7,
+      "hotel_id": 3,
+      "category_name": "Family Room",
+      "price": 100.0,
+      "total_rooms": 30,
+      "available_rooms": 10,
+      "image": "img/dark-bed-room.JPG"
+    },
+    {
+      "category_id": 8,
+      "hotel_id": 3,
+      "category_name": "Double Room",
+      "price": 200.0,
+      "total_rooms": 15,
+      "available_rooms": 3,
+      "image": "img/fenet-bed-room.jpg"
+    },
+    {
+      "category_id": 2,
+      "hotel_id": 3,
+      "category_name": "Suite",
+      "price": 250.0,
+      "total_rooms": 10,
+      "available_rooms": 2,
+      "image": "img/dark-bed-room.JPG"
     }
   ]
 }

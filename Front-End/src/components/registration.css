@@ -87,6 +87,14 @@ form input {
   border-radius: 8px;
   background: #fff;
 }
+form div input {
+  width: 100%;
+}
+form div label {
+  color: #fff;
+  margin-bottom: 10px;
+  font-weight: lighter;
+}
 .form.login input {
   border: 1px solid #aaa;
 }

@@ -1,6 +1,6 @@
 .propertyCard {
   width: 100%;
-  cursor: pointer;
+  /* cursor: pointer; */
   box-shadow: -1px 1px 4px 3px rgba(0, 0, 0, 0.25);
   padding: 2px;
   transition: box-shadow 0.2s;
@@ -40,7 +40,12 @@
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
-
+.propertyCardContent div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
 .hotDealsTitle {
   text-align: center;
   padding-top: 1rem;
