@@ -13,7 +13,6 @@ import {
 
 export default function HotelListing() {
   const [hotels, setHotels] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [defaultHotels, setDefaultHotels] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,20 +20,11 @@ export default function HotelListing() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/hotels")
+    fetch("http://localhost:5000/user/hotel")
       .then((response) => response.json())
       .then((data) => {
         setHotels(data);
         setDefaultHotels(data); // Store the original hotel order
-      })
-      .catch((error) => console.error("Error fetching hotels:", error));
-  }, []);
-
-  useEffect(() => {
-    fetch("http://localhost:5000/categories")
-      .then((response) => response.json())
-      .then((data) => {
-        setCategories(data);
       })
       .catch((error) => console.error("Error fetching hotels:", error));
   }, []);
@@ -82,7 +72,10 @@ export default function HotelListing() {
               <div className={styles.hotelService}>
                 <img src={hotel.photo} alt={hotel.hotel_name} />
                 <p>
-                  {hotel.rating.toFixed(1)} <FontAwesomeIcon icon={faStar} />
+                  {typeof hotel.rating === "number"
+                    ? hotel.rating.toFixed(1)
+                    : "N/A"}{" "}
+                  <FontAwesomeIcon icon={faStar} />
                 </p>
                 <div>
                   <h4>{hotel.hotel_name}</h4>
@@ -108,16 +101,6 @@ export default function HotelListing() {
               <div className={styles.hotelServicesCon}>
                 <hr className={styles.line} />
                 <div className={styles.hotelServices}>
-                  {categories
-                    .filter((category) => category.hotel_id === hotel.hotel_id)
-                    .slice(0, 3) // Limit to the first 3 categories
-                    .map((room) => (
-                      <div key={room.category_id}>
-                        <span>{room.category_name}</span>
-                        <span>{room.price.toFixed(2)} ETB</span>
-                      </div>
-                    ))}
-
                   <div>
                     <span>Location</span>
                     <a

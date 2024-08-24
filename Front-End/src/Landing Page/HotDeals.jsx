@@ -1,52 +1,50 @@
+import React, { useEffect, useState } from "react";
 import styles from "./HotDeals.module.css";
 
-const hotDeals = [
-  {
-    image: "img/fenet-bed-room.JPG",
-    type: "Row House",
-    address: "123 Anywhere ST. any city",
-    details: "2 Bed | 1 Bath | 1 Car",
-  },
-  {
-    image: "img/dark-bed-room.JPG",
-    type: "Row House",
-    address: "123 Anywhere ST. any city",
-    details: "2 Bed | 1 Bath | 1 Car",
-  },
-  {
-    image: "img/bedroom.JPG",
-    type: "Row House",
-    address: "123 Anywhere ST. any city",
-    details: "2 Bed | 1 Bath | 1 Car",
-  },
-];
-
 const HotDeals = () => {
+  const [hotDeals, setHotDeals] = useState([]);
+
+  useEffect(() => {
+    const fetchHotDeals = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/user/top-hotels"); // Replace with your API endpoint
+        const data = await response.json();
+        setHotDeals(data);
+      } catch (error) {
+        console.error("Error fetching hot deals:", error);
+      }
+    };
+
+    fetchHotDeals();
+  }, []);
+
   return (
     <section id="hot-deals" className={styles.section}>
       <h1 className={styles.title}>Hot Deals</h1>
       <div className={styles.gridContainer}>
-        {hotDeals.map((deals, index) => (
-          <HotDealCard key={index} deal={deals} />
+        {hotDeals.map((deal) => (
+          <HotDealCard key={deal.hotel_id} deal={deal} />
         ))}
       </div>
     </section>
   );
 };
+
 function HotDealCard({ deal }) {
   return (
     <section>
       <div className={styles.propertyCard}>
-        <img src={`${deal.image}`} alt={deal.type} />
+        <img src={deal.photo} alt={deal.hotel_name} />
         <hr className={styles.divider} />
         <div className={styles.propertyDetails}>
-          <span>{deal.type}</span>
-          <span>{deal.address}</span>
-          <span>{deal.details}</span>
+          <span>{deal.hotel_name}</span>
+          <span>{deal.location}</span>
+          <span>Rating: {deal.rating}</span>
         </div>
         <hr className={styles.divider} />
       </div>
     </section>
   );
 }
+
 export default HotDeals;
