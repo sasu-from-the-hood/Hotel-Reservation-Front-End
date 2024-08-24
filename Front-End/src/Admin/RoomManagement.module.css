@@ -1,0 +1,90 @@
+body {
+  background-color: #252629;
+}
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px; /* Add vertical space between rows */
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  text-align: left;
+  color: #eeeeee;
+}
+
+.table th {
+  padding-bottom: 12px; /* Add space below the headers */
+}
+.table tr th {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.filterLinks {
+  display: flex;
+  gap: 2rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 10px 30px;
+  border-radius: 20px;
+  width: 400px;
+  margin-top: 10px;
+}
+/* nav :global(.active) {
+  background-color: red;
+} */
+.filterLinks a {
+  text-decoration: none;
+  border-radius: 5px;
+  color: #333;
+  transition: background-color 0.3s;
+}
+
+.filterLinks .active {
+  color: white;
+}
+.room-status {
+  display: flex;
+  justify-content: space-between;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+.headerContainerLeft span {
+  color: #e0dddd;
+  font-size: 15px;
+}
+.headerContainerLeft h2 {
+  color: #fff;
+}
+.headerContainerRight {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.headerContainerRight div {
+  background-color: white;
+  color: black;
+  padding: 0.3rem 0.34rem;
+  border-radius: 50%;
+}
+.notification {
+  font-size: 24px;
+  color: #fff;
+}
+.roomSearch::placeholder {
+  color: white;
+  padding-left: 15px;
+}
+.roomSearch {
+  margin: 5px 0;
+  width: 350px;
+  color: #fff;
+  background-color: rgba(212, 157, 68, 0.46);
+  border: none;
+  border-radius: 20px;
+  padding: 0.3rem;
+}

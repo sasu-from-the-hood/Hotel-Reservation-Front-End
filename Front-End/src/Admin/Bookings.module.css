@@ -1,0 +1,81 @@
+body {
+  background-color: #252629;
+}
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px; /* Add vertical space between rows */
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  text-align: left;
+  color: #eeeeee;
+}
+
+.table th {
+  padding-bottom: 12px; /* Add space below the headers */
+}
+.table tr th {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+.roomSearch::placeholder {
+  color: white;
+  padding-left: 15px;
+}
+.roomSearch {
+  margin: 5px 0;
+  width: 350px;
+  color: #fff;
+  background-color: rgba(212, 157, 68, 0.46);
+  border: none;
+  border-radius: 20px;
+  padding: 0.3rem;
+}
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+.headerContainerLeft span {
+  color: #e0dddd;
+  font-size: 15px;
+}
+.headerContainerLeft h2 {
+  color: #fff;
+}
+.headerContainerRight {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.notification {
+  font-size: 24px;
+  color: #fff;
+}
+.headerContainerRight div {
+  background-color: white;
+  color: black;
+  padding: 0.3rem 0.34rem;
+  border-radius: 50%;
+}
+.actionButton {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 5px 18px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.actionButton:hover {
+  background-color: #45a049;
+}
+
+.actionButton:active {
+  background-color: #3e8e41;
+  transform: translateY(2px);
+}

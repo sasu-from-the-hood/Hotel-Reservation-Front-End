@@ -1,0 +1,22 @@
+body {
+  background-color: #252629;
+}
+
+.dashboardContainer {
+  display: flex;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  background-color: #252629;
+  transition: padding-left 0.3s ease;
+}
+
+.contentOpen {
+  padding-left: 250px;
+}
+
+.contentClosed {
+  padding-left: 120px;
+}

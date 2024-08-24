@@ -5,12 +5,12 @@ main {
   padding: 1rem 4rem;
 }
 .hotelListContainer h1 {
-  color: #d49d44;
+  color: #000;
   font-size: 3.4rem;
   letter-spacing: 0.3rem;
 }
 .search {
-  width: 90%;
+  width: 80%;
   border: none;
   background-color: #d9d9d9;
   padding: 10px;
@@ -133,4 +133,9 @@ main {
   background-color: #fff;
   color: #d49d44;
   border: 1px solid #d49d44;
+}
+@media (max-width: 600px) {
+  .hotelListContainer h1 {
+    font-size: 2.4rem;
+  }
 }

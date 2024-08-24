@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBed,
@@ -10,17 +11,18 @@ import {
   faDoorOpen,
   faEllipsisH,
 } from "@fortawesome/free-solid-svg-icons";
+import styles from "./Dashboard.module.css";
 
 const Dashboard = () => {
   return (
     <>
       <Header />
-      <div className="bookings-container">
-        <div className="bookings-container-left">
+      <div className={styles.bookingsContainer}>
+        <div className={styles.bookingsContainerLeft}>
           <Analytics />
           <UpcomingBooking />
         </div>
-        <div className="bookings-container-right">
+        <div className={styles.bookingsContainerRight}>
           <Notification />
         </div>
       </div>
@@ -29,51 +31,76 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
 function Header() {
   return (
-    <div className="header-container">
-      <div className="header-container-left">
+    <div className={styles.headerContainer}>
+      <div className={styles.headerContainerLeft}>
         <h2>Dashboard</h2>
         <span>This is your Dashboard you can access anything</span>
       </div>
-      <div className="header-container-right">
-        <input
-          className="room-search"
-          type="text"
-          placeholder="search for room and offer"
-        />
-        <FontAwesomeIcon icon={faBell} className="notification" />
+      <div className={styles.headerContainerRight}>
+        <FontAwesomeIcon icon={faBell} className={styles.notification} />
         <div>AD</div>
       </div>
     </div>
   );
 }
+
 function Analytics() {
+  const [analytics, setAnalytics] = useState({});
+
+  useEffect(() => {
+    fetch("http://localhost:5000/analytics")
+      .then((response) => response.json())
+      .then((data) => setAnalytics(data));
+  }, []);
+
   return (
-    <div className="analytics-grid">
-      <div className="analytics-row">
-        <FontAwesomeIcon icon={faBed} className="icon-bed" />
-        <h4>205</h4>
+    <div className={styles.analyticsGrid}>
+      <div className={styles.analyticsRow}>
+        <FontAwesomeIcon
+          icon={faBed}
+          className={styles.iconBed}
+          style={{ color: "#d49d44" }}
+        />
+        <h4>{analytics.totalRooms}</h4>
         <span>Total Rooms</span>
       </div>
-      <div className="analytics-row">
-        <FontAwesomeIcon icon={faCheckCircle} className="icon-bed" />
-        <h4>36</h4>
+      <div className={styles.analyticsRow}>
+        <FontAwesomeIcon
+          icon={faCheckCircle}
+          className={styles.iconBed}
+          style={{ color: "#32CD32" }}
+        />
+        <h4>{analytics.bookedRooms}</h4>
         <span>Booked rooms</span>
       </div>
-      <div className="analytics-row">
-        <FontAwesomeIcon icon={faDoorOpen} className="icon-bed" />
-        <h4>20</h4>
+      <div className={styles.analyticsRow}>
+        <FontAwesomeIcon
+          icon={faDoorOpen}
+          className={styles.iconBed}
+          style={{ color: "blue" }}
+        />
+        <h4>{analytics.availableRooms}</h4>
         <span>Available rooms</span>
       </div>
-      <div className="analytics-row">
-        <FontAwesomeIcon icon={faClock} className="icon-bed" />
-        <h4>23</h4>
+      <div className={styles.analyticsRow}>
+        <FontAwesomeIcon
+          icon={faClock}
+          className={styles.iconBed}
+          style={{ color: "#d49d" }}
+        />
+        <h4>{analytics.pendingApprovals}</h4>
         <span>Pending approvals</span>
       </div>
-      <div className="analytics-row">
-        <FontAwesomeIcon icon={faStar} className="icon-bed" />
-        <h4>4</h4>
+      <div className={styles.analyticsRow}>
+        <FontAwesomeIcon
+          icon={faStar}
+          className={styles.iconBed}
+          style={{ color: "yellow" }}
+        />
+        <h4>{analytics.averageRating}</h4>
         <span>Average rating</span>
       </div>
     </div>
@@ -81,48 +108,18 @@ function Analytics() {
 }
 
 function UpcomingBooking() {
-  const data = [
-    {
-      name: "John Doe",
-      requestDate: "2024-08-01",
-      roomType: "Deluxe",
-      availability: "Available",
-      action: "View",
-    },
-    {
-      name: "Jane Smith",
-      requestDate: "2024-08-02",
-      roomType: "Standard",
-      availability: "Booked",
-      action: "View",
-    },
-    {
-      name: "Alice Johnson",
-      requestDate: "2024-08-03",
-      roomType: "Suite",
-      availability: "Available",
-      action: "View",
-    },
-    {
-      name: "Bob Brown",
-      requestDate: "2024-08-04",
-      roomType: "Single",
-      availability: "Available",
-      action: "View",
-    },
-    {
-      name: "Charlie Davis",
-      requestDate: "2024-08-05",
-      roomType: "Double",
-      availability: "Booked",
-      action: "View",
-    },
-  ];
+  const [bookings, setBookings] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/booking")
+      .then((response) => response.json())
+      .then((data) => setBookings(data));
+  }, []);
 
   return (
     <>
-      <h2 className="dash-title">Upcoming Booking</h2>
-      <table className="guest-table">
+      <h2 className={styles.dashTitle}>Upcoming Booking</h2>
+      <table className={styles.guestTable}>
         <thead>
           <tr>
             <th>Guest Name</th>
@@ -133,8 +130,8 @@ function UpcomingBooking() {
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
-            <tr key={index}>
+          {bookings.map((item) => (
+            <tr key={item.id}>
               <td>{item.name}</td>
               <td>{item.requestDate}</td>
               <td>{item.roomType}</td>
@@ -142,9 +139,12 @@ function UpcomingBooking() {
               <td>
                 <FontAwesomeIcon
                   icon={faCheckCircle}
-                  className="icon-success"
+                  className={styles.iconSuccess}
                 />
-                <FontAwesomeIcon icon={faTimesCircle} className="icon-error" />
+                <FontAwesomeIcon
+                  icon={faTimesCircle}
+                  className={styles.iconError}
+                />
               </td>
             </tr>
           ))}
@@ -155,61 +155,48 @@ function UpcomingBooking() {
 }
 
 function Notification() {
-  return (
-    <div className="notification-container">
-      <div className="notifcation-header">
-        <p>Notifications</p>
-        <FontAwesomeIcon icon={faEllipsisH} className="icon-error" />
-      </div>
-      <div className="notification-center">
-        <div>
-          <div className="main-notificaions">
-            <FontAwesomeIcon icon={faExclamationTriangle} className="noti" />
-            <div>
-              <p>you have a new pending booking</p>
-              <span>just now</span>
-            </div>
-          </div>
+  const [notifications, setNotifications] = useState([]);
 
-          <div className="main-notificaions">
-            <FontAwesomeIcon icon={faExclamationTriangle} className="noti" />
+  useEffect(() => {
+    fetch("http://localhost:5000/notifications") // Replace this with your actual API endpoint
+      .then((response) => response.json())
+      .then((data) => setNotifications(data));
+  }, []);
+
+  return (
+    <div className={styles.notificationContainer}>
+      <div className={styles.notifcationHeader}>
+        <p>Notifications</p>
+        <FontAwesomeIcon icon={faEllipsisH} className={styles.iconError} />
+      </div>
+      <div className={styles.notificationCenter}>
+        {notifications.map((notification) => (
+          <div key={notification.id} className={styles.mainNotificaions}>
+            <FontAwesomeIcon
+              icon={faExclamationTriangle}
+              className={styles.noti}
+            />
             <div>
-              <p>New User Regestered</p>
-              <span>59 minute age</span>
+              <p>{notification.message}</p>
+              <span>{notification.time}</span>
             </div>
           </div>
-          <div className="main-notificaions">
-            <FontAwesomeIcon icon={faExclamationTriangle} className="noti" />
-            <div>
-              <p>you have a new pending booking</p>
-              <span>one day ago</span>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
       <div>
-        <p className="title-text">Activities</p>
-        <div className="main-notificaions">
-          <FontAwesomeIcon icon={faExclamationTriangle} className="noti" />
-          <div>
-            <p>you have declined the booking</p>
-            <span>10 minutes ago</span>
+        <p className={styles.titleText}>Activities</p>
+        {notifications.map((activity) => (
+          <div key={activity.id} className={styles.mainNotificaions}>
+            <FontAwesomeIcon
+              icon={faExclamationTriangle}
+              className={styles.noti}
+            />
+            <div>
+              <p>{activity.activity}</p>
+              <span>{activity.time}</span>
+            </div>
           </div>
-        </div>
-        <div className="main-notificaions">
-          <FontAwesomeIcon icon={faExclamationTriangle} className="noti" />
-          <div>
-            <p>you have a approved the booking</p>
-            <span>56 minutes ago</span>
-          </div>
-        </div>
-        <div className="main-notificaions">
-          <FontAwesomeIcon icon={faExclamationTriangle} className="noti" />
-          <div>
-            <p>you have approved the booking</p>
-            <span>one day ago</span>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );

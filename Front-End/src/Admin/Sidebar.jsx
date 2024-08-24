@@ -1,4 +1,3 @@
-// src/components/Sidebar.jsx
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,42 +6,65 @@ import {
   faBed,
   faClipboardList,
   faCog,
+  faChevronLeft,
+  faChevronRight,
+  faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import styles from "./Sidebar.module.css";
 
-const Sidebar = () => {
+const Sidebar = ({ onClick, isSidebarOpen }) => {
   return (
-    <div className="sidebar">
-      <div className="icon">
+    <div
+      className={`${styles.sidebar} ${
+        isSidebarOpen ? styles.open : styles.closed
+      }`}
+    >
+      <FontAwesomeIcon
+        onClick={onClick}
+        icon={isSidebarOpen ? faChevronLeft : faChevronRight}
+        className={styles.sidebarIcon}
+      />
+      <div
+        className={`${styles.icon} ${
+          isSidebarOpen ? styles.iconOpen : styles.iconClosed
+        }`}
+      >
         <img src="/img/nafLogo.png" alt="naf logo" />
       </div>
-      <nav className="menu">
+      <nav
+        className={`${styles.menu} ${
+          isSidebarOpen ? styles.menuOpen : styles.menuClosed
+        }`}
+      >
         <ul>
           <li>
-            <NavLink
-              to="/admindashboard"
-              // style={({ isActive }) => ({
-              //   color: isActive ? "#000" : "#fff",
-              //   backgroundColor: isActive ? "#d49d44" : "transparent",
-              //   padding: isActive ? "0.3rem 0.5rem" : null,
-              //   borderRadius: isActive ? "20px" : null,
-              // })}
-            >
-              <FontAwesomeIcon icon={faHome} /> Dashboard
+            <NavLink to="/admindashboard">
+              <FontAwesomeIcon icon={faHome} />
+              <span>{isSidebarOpen && "Dashboard"}</span>
             </NavLink>
           </li>
           <li>
             <NavLink to="/admindashboard/room-management">
-              <FontAwesomeIcon icon={faBed} /> Room Management
+              <FontAwesomeIcon icon={faBed} />
+              <span>{isSidebarOpen && "Room Management"}</span>
             </NavLink>
           </li>
           <li>
             <NavLink to="/admindashboard/bookings">
-              <FontAwesomeIcon icon={faClipboardList} /> Bookings
+              <FontAwesomeIcon icon={faClipboardList} />
+              <span>{isSidebarOpen && "Bookings"}</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/admindashboard/setting">
-              <FontAwesomeIcon icon={faCog} /> Settings
+            <NavLink to="/admindashboard/ChangePassword">
+              <FontAwesomeIcon icon={faCog} />
+              <span>{isSidebarOpen && "ChangePassword"}</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="x">
+              <FontAwesomeIcon icon={faSignOutAlt} />
+              <span>{isSidebarOpen && "Log out"}</span>
             </NavLink>
           </li>
         </ul>

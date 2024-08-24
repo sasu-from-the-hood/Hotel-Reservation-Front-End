@@ -1,72 +1,38 @@
-import "./roomManage.css";
+import React, { useEffect, useState } from "react";
+import styles from "./RoomManagement.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
+
 const RoomManagement = () => {
-  const rooms = [
-    {
-      number: "101",
-      type: "Single",
-      floor: "1st",
-      facility: ["WiFi", "TV", "Air Conditioning", "Private Bathroom"],
-      status: "Available",
-    },
-    {
-      number: "102",
-      type: "Double",
-      floor: "1st",
-      facility: ["WiFi", "TV", "Mini Bar", "Balcony"],
-      status: "Booked",
-    },
-    {
-      number: "201",
-      type: "Suite",
-      floor: "2nd",
-      facility: ["WiFi", "TV", "Kitchenette", "Private Balcony"],
-      status: "Reserved",
-    },
-    {
-      number: "202",
-      type: "Single",
-      floor: "2nd",
-      facility: ["WiFi", "TV", "Air Conditioning", "Room Service"],
-      status: "Available",
-    },
-    {
-      number: "301",
-      type: "Double",
-      floor: "3rd",
-      facility: ["WiFi", "TV", "Mini Bar", "Jacuzzi"],
-      status: "Booked",
-    },
-    {
-      number: "302",
-      type: "Suite",
-      floor: "3rd",
-      facility: ["WiFi", "TV", "Private Sauna", "Ocean View"],
-      status: "Reserved",
-    },
-    {
-      number: "401",
-      type: "Single",
-      floor: "4th",
-      facility: ["WiFi", "TV", "Air Conditioning", "Room Service"],
-      status: "Available",
-    },
-    {
-      number: "402",
-      type: "Double",
-      floor: "4th",
-      facility: ["WiFi", "TV", "Mini Bar", "Balcony"],
-      status: "Booked",
-    },
-  ];
+  const [rooms, setRooms] = useState([]);
+  const [filter, setFilter] = useState("All"); // State to keep track of filter
+
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/rooms");
+        const data = await response.json();
+        setRooms(data);
+      } catch (error) {
+        console.error("Error fetching rooms:", error);
+      }
+    };
+
+    fetchRooms();
+  }, []);
+
+  // Filter rooms based on the selected filter
+  const filteredRooms = rooms.filter((room) => {
+    if (filter === "All") return true;
+    return room.status === filter;
+  });
 
   return (
     <>
       <Header />
-      <RoomStatus />
-      <table className="table">
+      <RoomStatus onFilterChange={setFilter} />
+      <table className={styles.table}>
         <thead>
           <tr>
             <th>Room Number</th>
@@ -77,7 +43,7 @@ const RoomManagement = () => {
           </tr>
         </thead>
         <tbody>
-          {rooms.map((room, index) => (
+          {filteredRooms.map((room, index) => (
             <tr key={index}>
               <td>#{room.number}</td>
               <td>{room.type}</td>
@@ -96,42 +62,43 @@ export default RoomManagement;
 
 function Header() {
   return (
-    <div className="header-container">
-      <div className="header-container-left">
+    <div className={styles.headerContainer}>
+      <div className={styles.headerContainerLeft}>
         <h2>Room Management</h2>
-        <span>This is where you can Manage the rooms</span>
+        <span>This is where you can manage the rooms</span>
       </div>
-      <div className="header-container-right">
-        <FontAwesomeIcon icon={faBell} className="notification" />
+      <div className={styles.headerContainerRight}>
+        <FontAwesomeIcon icon={faBell} className={styles.notification} />
         <div>AD</div>
       </div>
     </div>
   );
 }
-function RoomStatus() {
+
+function RoomStatus({ onFilterChange }) {
   return (
     <div className="room-status">
-      <div className="filter-links">
-        <NavLink className={({ isActive }) => (isActive ? "active" : "")}>
-          All
-        </NavLink>
-        <NavLink className={({ isActive }) => (isActive ? "active" : "")}>
-          Available
-        </NavLink>
-        <NavLink className={({ isActive }) => (isActive ? "active" : "")}>
-          Booked
-        </NavLink>
-        <NavLink className={({ isActive }) => (isActive ? "active" : "")}>
-          Reserved
-        </NavLink>
-      </div>
       <div>
         <input
-          className="room-search"
+          className={styles.roomSearch}
           type="text"
-          placeholder="search for room and offer"
+          placeholder="Search for room and offer"
         />
       </div>
+      <nav className={styles.filterLinks}>
+        <NavLink to="#" onClick={() => onFilterChange("All")}>
+          All
+        </NavLink>
+        <NavLink to="#" onClick={() => onFilterChange("Available")}>
+          Available
+        </NavLink>
+        <NavLink to="#" onClick={() => onFilterChange("Booked")}>
+          Booked
+        </NavLink>
+        <NavLink to="#" onClick={() => onFilterChange("Reserved")}>
+          Reserved
+        </NavLink>
+      </nav>
     </div>
   );
 }
