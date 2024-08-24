@@ -1,86 +1,65 @@
 .contactusContainer {
-  padding: 4rem;
-  background: #343539;
+  padding: 2rem 4rem;
+  background: whitesmoke; /* Darker background for footer */
+  display: flex; /* Use flexbox to arrange content */
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  gap: 500px; /* Gap between contact info and social media icons */
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
 }
 
-.brandName {
-  font-size: 24px;
-  color: white;
-}
-
-.contactContent {
-  display: flex;
-  margin-top: 3rem;
-  gap: 2rem;
-}
-
-.contactInfo {
+.contactInfo,
+.socialMedia {
   display: flex;
   flex-direction: column;
-  flex: 1;
-  flex-basis: 50rem;
+  gap: 1rem; /* Space between contact info items */
+  color: #ccc; /* Light color for text */
+  text-align: center; /* Center align text */
 }
 
-.contactInfo h1 {
-  margin-bottom: 20px;
-  font-size: 36px;
-  font-weight: bold;
-  color: #fff;
+.contactInfo h1,
+.socialMedia h1 {
+  margin-bottom: 1rem;
+  font-size: 28px;
+  color: #af8c53; /* Brand color */
 }
 
 .infoItem {
-  border: 1px solid #af8c53;
-  padding: 1rem;
-  margin-bottom: 10px;
-  width: 320px;
-  color: #fff;
+  color: black; /* Light color for text */
 }
 
-.contactForm {
+.icons {
   display: flex;
-  flex: 1;
-  flex-basis: 50rem;
-  flex-direction: column;
-  gap: 20px;
+  justify-content: center; /* Center icons horizontally */
+  gap: 1.5rem; /* Space between icons */
 }
 
-.inputField,
-.textareaField {
-  background-color: transparent;
-  border: 1px solid #af8c53;
-  padding: 15px;
-  color: white;
-}
-
-.buttonContainer {
-  display: flex;
-  justify-content: center;
-}
-
-.submitButton {
-  border: 1px solid #af8c53;
-  padding: 10px 20px;
-  background-color: transparent;
-  color: #726f6f;
-  cursor: pointer;
-}
-.icons{
-  display: flex;
-  gap: 1rem;
-  padding-bottom: 13px;
-  
-}
 .icon {
-  color: #fff;
-  transition: margin-top .3s;
+  color: #af8c53; /* Softer color for icons */
   font-size: 1.8rem;
+  transition: transform 0.3s;
 }
-.icon:hover{
-  margin-top: -13px;
+
+.icon:hover {
+  transform: translateY(-5px); /* Hover effect for icons */
 }
+
 @media (max-width: 800px) {
-  
-  .contactContent {
-    flex-wrap: wrap;
+  .contactusContainer {
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center align content */
+    padding: 2rem; /* Adjust padding for smaller screens */
+    gap: 2rem; /* Adjust gap for smaller screens */
+  }
+
+  .contactInfo,
+  .socialMedia {
+    width: 100%; /* Full width on smaller screens */
+    text-align: center; /* Center align text */
+  }
+
+  .icons {
+    justify-content: center; /* Center icons */
+    margin-top: 1rem; /* Space above icons */
   }
 }

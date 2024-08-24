@@ -1,27 +1,62 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import "./Registration.css";
+import "./registration.css";
+
+const VAPID_PUBLIC_KEY =
+  "BL_VNDt5r9sIoVmjaxBOqD5Lpapo5NWE__vEIHW7zBlxl2n6YpRmym-f5DF7PohXR6cyVdI_dfyvfYkulkYca_Q";
 
 const Registration = () => {
   const [isSignup, setIsSignup] = useState(false);
   const [loginUser, setLoginUser] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [swRegistration, setSwRegistration] = useState(null);
+
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/service-worker.js")
+        .then((registration) => {
+          setSwRegistration(registration);
+        })
+        .catch((error) => {
+          console.error("Service Worker registration failed:", error);
+        });
+    }
+  }, []);
 
   const toggleForm = () => {
     setIsSignup(!isSignup);
-    setErrorMessage(""); // Reset error message when toggling
+    setErrorMessage("");
   };
 
   const toggleLoginType = () => {
     setLoginUser(!loginUser);
-    setErrorMessage(""); // Reset error message when toggling login type
+    setErrorMessage("");
   };
 
   const handleSubmit = async (e, url) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
+    const data = Object.fromEntries(formData.entries());
+
+    if (url === "/user/login" && swRegistration) {
+      try {
+        let subscription = await swRegistration.pushManager.getSubscription();
+        if (!subscription) {
+          subscription = await swRegistration.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
+          });
+        }
+        const subscriptionData = await subscription.toJSON();
+        data.subscription = JSON.stringify(subscriptionData);
+      } catch (error) {
+        console.error("Subscription failed:", error);
+        setErrorMessage("Subscription failed. Please try again.");
+        return;
+      }
+    }
 
     try {
       const response = await axios.post(`http://localhost:5000${url}`, data, {
@@ -30,16 +65,29 @@ const Registration = () => {
         },
       });
       console.log(response.data);
-      setErrorMessage(""); // Reset error message
-      e.target.reset(); // Reset form fields after successful submission
+      setErrorMessage("");
+      e.target.reset();
     } catch (error) {
       console.error("Error:", error);
       if (error.response && error.response.data) {
-        setErrorMessage(error.response.data.message); // Set error state if error from backend
+        setErrorMessage(error.response.data.message);
       } else {
         setErrorMessage("An unexpected error occurred. Please try again.");
       }
     }
+  };
+
+  const urlBase64ToUint8Array = (base64String) => {
+    const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+    const base64 = (base64String + padding)
+      .replace(/-/g, "+")
+      .replace(/_/g, "/");
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
   };
 
   return (
@@ -55,7 +103,7 @@ const Registration = () => {
             <header className="signup-header" onClick={toggleForm}>
               Signup
             </header>
-            <form onSubmit={(e) => handleSubmit(e, "/signup")}>
+            <form onSubmit={(e) => handleSubmit(e, "/user/register")}>
               <input
                 type="text"
                 placeholder="Full name"
@@ -75,12 +123,22 @@ const Registration = () => {
                 required
               />
               <div>
-                <label>ID Card Front :</label>
-                <input type="file" accept="image/*" required />
+                <label>ID Card Front:</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  name="id_card_front"
+                  required
+                />
               </div>
               <div>
-                <label>ID Card Back :</label>
-                <input type="file" accept="image/*" required />
+                <label>ID Card Back:</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  name="id_card_back"
+                  required
+                />
               </div>
               <input
                 type="password"
@@ -88,7 +146,6 @@ const Registration = () => {
                 name="password"
                 required
               />
-
               <input
                 className="btn"
                 type="submit"
@@ -104,15 +161,15 @@ const Registration = () => {
             </header>
             <form
               onSubmit={(e) =>
-                handleSubmit(e, loginUser ? "/login" : "/admin-login")
+                handleSubmit(e, loginUser ? "/user/login" : "/admin/login")
               }
             >
               {loginUser ? (
                 <>
                   <input
-                    type="text"
-                    name="username"
-                    placeholder="User name"
+                    type="email"
+                    name="email"
+                    placeholder="Email address"
                     required
                   />
                   <input

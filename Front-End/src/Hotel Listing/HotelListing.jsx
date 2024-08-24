@@ -21,7 +21,7 @@ export default function HotelListing() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/hotels")
+    fetch("http://localhost:5000/user/hotel")
       .then((response) => response.json())
       .then((data) => {
         setHotels(data);
@@ -36,7 +36,7 @@ export default function HotelListing() {
       .then((data) => {
         setCategories(data);
       })
-      .catch((error) => console.error("Error fetching hotels:", error));
+      .catch((error) => console.error("Error fetching categories:", error));
   }, []);
 
   const handleViewDetail = (id) => {
@@ -82,7 +82,10 @@ export default function HotelListing() {
               <div className={styles.hotelService}>
                 <img src={hotel.photo} alt={hotel.hotel_name} />
                 <p>
-                  {hotel.rating.toFixed(1)} <FontAwesomeIcon icon={faStar} />
+                  {typeof hotel.rating === "number"
+                    ? hotel.rating.toFixed(1)
+                    : "N/A"}{" "}
+                  <FontAwesomeIcon icon={faStar} />
                 </p>
                 <div>
                   <h4>{hotel.hotel_name}</h4>
