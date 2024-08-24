@@ -1,0 +1,175 @@
+body {
+  background-color: #252629;
+}
+.bookingsContainer {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.bookingsContainerLeft {
+  flex: 2.2;
+}
+
+.bookingsContainerRight {
+  background-color: rgba(0, 0, 0, 0.3);
+  flex: 1;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.headerContainerLeft span {
+  color: #e0dddd;
+  font-size: 15px;
+}
+.headerContainerLeft h2 {
+  color: #fff;
+}
+.headerContainerRight {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.headerContainerRight div {
+  background-color: white;
+  color: black;
+  padding: 0.3rem 0.34rem;
+  border-radius: 50%;
+}
+
+.roomSearch::placeholder {
+  color: white;
+  padding-left: 15px;
+}
+.roomSearch {
+  width: 350px;
+  color: #fff;
+  background-color: rgba(212, 157, 68, 0.46);
+  border: none;
+  border-radius: 20px;
+  padding: 0.3rem;
+}
+.notification {
+  font-size: 24px;
+  color: #fff;
+}
+
+.analyticsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.analyticsRow {
+  position: relative;
+  padding: 1rem 0.4rem;
+  background-color: rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+}
+.analyticsRow h4 {
+  font-size: 24px;
+  color: white;
+  padding-top: 15px;
+}
+.analyticsRow span {
+  color: rgb(110, 110, 110);
+  font-size: 13px;
+}
+
+.iconBed {
+  font-size: 25px;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}
+
+.noti {
+  font-size: 23px;
+  padding-top: 5px;
+}
+
+.mainNotificaions {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 10px;
+}
+.mainNotificaions div p {
+  font-size: 15px;
+  color: #e9e7e7;
+}
+
+.mainNotificaions div span {
+  font-size: 10px;
+  color: #bbb9b9;
+}
+
+.notifcationHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.notifcationHeader p {
+  color: #fff;
+}
+
+.notificationCenter {
+  margin-bottom: 5rem;
+}
+.iconSuccess {
+  color: #32cd32;
+}
+.iconError {
+  color: #b22222;
+}
+.iconSuccess,
+.iconError {
+  font-size: 24px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.titleText {
+  color: #fff;
+  margin-bottom: 10px;
+}
+.dashTitle {
+  padding: 0.5rem 0;
+  color: #fff;
+}
+
+.guestTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.guestTable th,
+.guestTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  color: #d8d7d7;
+}
+
+.guestTable th {
+  background-color: rgba(0, 0, 0, 0.21);
+  font-weight: bold;
+}
+
+.guestTable button {
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .bookingsContainer {
+    flex-wrap: wrap;
+  }
+}

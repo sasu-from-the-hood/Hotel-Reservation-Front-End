@@ -1,109 +1,44 @@
-import "./roomManage.css";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
+import styles from "./Bookings.module.css";
+
 const Bookings = () => {
-  const bookings = [
-    {
-      id: "B001",
-      guestName: "John Doe",
-      roomNumber: "101",
-      roomType: "Single",
-      checkIn: "2024-08-01",
-      checkOut: "2024-08-05",
-      status: "Checked-in",
-    },
-    {
-      id: "B002",
-      guestName: "Jane Smith",
-      roomNumber: "102",
-      roomType: "Double",
-      checkIn: "2024-08-03",
-      checkOut: "2024-08-06",
-      status: "Checked-out",
-    },
-    {
-      id: "B003",
-      guestName: "David Brown",
-      roomNumber: "201",
-      roomType: "Suite",
-      checkIn: "2024-08-04",
-      checkOut: "2024-08-08",
-      status: "Checked-in",
-    },
-    {
-      id: "B004",
-      guestName: "Emily White",
-      roomNumber: "202",
-      roomType: "Single",
-      checkIn: "2024-08-02",
-      checkOut: "2024-08-06",
-      status: "Checked-out",
-    },
-    {
-      id: "B005",
-      guestName: "Michael Green",
-      roomNumber: "301",
-      roomType: "Double",
-      checkIn: "2024-08-05",
-      checkOut: "2024-08-10",
-      status: "Checked-in",
-    },
-    {
-      id: "B006",
-      guestName: "Sarah Black",
-      roomNumber: "302",
-      roomType: "Suite",
-      checkIn: "2024-08-06",
-      checkOut: "2024-08-11",
-      status: "Checked-in",
-    },
-    {
-      id: "B007",
-      guestName: "James Gray",
-      roomNumber: "401",
-      roomType: "Single",
-      checkIn: "2024-08-07",
-      checkOut: "2024-08-09",
-      status: "Checked-out",
-    },
-    {
-      id: "B008",
-      guestName: "Laura Blue",
-      roomNumber: "402",
-      roomType: "Double",
-      checkIn: "2024-08-08",
-      checkOut: "2024-08-12",
-      status: "Checked-in",
-    },
-    {
-      id: "B009",
-      guestName: "Robert Gold",
-      roomNumber: "101",
-      roomType: "Single",
-      checkIn: "2024-08-09",
-      checkOut: "2024-08-13",
-      status: "Checked-in",
-    },
-    {
-      id: "B010",
-      guestName: "Linda Silver",
-      roomNumber: "102",
-      roomType: "Double",
-      checkIn: "2024-08-10",
-      checkOut: "2024-08-14",
-      status: "Checked-out",
-    },
-  ];
+  const [bookings, setBookings] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/bookings");
+        const data = await response.json();
+        setBookings(data);
+      } catch (error) {
+        console.error("Error fetching bookings:", error);
+      }
+    };
+
+    fetchBookings();
+  }, []);
+
+  // Filter bookings based on search term
+  const filteredBookings = bookings.filter(
+    (booking) =>
+      booking.guestName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.roomNumber.includes(searchTerm)
+  );
 
   return (
     <>
       <Header />
       <input
-        className="room-search"
+        className={styles.roomSearch}
         type="text"
-        placeholder="search for room and offer"
+        placeholder="Search for booking"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <table className="table">
+      <table className={styles.table}>
         <thead>
           <tr>
             <th>Booking ID</th>
@@ -117,7 +52,7 @@ const Bookings = () => {
           </tr>
         </thead>
         <tbody>
-          {bookings.map((booking, index) => (
+          {filteredBookings.map((booking, index) => (
             <tr key={index}>
               <td>{booking.id}</td>
               <td>{booking.guestName}</td>
@@ -127,7 +62,7 @@ const Bookings = () => {
               <td>{booking.checkOut}</td>
               <td>{booking.status}</td>
               <td>
-                <button className="action-button">View</button>
+                <button className={styles.actionButton}>View</button>
               </td>
             </tr>
           ))}
@@ -141,13 +76,13 @@ export default Bookings;
 
 function Header() {
   return (
-    <div className="header-container">
-      <div className="header-container-left">
+    <div className={styles.headerContainer}>
+      <div className={styles.headerContainerLeft}>
         <h2>Bookings</h2>
         <span>This is where you can see the bookings</span>
       </div>
-      <div className="header-container-right">
-        <FontAwesomeIcon icon={faBell} className="notification" />
+      <div className={styles.headerContainerRight}>
+        <FontAwesomeIcon icon={faBell} className={styles.notification} />
         <div>AD</div>
       </div>
     </div>

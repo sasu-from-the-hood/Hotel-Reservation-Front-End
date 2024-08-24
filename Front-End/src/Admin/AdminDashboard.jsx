@@ -1,21 +1,32 @@
-import "./admin.css";
 import { Route, Routes } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Dashboard from "./Dashboard";
 import RoomManagement from "./RoomManagement";
 import Bookings from "./Bookings";
-import Setting from "./Setting";
+import ChangePassword from "./ChangePassword";
+import styles from "./AdminDashboard.module.css";
+import { useState } from "react";
 
 const AdminDashboard = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    <div className="dashboard-container">
-      <Sidebar />
-      <div className="content">
+    <div className={styles.dashboardContainer}>
+      <Sidebar onClick={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+      <div
+        className={`${styles.content} ${
+          isSidebarOpen ? styles.contentOpen : styles.contentClosed
+        }`}
+      >
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="room-management" element={<RoomManagement />} />
           <Route path="bookings" element={<Bookings />} />
-          <Route path="setting" element={<Setting />} />
+          <Route path="ChangePassword" element={<ChangePassword />} />
         </Routes>
       </div>
     </div>
