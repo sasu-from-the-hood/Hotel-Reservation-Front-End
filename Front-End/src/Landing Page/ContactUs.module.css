@@ -4,7 +4,7 @@
   display: flex; /* Use flexbox to arrange content */
   justify-content: center; /* Center the content horizontally */
   align-items: center; /* Center the content vertically */
-  gap: 500px; /* Gap between contact info and social media icons */
+  gap: 30rem; /* Gap between contact info and social media icons */
   flex-wrap: wrap; /* Allow items to wrap on smaller screens */
 }
 

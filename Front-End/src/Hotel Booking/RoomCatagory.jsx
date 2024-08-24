@@ -33,7 +33,7 @@ export default function RoomSuits({ categories }) {
           >
             <img
               className="property-card-image"
-              src={`/${category.image || "img/default.jpg"}`}
+              src={`/${category.photo || "img/default.jpg"}`}
               alt={category.category_name || "Category Image"}
             />
             <hr className="property-card-divider" />

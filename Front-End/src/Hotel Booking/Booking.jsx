@@ -18,10 +18,13 @@ function Booking() {
         }
         const data = await response.json();
 
+        console.log("Fetched categories:", data); // Log fetched data
+
         // Ensure correct data types
         const formattedCategories = data.map((category) => ({
           ...category,
           price: parseFloat(category.price), // Convert price to number
+          hotel_id: id,
           available_rooms: parseInt(category.available_rooms, 10), // Convert available_rooms to number
         }));
 

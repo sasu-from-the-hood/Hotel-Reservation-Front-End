@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
 const Navbar = () => {
   const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
+  const navigate = useNavigate(); // Initialize the navigate function
 
   const handleMenuToggle = () => {
     setIsMobileMenuActive((prev) => !prev);
@@ -67,6 +68,17 @@ const Navbar = () => {
         >
           Contact Us
         </Link>
+        <Link
+          to="/status" // Updated to navigate to the Status component
+          className={styles.navLink}
+          onClick={(e) => {
+            e.preventDefault();
+            handleMenuToggle(); // Close the mobile menu if open
+            navigate("/status"); // Use navigate to redirect
+          }}
+        >
+          Status
+        </Link>
       </div>
       <div className={styles.navButtons}>
         <Link
@@ -109,6 +121,17 @@ const Navbar = () => {
           onClick={(e) => handleLinkClick(e, "contact-us")}
         >
           Contact Us
+        </Link>
+        <Link
+          to="/reservations" // Updated to navigate to the Status component
+          className={styles.navLink}
+          onClick={(e) => {
+            e.preventDefault();
+            handleMenuToggle(); // Close the mobile menu if open
+            navigate("/reservations"); // Use navigate to redirect
+          }}
+        >
+          Status
         </Link>
         <Link
           to="/registration"

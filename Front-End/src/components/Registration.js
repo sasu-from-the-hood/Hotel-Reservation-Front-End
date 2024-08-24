@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./registration.css";
 
 const VAPID_PUBLIC_KEY =
@@ -11,6 +11,8 @@ const Registration = () => {
   const [loginUser, setLoginUser] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [swRegistration, setSwRegistration] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if ("serviceWorker" in navigator) {
@@ -64,7 +66,20 @@ const Registration = () => {
           "Content-Type": "application/json",
         },
       });
-      console.log(response.data);
+
+      if (url === "/user/login" || url === "/admin/login") {
+        const token = response.data.token;
+        localStorage.setItem("token", token);
+
+        // Redirect based on the previous location
+        const previousLocation = location.state?.from || "/";
+        if (url === "/user/login") {
+          navigate(previousLocation === "/reservation" ? "/reservation" : "/");
+        } else if (url === "/admin/login") {
+          navigate("/admin-dashboard");
+        }
+      }
+
       setErrorMessage("");
       e.target.reset();
     } catch (error) {

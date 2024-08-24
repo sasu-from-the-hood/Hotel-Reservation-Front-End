@@ -13,7 +13,6 @@ import {
 
 export default function HotelListing() {
   const [hotels, setHotels] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [defaultHotels, setDefaultHotels] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -28,15 +27,6 @@ export default function HotelListing() {
         setDefaultHotels(data); // Store the original hotel order
       })
       .catch((error) => console.error("Error fetching hotels:", error));
-  }, []);
-
-  useEffect(() => {
-    fetch("http://localhost:5000/categories")
-      .then((response) => response.json())
-      .then((data) => {
-        setCategories(data);
-      })
-      .catch((error) => console.error("Error fetching categories:", error));
   }, []);
 
   const handleViewDetail = (id) => {
@@ -111,16 +101,6 @@ export default function HotelListing() {
               <div className={styles.hotelServicesCon}>
                 <hr className={styles.line} />
                 <div className={styles.hotelServices}>
-                  {categories
-                    .filter((category) => category.hotel_id === hotel.hotel_id)
-                    .slice(0, 3) // Limit to the first 3 categories
-                    .map((room) => (
-                      <div key={room.category_id}>
-                        <span>{room.category_name}</span>
-                        <span>{room.price.toFixed(2)} ETB</span>
-                      </div>
-                    ))}
-
                   <div>
                     <span>Location</span>
                     <a
