@@ -27,6 +27,30 @@ const Reserv = () => {
     fetchReservations();
   }, []);
 
+  const handlePayment = async (totalAmount, id) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/user/initialize?amount=${totalAmount}&hotel_id=${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (
+        response.data.status === "success" &&
+        response.data.data?.checkout_url
+      ) {
+        window.location.href = response.data.data.checkout_url;
+      } else {
+        console.error("No valid checkout URL found in the response.");
+      }
+    } catch (error) {
+      console.error("Error handling payment:", error.message);
+    }
+  };
+
   if (loading) {
     return <div className={styles.loading}>Loading...</div>;
   }
@@ -66,6 +90,16 @@ const Reserv = () => {
               <p>
                 <strong>Status:</strong> {reservation.reservation_status}
               </p>
+              {reservation.reservation_status === "accepted" && (
+                <button
+                  className={styles.payButton}
+                  onClick={() =>
+                    handlePayment(reservation.total_price, reservation.hotel_id)
+                  }
+                >
+                  Pay
+                </button>
+              )}
             </div>
           ))}
         </div>

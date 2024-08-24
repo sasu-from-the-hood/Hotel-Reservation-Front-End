@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Navbar.module.css";
 
 const Navbar = () => {
   const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
-  const navigate = useNavigate(); // Initialize the navigate function
+  const navigate = useNavigate();
 
   const handleMenuToggle = () => {
     setIsMobileMenuActive((prev) => !prev);
@@ -39,7 +41,11 @@ const Navbar = () => {
       >
         X
       </p>
-      <div className={styles.navLinks}>
+      <div
+        className={`${styles.navLinks} ${
+          isMobileMenuActive ? styles.active : ""
+        }`}
+      >
         <Link
           to="#home"
           className={styles.navLink}
@@ -69,18 +75,25 @@ const Navbar = () => {
           Contact Us
         </Link>
         <Link
-          to="/status" // Updated to navigate to the Status component
+          to="/reservations"
           className={styles.navLink}
           onClick={(e) => {
             e.preventDefault();
-            handleMenuToggle(); // Close the mobile menu if open
-            navigate("/status"); // Use navigate to redirect
+            handleMenuToggle();
+            navigate("/reservations");
           }}
         >
           Status
         </Link>
       </div>
       <div className={styles.navButtons}>
+        <Link
+          to="/notification"
+          className={styles.navButton}
+          onClick={handleMenuToggle}
+        >
+          <FontAwesomeIcon icon={faBell} /> {/* Notification Icon */}
+        </Link>
         <Link
           to="/registration"
           className={styles.navButton}
@@ -123,12 +136,12 @@ const Navbar = () => {
           Contact Us
         </Link>
         <Link
-          to="/reservations" // Updated to navigate to the Status component
+          to="/reservations"
           className={styles.navLink}
           onClick={(e) => {
             e.preventDefault();
-            handleMenuToggle(); // Close the mobile menu if open
-            navigate("/reservations"); // Use navigate to redirect
+            handleMenuToggle();
+            navigate("/reservations");
           }}
         >
           Status
