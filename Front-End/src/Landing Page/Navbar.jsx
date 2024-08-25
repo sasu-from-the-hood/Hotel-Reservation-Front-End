@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
+import Notification from "./Notification"; // Import the Notification component
 import styles from "./Navbar.module.css";
 
 const Navbar = () => {
   const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
+  const [isNotificationVisible, setIsNotificationVisible] = useState(false); // State to manage notification visibility
+  const notificationRef = useRef(null); // Ref for the notification overlay
   const navigate = useNavigate();
 
   const handleMenuToggle = () => {
@@ -27,6 +30,30 @@ const Navbar = () => {
       setIsMobileMenuActive(false);
     }
   };
+
+  const handleNotificationClick = (e) => {
+    e.preventDefault();
+    setIsNotificationVisible((prev) => !prev); // Toggle notification visibility
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      // If clicking outside the notification area, hide the notification
+      if (
+        notificationRef.current &&
+        !notificationRef.current.contains(e.target) &&
+        !e.target.closest(`.${styles.navButton}`)
+      ) {
+        setIsNotificationVisible(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <nav className={styles.navbar}>
@@ -87,13 +114,9 @@ const Navbar = () => {
         </Link>
       </div>
       <div className={styles.navButtons}>
-        <Link
-          to="/notification"
-          className={styles.navButton}
-          onClick={handleMenuToggle}
-        >
-          <FontAwesomeIcon icon={faBell} /> {/* Notification Icon */}
-        </Link>
+        <button className={styles.navButton} onClick={handleNotificationClick}>
+          <FontAwesomeIcon icon={faBell} />
+        </button>
         <Link
           to="/registration"
           className={styles.navButton}
@@ -102,6 +125,14 @@ const Navbar = () => {
           Sign Up / Login
         </Link>
       </div>
+      {isNotificationVisible && (
+        <div
+          ref={notificationRef} // Attach the ref to the notification overlay
+          className={styles.notificationOverlay}
+        >
+          <Notification />
+        </div>
+      )}
       <div
         className={`${styles.mobileMenu} ${
           isMobileMenuActive ? styles.active : ""

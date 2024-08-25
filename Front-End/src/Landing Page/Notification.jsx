@@ -46,6 +46,7 @@ const Notification = () => {
             <li key={index} className={styles.notificationItem}>
               <p>{notification.message}</p>
               <small>{notification.user_id}</small>
+              <small>{notification.created_at}</small>
             </li>
           ))}
         </ul>
