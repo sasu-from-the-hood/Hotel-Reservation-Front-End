@@ -56,7 +56,7 @@ html {
 .navButton {
   border: none;
   border-radius: 9999px;
-  background-color: rgb(47, 47, 250);
+  background-color: #b69b6f;
   color: #fff;
   padding: 0.5rem 1rem;
   cursor: pointer;
@@ -65,7 +65,7 @@ html {
 }
 
 .navButton:hover {
-  background-color: #af8c53;
+  background-color: #7d5b25;
   color: white;
 }
 
@@ -107,4 +107,37 @@ html {
   .mobileMenu {
     display: none !important;
   }
+}
+
+.notificationOverlay {
+  position: absolute;
+  top: 4rem; /* Adjust based on your navbar height */
+  right: 1rem;
+  background-color: white;
+  border-radius: 8px;
+  z-index: 999; /* Ensure it appears above other elements */
+  width: 400px; /* Set width of notification box */
+  padding: 0.5rem;
+  box-shadow: 0 4px 14px silver;
+}
+
+/* Additional styles to manage notification overlay */
+.notificationOverlay h2 {
+  margin: 0 0 1rem;
+  color: #d49d44;
+}
+
+.notificationOverlay ul {
+  list-style-type: none;
+  padding: 1rem;
+  margin: 0;
+}
+
+.notificationOverlay li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #d49d44;
+}
+
+.notificationOverlay li:last-child {
+  border-bottom: none;
 }

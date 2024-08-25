@@ -71,3 +71,20 @@
 .card strong {
   color: #333;
 }
+
+.continueToPayLink {
+  display: inline-block; /* Display as block for padding */
+  margin-top: 20px; /* Spacing above the link */
+  padding: 10px 20px; /* Padding around the link */
+  background-color: #7dc400; /* Blue background */
+  color: white; /* White text */
+  text-decoration: none; /* No underline */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  font-weight: bold; /* Bold text */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.continueToPayLink:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}

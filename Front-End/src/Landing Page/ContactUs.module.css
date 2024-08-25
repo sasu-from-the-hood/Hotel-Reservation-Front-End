@@ -1,11 +1,11 @@
 .contactusContainer {
   padding: 2rem 4rem;
-  background: whitesmoke; /* Darker background for footer */
+  background: rgb(101, 101, 101); /* Darker background for footer */
   display: flex; /* Use flexbox to arrange content */
   justify-content: center; /* Center the content horizontally */
   align-items: center; /* Center the content vertically */
   gap: 30rem; /* Gap between contact info and social media icons */
-  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  /* Allow items to wrap on smaller screens */
 }
 
 .contactInfo,

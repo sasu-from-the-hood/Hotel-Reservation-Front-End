@@ -6,6 +6,7 @@ const Reserv = () => {
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [checkoutUrl, setCheckoutUrl] = useState(null);
 
   useEffect(() => {
     const fetchReservations = async () => {
@@ -38,11 +39,9 @@ const Reserv = () => {
         }
       );
 
-      if (
-        response.data.status === "success" &&
-        response.data.data?.checkout_url
-      ) {
-        window.location.href = response.data.data.checkout_url;
+      if (response.data.checkout_url) {
+        // Save the checkout URL for manual redirection
+        setCheckoutUrl(response.data.checkout_url);
       } else {
         console.error("No valid checkout URL found in the response.");
       }
@@ -102,6 +101,18 @@ const Reserv = () => {
               )}
             </div>
           ))}
+        </div>
+      )}
+      {checkoutUrl && (
+        <div>
+          <a
+            href={checkoutUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.continueToPayLink}
+          >
+            Pay using chapa
+          </a>
         </div>
       )}
     </div>
