@@ -7,7 +7,7 @@ import HotelListing from "./Hotel Listing/HotelListing.jsx";
 import Booking from "./Hotel Booking/Booking.jsx";
 import HotelRoom from "./Hotel Room/HotelRoom.jsx";
 import Reserv from "./reservation_status/status.jsx"; // Import the Reserv component
-import Notification from "./notification/Notification.jsx";
+import Notification from "./Landing Page/Notification.jsx";
 
 const App = () => {
   return (

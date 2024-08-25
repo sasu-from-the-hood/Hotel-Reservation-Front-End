@@ -16,7 +16,7 @@ const Registration = () => {
   const [swRegistration, setSwRegistration] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const { login } = useAuth();
+  const { login }= useAuth();
 
   useEffect(() => {
     if ("serviceWorker" in navigator) {
