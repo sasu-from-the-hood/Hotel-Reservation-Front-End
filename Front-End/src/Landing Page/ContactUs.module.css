@@ -1,6 +1,6 @@
 .contactusContainer {
   padding: 2rem 4rem;
-  background: rgb(101, 101, 101); /* Darker background for footer */
+  background: rgba(0, 0, 0, 0.637); /* Darker background for footer */
   display: flex; /* Use flexbox to arrange content */
   justify-content: center; /* Center the content horizontally */
   align-items: center; /* Center the content vertically */
@@ -25,7 +25,7 @@
 }
 
 .infoItem {
-  color: black; /* Light color for text */
+  color: white; /* Light color for text */
 }
 
 .icons {
