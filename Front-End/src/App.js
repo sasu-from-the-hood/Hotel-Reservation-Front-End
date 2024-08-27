@@ -7,12 +7,14 @@ import HotelListing from "./Hotel Listing/HotelListing.jsx";
 import Booking from "./Hotel Booking/Booking.jsx";
 import HotelRoom from "./Hotel Room/HotelRoom.jsx";
 import Reserv from "./reservation_status/status.jsx"; // Import the Reserv component
+import Notification from "./Landing Page/Notification.jsx";
 
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route index element={<Home />} />
+        <Route path="/notification" element={<Notification />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/list-of-hotels" element={<HotelListing />} />
         <Route path="/admindashboard/*" element={<AdminDashboard />} />
@@ -24,5 +26,4 @@ const App = () => {
     </Router>
   );
 };
-
 export default App;

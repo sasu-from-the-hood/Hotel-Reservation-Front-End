@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Registration.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useAuth } from "../authcontext";
+import "./registration.css";
 
 const VAPID_PUBLIC_KEY =
-  "BL_VNDt5r9sIoVmjaxBOqD5Lpapo5NWE__vEIHW7zBlxl2n6YpRmym-f5DF7PohXR6cyVdI_dfyvfYkulkYca_Q";
+  "BIhj2zEAAFg6PBWWA54Zu_c3gmDsm-p5U_0fPUI22hK3QLb03BAR-FatR2sI5u2OqVeuEshruPDE_PXJ6Nrlr_8";
 
 const Registration = () => {
   const [isSignup, setIsSignup] = useState(false);
@@ -13,6 +17,7 @@ const Registration = () => {
   const [swRegistration, setSwRegistration] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const { login } = useAuth();
 
   useEffect(() => {
     if ("serviceWorker" in navigator) {
@@ -37,12 +42,40 @@ const Registration = () => {
     setErrorMessage("");
   };
 
-  const handleSubmit = async (e, url) => {
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    try {
+      await axios.post("http://localhost:5000/user/register", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      toast.success("Registration successful!");
+      setErrorMessage("");
+      e.target.reset();
+      toggleForm();
+    } catch (error) {
+      console.error("Error:", error);
+      if (error.response && error.response.data) {
+        const errorMsg = error.response.data.message;
+        toast.error(errorMsg);
+        setErrorMessage(errorMsg);
+      } else {
+        toast.error("An unexpected error occurred. Please try again.");
+        setErrorMessage("An unexpected error occurred. Please try again.");
+      }
+    }
+  };
+
+  const handleUserLogin = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
-    if (url === "/user/login" && swRegistration) {
+    if (swRegistration) {
       try {
         let subscription = await swRegistration.pushManager.getSubscription();
         if (!subscription) {
@@ -55,38 +88,76 @@ const Registration = () => {
         data.subscription = JSON.stringify(subscriptionData);
       } catch (error) {
         console.error("Subscription failed:", error);
-        setErrorMessage("Subscription failed. Please try again.");
+        toast.error("Subscription failed. Please try again.");
         return;
       }
     }
 
     try {
-      const response = await axios.post(`http://localhost:5000${url}`, data, {
-        headers: {
-          "Content-Type": "application/json",
+      const response = await axios.post(
+        "http://localhost:5000/user/login",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const token = response.data.token;
+      login(token);
+      localStorage.setItem("token", token);
+      toast.success("User logged in successfully!", {
+        onClose: () => {
+          navigate("/");
         },
       });
-
-      if (url === "/user/login" || url === "/admin/login") {
-        const token = response.data.token;
-        localStorage.setItem("token", token);
-
-        // Redirect based on the previous location
-        const previousLocation = location.state?.from || "/";
-        if (url === "/user/login") {
-          navigate(previousLocation === "/reservation" ? "/reservation" : "/");
-        } else if (url === "/admin/login") {
-          navigate("/admin-dashboard");
-        }
-      }
-
+      const previousLocation = location.state?.from || "/";
+      navigate(previousLocation === "/reservation" ? "/reservation" : "/");
       setErrorMessage("");
-      e.target.reset();
     } catch (error) {
       console.error("Error:", error);
       if (error.response && error.response.data) {
-        setErrorMessage(error.response.data.message);
+        const errorMsg = error.response.data.error;
+        toast.error(errorMsg);
+        setErrorMessage(errorMsg);
       } else {
+        toast.error("An unexpected error occurred. Please try again.");
+        setErrorMessage("An unexpected error occurred. Please try again.");
+      }
+    }
+  };
+
+  const handleAdminLogin = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/admin/login",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const token = response.data.token;
+      login(token);
+      localStorage.setItem("token", token);
+      toast.success("Admin logged in successfully!");
+      navigate("/admindashboard");
+      setErrorMessage("");
+    } catch (error) {
+      console.error("Error:", error);
+      if (error.response && error.response.data) {
+        const errorMsg = error.response.data.error;
+        toast.error(errorMsg);
+        setErrorMessage(errorMsg);
+      } else {
+        toast.error("An unexpected error occurred. Please try again.");
         setErrorMessage("An unexpected error occurred. Please try again.");
       }
     }
@@ -118,13 +189,8 @@ const Registration = () => {
             <header className="signup-header" onClick={toggleForm}>
               Signup
             </header>
-            <form onSubmit={(e) => handleSubmit(e, "/user/register")}>
-              <input
-                type="text"
-                placeholder="Full name"
-                name="fullname"
-                required
-              />
+            <form onSubmit={handleRegister}>
+              <input type="text" placeholder="Full name" name="name" required />
               <input
                 type="email"
                 placeholder="Email address"
@@ -174,11 +240,7 @@ const Registration = () => {
             <header className="login-header" onClick={toggleForm}>
               Login
             </header>
-            <form
-              onSubmit={(e) =>
-                handleSubmit(e, loginUser ? "/user/login" : "/admin/login")
-              }
-            >
+            <form onSubmit={loginUser ? handleUserLogin : handleAdminLogin}>
               {loginUser ? (
                 <>
                   <input
@@ -198,8 +260,8 @@ const Registration = () => {
                 <>
                   <input
                     type="text"
-                    name="admin_id"
-                    placeholder="Admin ID"
+                    name="email"
+                    placeholder="Admin email"
                     required
                   />
                   <input
@@ -219,6 +281,7 @@ const Registration = () => {
           {errorMessage && <div className="error">{errorMessage}</div>}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

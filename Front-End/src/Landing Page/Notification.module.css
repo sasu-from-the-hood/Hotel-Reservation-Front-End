@@ -1,0 +1,39 @@
+.notificationList {
+  list-style-type: none;
+  padding: 0;
+  max-height: 400px; /* Set a fixed height for the list */
+  overflow-y: auto; /* Enable vertical scrolling */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.notificationItem {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.notificationItem:last-child {
+  border-bottom: none; /* Remove border for the last item */
+}
+
+.notificationItem p {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.notificationItem small {
+  display: block;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #666;
+}
+
+.loading,
+.error {
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+}
