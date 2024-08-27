@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import Notification from "./Notification"; // Import the Notification component
 import styles from "./Navbar.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 const Navbar = () => {
   const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
