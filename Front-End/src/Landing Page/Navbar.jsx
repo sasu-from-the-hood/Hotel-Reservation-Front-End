@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 const Navbar = () => {
   const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
   const navigate = useNavigate(); // Initialize the navigate function
@@ -37,7 +38,7 @@ const Navbar = () => {
         }`}
         onClick={handleMenuToggle}
       >
-        X
+        <FontAwesomeIcon icon={isMobileMenuActive ? faTimes : faBars} />
       </p>
       <div className={styles.navLinks}>
         <Link

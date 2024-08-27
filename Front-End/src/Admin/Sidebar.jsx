@@ -9,6 +9,8 @@ import {
   faChevronLeft,
   faChevronRight,
   faSignOutAlt,
+  faCalendarCheck,
+  faKey,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Sidebar.module.css";
 
@@ -55,10 +57,23 @@ const Sidebar = ({ onClick, isSidebarOpen }) => {
               <span>{isSidebarOpen && "Bookings"}</span>
             </NavLink>
           </li>
+
+          <li>
+            <NavLink to="/admindashboard/HotelSetting">
+              <FontAwesomeIcon icon={faCog} />
+              <span>{isSidebarOpen && "Hotel Setting"}</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/admindashboard/ManualReservation">
+              <FontAwesomeIcon icon={faCalendarCheck} />
+              <span>{isSidebarOpen && "Manual Reservation"}</span>
+            </NavLink>
+          </li>
           <li>
             <NavLink to="/admindashboard/ChangePassword">
-              <FontAwesomeIcon icon={faCog} />
-              <span>{isSidebarOpen && "ChangePassword"}</span>
+              <FontAwesomeIcon icon={faKey} />
+              <span>{isSidebarOpen && "Change Password"}</span>
             </NavLink>
           </li>
           <li>

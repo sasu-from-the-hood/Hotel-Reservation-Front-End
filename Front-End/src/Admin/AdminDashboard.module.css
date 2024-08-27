@@ -8,7 +8,7 @@ body {
 
 .content {
   flex: 1;
-  padding: 20px;
+  /* padding: 20px; */
   background-color: #252629;
   transition: padding-left 0.3s ease;
 }

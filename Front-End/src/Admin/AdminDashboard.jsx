@@ -4,6 +4,8 @@ import Dashboard from "./Dashboard";
 import RoomManagement from "./RoomManagement";
 import Bookings from "./Bookings";
 import ChangePassword from "./ChangePassword";
+import HotelSetting from "./HotelSetting";
+import ManualReservation from "./ManualReservation";
 import styles from "./AdminDashboard.module.css";
 import { useState } from "react";
 
@@ -27,6 +29,8 @@ const AdminDashboard = () => {
           <Route path="room-management" element={<RoomManagement />} />
           <Route path="bookings" element={<Bookings />} />
           <Route path="ChangePassword" element={<ChangePassword />} />
+          <Route path="HotelSetting" element={<HotelSetting />} />
+          <Route path="ManualReservation" element={<ManualReservation />} />
         </Routes>
       </div>
     </div>

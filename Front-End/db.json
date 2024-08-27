@@ -6,7 +6,8 @@
       "rating": 4.5,
       "location": "https://maps.app.goo.gl/GJFydEjtr892AKoN8",
       "subaccount_id": "sub_123",
-      "photo": "img/rori-hotel.jpg"
+      "photo": "img/rori-hotel.jpg",
+      "id": "84ed"
     },
     {
       "hotel_id": 2,
@@ -14,16 +15,17 @@
       "rating": 4.5,
       "location": "https://maps.app.goo.gl/58q15NWyXSr1vLTv6",
       "subaccount_id": "sub_123",
-      "photo": "img/godolias.jpg"
+      "photo": "img/godolias.jpg",
+      "id": "7624"
     },
-
     {
       "hotel_id": 3,
       "hotel_name": "South Star International Hotel",
-      "rating": 4.0,
+      "rating": 4,
       "location": "https://maps.app.goo.gl/DUFo9ehs7R4WKuE6A",
       "subaccount_id": "sub_456",
-      "photo": "img/south-star-international-hotel.jpg"
+      "photo": "img/south-star-international-hotel.jpg",
+      "id": "7c67"
     }
   ],
   "categories": [
@@ -31,83 +33,115 @@
       "category_id": 1,
       "hotel_id": 1,
       "category_name": "Deluxe Room",
-      "price": 150.0,
+      "price": 150,
       "total_rooms": 20,
       "available_rooms": 5,
-      "image": "img/bedroom.JPG"
+      "image": "img/bedroom.JPG",
+      "id": "3409"
     },
     {
       "category_id": 2,
       "hotel_id": 1,
       "category_name": "Suite",
-      "price": 250.0,
+      "price": 250,
       "total_rooms": 10,
       "available_rooms": 2,
-      "image": "img/dark-bed-room.JPG"
+      "image": "img/dark-bed-room.JPG",
+      "id": "b024"
     },
     {
       "category_id": 3,
       "hotel_id": 1,
       "category_name": "Suite",
-      "price": 250.0,
+      "price": 250,
       "total_rooms": 10,
       "available_rooms": 2,
-      "image": "img/dark-bed-room.JPG"
+      "image": "img/dark-bed-room.JPG",
+      "id": "9a2a"
     },
     {
       "category_id": 4,
       "hotel_id": 2,
       "category_name": "Standard Room",
-      "price": 100.0,
+      "price": 100,
       "total_rooms": 30,
       "available_rooms": 10,
-      "image": "img/fenet-bed-room.jpg"
+      "image": "img/fenet-bed-room.jpg",
+      "id": "5500"
     },
     {
       "category_id": 5,
       "hotel_id": 2,
       "category_name": "Ocean View Room",
-      "price": 200.0,
+      "price": 200,
       "total_rooms": 15,
       "available_rooms": 3,
-      "image": "img/bedroom.JPG"
+      "image": "img/bedroom.JPG",
+      "id": "ab50"
     },
-
     {
       "category_id": 6,
       "hotel_id": 2,
       "category_name": "Suite",
-      "price": 250.0,
+      "price": 250,
       "total_rooms": 10,
       "available_rooms": 2,
-      "image": "img/dark-bed-room.JPG"
+      "image": "img/dark-bed-room.JPG",
+      "id": "4747"
     },
     {
       "category_id": 7,
       "hotel_id": 3,
       "category_name": "Family Room",
-      "price": 100.0,
+      "price": 100,
       "total_rooms": 30,
       "available_rooms": 10,
-      "image": "img/dark-bed-room.JPG"
+      "image": "img/dark-bed-room.JPG",
+      "id": "fb79"
     },
     {
       "category_id": 8,
       "hotel_id": 3,
       "category_name": "Double Room",
-      "price": 200.0,
+      "price": 200,
       "total_rooms": 15,
       "available_rooms": 3,
-      "image": "img/fenet-bed-room.jpg"
+      "image": "img/fenet-bed-room.jpg",
+      "id": "0315"
     },
     {
       "category_id": 2,
       "hotel_id": 3,
       "category_name": "Suite",
-      "price": 250.0,
+      "price": 250,
       "total_rooms": 10,
       "available_rooms": 2,
-      "image": "img/dark-bed-room.JPG"
+      "image": "img/dark-bed-room.JPG",
+      "id": "5de7"
+    },
+    {
+      "id": "d8c8",
+      "category_name": "suit",
+      "price": "500",
+      "description": "hihi",
+      "total_rooms": 1,
+      "available_rooms": 1,
+      "rooms": [
+        null
+      ]
+    },
+    {
+      "id": "d9f6",
+      "category_name": "Delux",
+      "price": "300",
+      "description": "nice view of some bad bitches\n",
+      "total_rooms": 3,
+      "available_rooms": 3,
+      "rooms": [
+        100,
+        200,
+        300
+      ]
     }
   ],
   "rooms": [
@@ -115,57 +149,105 @@
       "number": "101",
       "type": "Single",
       "floor": "1st",
-      "facility": ["WiFi", "TV", "Air Conditioning", "Private Bathroom"],
-      "status": "Available"
+      "facility": [
+        "WiFi",
+        "TV",
+        "Air Conditioning",
+        "Private Bathroom"
+      ],
+      "status": "Available",
+      "id": "92b8"
     },
     {
       "number": "102",
       "type": "Double",
       "floor": "1st",
-      "facility": ["WiFi", "TV", "Mini Bar", "Balcony"],
-      "status": "Booked"
+      "facility": [
+        "WiFi",
+        "TV",
+        "Mini Bar",
+        "Balcony"
+      ],
+      "status": "Booked",
+      "id": "131a"
     },
     {
       "number": "201",
       "type": "Suite",
       "floor": "2nd",
-      "facility": ["WiFi", "TV", "Kitchenette", "Private Balcony"],
-      "status": "Reserved"
+      "facility": [
+        "WiFi",
+        "TV",
+        "Kitchenette",
+        "Private Balcony"
+      ],
+      "status": "Reserved",
+      "id": "3e45"
     },
     {
       "number": "202",
       "type": "Single",
       "floor": "2nd",
-      "facility": ["WiFi", "TV", "Air Conditioning", "Room Service"],
-      "status": "Available"
+      "facility": [
+        "WiFi",
+        "TV",
+        "Air Conditioning",
+        "Room Service"
+      ],
+      "status": "Available",
+      "id": "72bb"
     },
     {
       "number": "301",
       "type": "Double",
       "floor": "3rd",
-      "facility": ["WiFi", "TV", "Mini Bar", "Jacuzzi"],
-      "status": "Booked"
+      "facility": [
+        "WiFi",
+        "TV",
+        "Mini Bar",
+        "Jacuzzi"
+      ],
+      "status": "Booked",
+      "id": "626b"
     },
     {
       "number": "302",
       "type": "Suite",
       "floor": "3rd",
-      "facility": ["WiFi", "TV", "Private Sauna", "Ocean View"],
-      "status": "Reserved"
+      "facility": [
+        "WiFi",
+        "TV",
+        "Private Sauna",
+        "Ocean View"
+      ],
+      "status": "Reserved",
+      "id": "d0d3"
     },
     {
       "number": "401",
       "type": "Single",
       "floor": "4th",
-      "facility": ["WiFi", "TV", "Air Conditioning", "Room Service"],
-      "status": "Available"
+      "facility": [
+        "WiFi",
+        "TV",
+        "Air Conditioning",
+        "Room Service"
+      ],
+      "status": "Available",
+      "id": "a9ec"
     },
     {
       "number": "402",
       "type": "Double",
       "floor": "4th",
-      "facility": ["WiFi", "TV", "Mini Bar", "Balcony"],
-      "status": "Booked"
+      "facility": [
+        "WiFi",
+        "TV",
+        "Mini Bar",
+        "Balcony"
+      ],
+      "status": "Booked",
+      "id": "b746"
     }
   ],
   "bookings": [
@@ -262,7 +344,7 @@
   ],
   "booking": [
     {
-      "id": 1,
+      "id": "1",
       "name": "John Doe",
       "requestDate": "2024-08-01",
       "roomType": "Deluxe",
@@ -270,7 +352,7 @@
       "action": "View"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Jane Smith",
       "requestDate": "2024-08-02",
       "roomType": "Standard",
@@ -278,7 +360,7 @@
       "action": "View"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Alice Johnson",
       "requestDate": "2024-08-03",
       "roomType": "Suite",
@@ -286,7 +368,7 @@
       "action": "View"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Bob Brown",
       "requestDate": "2024-08-04",
       "roomType": "Single",
@@ -294,7 +376,7 @@
       "action": "View"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Charlie Davis",
       "requestDate": "2024-08-05",
       "roomType": "Double",
@@ -311,22 +393,50 @@
   },
   "notifications": [
     {
-      "id": 1,
+      "id": "1",
       "message": "You have a new pending booking",
       "time": "just now",
       "activity": "You have approved the booking"
     },
     {
-      "id": 2,
+      "id": "2",
       "message": "New User Registered",
       "time": "59 minutes ago",
       "activity": "You have declined the booking"
     },
     {
-      "id": 3,
+      "id": "3",
       "message": "You have a new pending booking",
       "time": "one day ago",
       "activity": "You have approved the booking"
+    }
+  ],
+  "reservations": [
+    {
+      "name": "Jane Smith",
+      "phone_number": "0987654321",
+      "category_id": 1,
+      "check_in_date": "2024-09-01",
+      "check_out_date": "2024-09-04",
+      "duration": 3
+    },
+    {
+      "id": "95a6",
+      "name": "Biruk",
+      "phone_number": "0975824359",
+      "category_id": "1",
+      "check_in_date": "2024-08-27",
+      "check_out_date": "2024-08-30",
+      "duration": 3
+    },
+    {
+      "id": "1d30",
+      "name": "Biruk Amanuel ",
+      "phone_number": "0975824359",
+      "category_id": "2",
+      "check_in_date": "2024-08-27",
+      "check_out_date": "2024-08-29",
+      "duration": 2
     }
   ]
 }

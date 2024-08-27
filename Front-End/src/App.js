@@ -18,7 +18,7 @@ const App = () => {
         <Route path="/admindashboard/*" element={<AdminDashboard />} />
         <Route path="/hotel-room/:id" element={<HotelRoom />} />
         <Route path="/Book/:id" element={<Booking />} />
-        <Route path="/reservations" element={<Reserv />} />{" "}
+        <Route path="/reservations" element={<Reserv />} />
         {/* Add the Reserv route */}
       </Routes>
     </Router>
