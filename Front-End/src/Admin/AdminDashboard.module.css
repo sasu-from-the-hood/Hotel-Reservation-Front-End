@@ -4,6 +4,7 @@ body {
 
 .dashboardContainer {
   display: flex;
+  min-height: 100vh;
 }
 
 .content {
