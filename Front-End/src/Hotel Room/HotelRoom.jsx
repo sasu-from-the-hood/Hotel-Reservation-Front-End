@@ -65,10 +65,15 @@ export default function HotelRoom() {
   return (
     <div className={styles.hotelRoomContainer}>
       <div className={styles.hotelRoomLeftCol}>
-        <img src={`/${room.photo}`} alt={room.type} />
+        <img
+          src={`http://localhost:5000/hotel_image/${
+            room.photo || "default.jpg"
+          }`}
+          alt={room.type}
+        />
         <div>
           <h1>{room.category_name}</h1>
-          <h1>{room.hotel_id}</h1>
+
           <p>
             {room.price} ETB/ <span>NIGHT</span>
           </p>
