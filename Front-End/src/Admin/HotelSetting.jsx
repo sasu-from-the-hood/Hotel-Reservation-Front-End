@@ -14,7 +14,7 @@ const HotelSetting = () => {
   const itemsPerPage = 7;
   const [editingCategory, setEditingCategory] = useState(null);
 
-  useEffect(() => {
+  const fetchCategories = () => {
     fetch("http://localhost:5000/admin/category", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -23,6 +23,10 @@ const HotelSetting = () => {
       .then((response) => response.json())
       .then((data) => setCategories(data))
       .catch((error) => console.error("Error fetching categories:", error));
+  };
+
+  useEffect(() => {
+    fetchCategories();
   }, []);
 
   const handleInputChange = (e) => {
@@ -68,7 +72,7 @@ const HotelSetting = () => {
       .then((response) => response.json())
       .then((data) => {
         alert("Category and rooms added successfully");
-        setCategories([...categories, data]);
+        fetchCategories(); // Refresh categories after adding
         setNewCategory({
           name: "",
           price: "",
@@ -108,13 +112,8 @@ const HotelSetting = () => {
     )
       .then((response) => response.json())
       .then((updatedCategory) => {
-        setCategories(
-          categories.map((cat) =>
-            cat.category_id === updatedCategory.category_id
-              ? updatedCategory
-              : cat
-          )
-        );
+        alert("Category updated successfully");
+        fetchCategories(); // Refresh categories after updating
         setEditingCategory(null);
       })
       .catch((error) => console.error("Error updating category:", error));
@@ -159,7 +158,7 @@ const HotelSetting = () => {
                 <td>
                   {category.photo && (
                     <img
-                      src={`http://localhost:5000/admin/category/update${category.photo}`}
+                      src={`http://localhost:5000/hotel_image/${category.photo}`}
                       alt="Category"
                       width="50"
                     />
