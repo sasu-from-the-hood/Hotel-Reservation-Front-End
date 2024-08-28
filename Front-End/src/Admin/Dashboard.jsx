@@ -21,7 +21,12 @@ const Dashboard = () => {
   const [dashboardInfo, setDashboardInfo] = useState({});
   const [selectedReservation, setSelectedReservation] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showDeclineForm, setShowDeclineForm] = useState(false);
+  const [declineReason, setDeclineReason] = useState("");
 
+  const handleDeclineClick = () => {
+    setShowDeclineForm(true);
+  };
   useEffect(() => {
     // Fetch dashboard info
     axios
@@ -81,24 +86,18 @@ const Dashboard = () => {
       });
   };
   
-  const handleDecline = () => {
-    const id = selectedReservation.reservation_id; // Get the ID from the selectedReservation state
-    const reason = prompt("Please enter the reason for declining:");
-  
-    if (!reason) {
+  const handleDeclineSubmit = () => {
+    const id = selectedReservation.reservation_id;
+
+    if (!declineReason) {
       toast.error("Decline reason is required");
       return;
     }
-  
-    setSelectedReservation((prev) => ({
-      ...prev,
-      // Optional: You can add any changes to the selectedReservation state here if needed
-    }));
-  
+
     axios
       .post(
         `http://localhost:5000/admin/reservation/${id}/action`,
-        { action: "decline", reason },
+        { action: "decline", reason: declineReason },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -125,39 +124,80 @@ const Dashboard = () => {
           />
         </div>
         <div className={styles.bookingsContainerRight}>
-          {showNotifications && <Notification onClose={toggleNotifications} />}
+        <Modal isOpen={showNotifications}
+onRequestClose={toggleNotifications} className={styles.notificationModal} overlayClassName={styles.modalOverlay}>
+<Notification onClose={toggleNotifications} />
+</Modal>
         </div>
       </div>
-<Modal
-  isOpen={isModalOpen}
-  onRequestClose={() => setIsModalOpen(false)}
-  className={styles.modalContent}
-  overlayClassName={styles.modalOverlay}
->
-  {selectedReservation && (
-    <div>
-      <h2 className={styles.modalHeader}>Reservation Details</h2>
-      <p>Name: {selectedReservation.name}</p>
-      <p>Email: {selectedReservation.email}</p>
-      <p>Phone: {selectedReservation.phone_number}</p>
-      <p>ID Card Front: <img src={`http://localhost:5000/uploads/${selectedReservation.id_card_photo_front}`} alt="ID" /></p>
-      <p>ID Card Back: {selectedReservation.id_card_photo_back}
-        <img src={`http://localhost:5000/uploads/${selectedReservation.id_card_photo_back}`}alt="ID"/></p>
-      <button
-        className={`${styles.modalButton} ${styles.modalButtonAccept}`}
-        onClick={() => handleAccept(selectedReservation.id)}
-      >
-        Accept
-      </button>
-      <button
-        className={`${styles.modalButton} ${styles.modalButtonDecline}`}
-        onClick={() => handleDecline(selectedReservation.id)}
-      >
-        Decline
-      </button>
-    </div>
-  )}
-</Modal>
+      <Modal
+      isOpen={isModalOpen}
+      onRequestClose={() => setIsModalOpen(false)}
+      className={styles.modalContent}
+      overlayClassName={styles.modalOverlay}
+    >
+      {selectedReservation && (
+        <div>
+          <button
+            className={styles.closeButton}
+            onClick={() => setIsModalOpen(false)}
+          >
+            X
+          </button>
+          <h2 className={styles.modalHeader}>Reservation Details</h2>
+          <p><b>Name</b>: {selectedReservation.name}</p>
+          <p><b>Email</b>: {selectedReservation.email}</p>
+          <p><b>Phone</b>: {selectedReservation.phone_number}</p>
+          <p><b>ID Card Front</b>: <br />
+            <img
+              src={`http://localhost:5000/uploads/${selectedReservation.id_card_photo_front}`}
+              alt="ID"
+              height={180}
+              width={300}
+            />
+          </p>
+          <p><b>ID Card Back</b>: <br />
+            <img
+              src={`http://localhost:5000/uploads/${selectedReservation.id_card_photo_back}`}
+              alt="ID"
+              height={180}
+              width={300}
+            />
+          </p>
+          <button
+            className={`${styles.modalButton} ${styles.modalButtonAccept}`}
+            onClick={() => handleAccept(selectedReservation.id)}
+          >
+            Accept
+          </button>
+          <button
+            className={`${styles.modalButton} ${styles.modalButtonDecline}`}
+            onClick={handleDeclineClick}
+          >
+            Decline
+          </button>
+
+          {showDeclineForm && (
+            <div className={styles.declineForm}>
+              <label htmlFor="declineReason">Reason for Declining:</label>
+              <textarea
+                id="declineReason"
+                value={declineReason}
+                onChange={(e) => setDeclineReason(e.target.value)}
+                rows={4}
+              />
+              <button
+                className={`${styles.modalButton} ${styles.modalButtonDeclineSubmit}`}
+                onClick={handleDeclineSubmit}
+              >
+                Submit Decline
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+    </Modal>
+
 
     </>
   );
@@ -273,10 +313,9 @@ function UpcomingBooking({ reservations, onViewDetail }) {
   );
 }
 
-
-
 function Notification({ onClose }) {
   const [notifications, setNotifications] = useState([]);
+  const [loading, setLoading] = useState(true);
   const notificationRef = useRef(null);
 
   useEffect(() => {
@@ -286,10 +325,14 @@ function Notification({ onClose }) {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
-      .then((response) => setNotifications(response.data.noNotifications || []))
+      .then((response) => {
+        setNotifications(response.data.notifications || []);
+        setLoading(false);
+      })
       .catch((error) => {
         console.error("Error fetching notifications:", error);
         setNotifications([]);
+        setLoading(false);
       });
 
     const handleClickOutside = (event) => {
@@ -309,22 +352,23 @@ function Notification({ onClose }) {
 
   return (
     <div className={styles.notificationContainer} ref={notificationRef}>
-      <div className={styles.notifcationHeader}>
-        <p>Notifications</p>
-        <FontAwesomeIcon icon={faEllipsisH} className={styles.iconError} />
+      <div className={styles.notificationHeader}>
+        <h2 className={styles.Nothead}>Notifications</h2>
+        <button className={styles.closeNotButton} onClick={onClose}>
+          X
+        </button>
       </div>
       <div className={styles.notificationCenter}>
-        {notifications.length > 0 ? (
+        {loading ? (
+          <p className={styles.loading}>Loading notifications...</p>
+        ) : notifications.length > 0 ? (
           notifications.map((notification) => (
-            <div key={notification.id} className={styles.mainNotificaions}>
+            <div key={notification.id} className={styles.mainNotifications}>
               <FontAwesomeIcon
                 icon={faExclamationTriangle}
                 className={styles.noti}
-              />
-              <div>
-                <p>{notification.message}</p>
+              />{notification.message}
                 <span>{notification.time}</span>
-              </div>
             </div>
           ))
         ) : (

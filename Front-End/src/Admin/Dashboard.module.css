@@ -95,12 +95,9 @@ body {
     flex: 1;
     padding: 1rem;
     border-radius: 8px;
-  display: flex;
-  gap: 0.4rem;
-  margin-bottom: 10px;
 }
-.mainNotificaions div p {
-  font-size: 15px;
+.mainNotificaions span {
+  font-size: 10px;
   color: #e9e7e7;
 }
 
@@ -173,24 +170,28 @@ body {
   }
 }
 /* Dashboard.module.css */
-.modalContent {
-  background-color: #f0f0f0; /* Gray background color */
-  width: 50%;
-  margin: auto;
-  padding: 20px;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: fixed;
-  top: 50px;
-}
 
 .modalHeader {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
+.closeButton {
+  position: absolute;
+  top: 1%;
+  right: 1%;
+  background: none;
+  color: #b22222;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.closeButton:hover{
+  background-color: #ddd;
+}
 .modalButton {
   margin: 10px;
   padding: 10px 20px;
@@ -208,10 +209,88 @@ body {
 .modalButtonDecline {
   background-color: #FF6347; /* Red color for decline button */
 }
-/* Dashboard.module.css */
-.modalOverlay {
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+
+.modalButtonDeclineSubmit{
+  background-color: #FF6347; /* Red color for decline button */
+}
+.modalButtonDeclineSubmit:hover{
+  background-color: #e9583f; /* Red color for decline button */
+}
+.modalButtonDecline{
+  background-color: #FF6347; /* Red color for decline button */
+}
+.modalButtonDecline:hover{
+  background-color: #e9583f; /* Red color for decline button */
+}
+/* Example styles */
+.modalContent {
+  background-color: rgba(0, 0, 0);
+  position: relative;
+  width:50%;
+  max-height: 80vh;
+  margin-top: 5%;
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 20px; /* Add some padding */
+  border-radius: 10px; /* Optional: Rounded corners */
+}
+.modalContent {
+  background-color: rgb(247, 243, 243);
+  margin: auto;
+  margin-right: 10%;
+  padding: 20px;
+  border-radius: 8px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  position: fixed;
+  top: 50px;
+  color: rgb(12, 12, 12);
+}
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark overlay background */
+  display: flex;
+  justify-content: right;
+}
+.modalContent::-webkit-scrollbar {
+  display: none; /* Hide the scrollbar for WebKit browsers */
+}
+
+.modalContent {
+  -ms-overflow-style: none;  /* Hide scrollbar for Internet Explorer and Edge */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+.notificationModal {
+width: 25%;
+background-color: rgba(0, 0, 0, 0.7);
+color: #e9e7e7; /* Dark overlay background */
+}
+.notificationHeader.h2{
+text-align: center;
+}
+.closeNotButton{
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 1.5rem;
+  color: red;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.closeNotButton:hover{
+  background-color: #e9583f; /* Red color for decline button */
+}
+.modalOverlay {
+  /* Add your overlay st
+  yling */
+}
+.Nothead{
+  margin-top: 20px;
+}
+
+.closeButton {
+  /* Add styling for the close button */
 }

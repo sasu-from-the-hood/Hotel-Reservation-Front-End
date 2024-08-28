@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 import styles from "./ManualReservation.module.css";
 
 const ManualReservation = () => {
@@ -7,17 +11,20 @@ const ManualReservation = () => {
     name: "",
     phone_number: "",
     category_id: "",
-    check_in_date: "",
-    check_out_date: "",
     duration: "",
   });
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    fetch("http://localhost:5000/categories")
-      .then((response) => response.json())
-      .then((data) => {
-        // Remove duplicate category names
-        const uniqueCategories = data.reduce((acc, current) => {
+    axios
+      .get("http://localhost:5000/admin/category", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        const uniqueCategories = response.data.reduce((acc, current) => {
           const x = acc.find(
             (item) => item.category_name === current.category_name
           );
@@ -41,53 +48,34 @@ const ManualReservation = () => {
     });
   };
 
-  const calculateDuration = (checkIn, checkOut) => {
-    const checkInDate = new Date(checkIn);
-    const checkOutDate = new Date(checkOut);
-    const timeDiff = checkOutDate - checkInDate;
-    const duration = timeDiff / (1000 * 60 * 60 * 24); // Convert milliseconds to days
-    return duration > 0 ? Math.ceil(duration) : 0; // Use Math.ceil to ensure rounding up
-  };
-
-  useEffect(() => {
-    if (reservation.check_in_date && reservation.check_out_date) {
-      const duration = calculateDuration(
-        reservation.check_in_date,
-        reservation.check_out_date
-      );
-      setReservation((prev) => ({
-        ...prev,
-        duration: duration,
-      }));
-    }
-  }, [reservation.check_in_date, reservation.check_out_date]);
-
   const handleManualReservation = (e) => {
     e.preventDefault();
-    fetch("http://localhost:5000/reservations", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(reservation),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        alert("Manual reservation created successfully");
-        setReservation({
-          name: "",
-          phone_number: "",
-          category_id: "",
-          check_in_date: "",
-          check_out_date: "",
-          duration: "",
-        });
+    axios
+      .post(
+        "http://localhost:5000/admin/manualreservation",
+        reservation,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        toast.success("Manual reservation created successfully");
+        setTimeout(() => {
+          navigate("/admindashboard");
+        }, 3000); // Redirect after 3 seconds
       })
-      .catch((error) => console.error("Error creating reservation:", error));
+      .catch((error) => {
+        toast.error("Error creating reservation"+error.error);
+        console.error("Error creating reservation:", error.error);
+      });
   };
 
   return (
     <div className={styles.container}>
+      <ToastContainer />
       <h1>Admin Manual Reservation</h1>
 
       <form onSubmit={handleManualReservation} className={styles.formContainer}>
@@ -128,32 +116,13 @@ const ManualReservation = () => {
           </select>
         </div>
         <div>
-          <label>Check-in Date:</label>
-          <input
-            type="date"
-            name="check_in_date"
-            value={reservation.check_in_date}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Check-out Date:</label>
-          <input
-            type="date"
-            name="check_out_date"
-            value={reservation.check_out_date}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
           <label>Duration (days):</label>
           <input
-            type="text"
+            type="number"
             name="duration"
             value={reservation.duration}
-            readOnly
+            onChange={handleInputChange}
+            required
           />
         </div>
         <div className={styles.btn}>
