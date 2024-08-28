@@ -283,14 +283,7 @@ text-align: center;
 .closeNotButton:hover{
   background-color: #e9583f; /* Red color for decline button */
 }
-.modalOverlay {
-  /* Add your overlay st
-  yling */
-}
 .Nothead{
   margin-top: 20px;
 }
 
-.closeButton {
-  /* Add styling for the close button */
-}
