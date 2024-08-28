@@ -10,12 +10,7 @@ body {
   flex: 2.2;
 }
 
-.bookingsContainerRight {
-  background-color: rgba(0, 0, 0, 0.3);
-  flex: 1;
-  padding: 1rem;
-  border-radius: 8px;
-}
+
 
 .headerContainer {
   display: flex;
@@ -96,6 +91,10 @@ body {
 }
 
 .mainNotificaions {
+    background-color: rgba(0, 0, 0, 0.3);
+    flex: 1;
+    padding: 1rem;
+    border-radius: 8px;
   display: flex;
   gap: 0.4rem;
   margin-bottom: 10px;
@@ -172,4 +171,47 @@ body {
   .bookingsContainer {
     flex-wrap: wrap;
   }
+}
+/* Dashboard.module.css */
+.modalContent {
+  background-color: #f0f0f0; /* Gray background color */
+  width: 50%;
+  margin: auto;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 50px;
+}
+
+.modalHeader {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.modalButton {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.modalButtonAccept {
+  background-color: #32CD32; /* Green color for accept button */
+}
+
+.modalButtonDecline {
+  background-color: #FF6347; /* Red color for decline button */
+}
+/* Dashboard.module.css */
+.modalOverlay {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
