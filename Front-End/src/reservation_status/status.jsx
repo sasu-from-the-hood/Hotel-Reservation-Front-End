@@ -153,19 +153,24 @@ const Reserv = () => {
                   <p>
                     <strong>Status:</strong> {reservation.reservation_status}
                   </p>
-                  {reservation.reservation_status === "accepted" && (
-                    <button
-                      className={styles.payButton}
-                      onClick={() =>
-                        handlePayment(
-                          reservation.total_price,
-                          reservation.hotel_id
-                        )
-                      }
-                    >
-                      Pay
-                    </button>
-                  )}
+                  <p>
+                    <strong>Payment Status:</strong>{" "}
+                    {reservation.payment_status}
+                  </p>
+                  {reservation.reservation_status === "accepted" &&
+                    reservation.payment_status === "unpaid" && (
+                      <button
+                        className={styles.payButton}
+                        onClick={() =>
+                          handlePayment(
+                            reservation.total_price,
+                            reservation.hotel_id
+                          )
+                        }
+                      >
+                        Pay
+                      </button>
+                    )}
                 </div>
               ))
             )}
