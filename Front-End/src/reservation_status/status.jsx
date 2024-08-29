@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./reserv.module.css";
+import Navbar from "../Landing Page/Navbar";
 
 const Reserv = () => {
   const [activeSection, setActiveSection] = useState("status");
@@ -97,20 +98,16 @@ const Reserv = () => {
   };
 
   return (
-    <div className={styles.dashboardContainer}>
+    <><Navbar /><div className={styles.dashboardContainer}>
       <div className={styles.sidebar}>
         <button
-          className={
-            activeSection === "status" ? styles.activeButton : styles.navButton
-          }
+          className={activeSection === "status" ? styles.activeButton : styles.navButton}
           onClick={() => setActiveSection("status")}
         >
           Status
         </button>
         <button
-          className={
-            activeSection === "account" ? styles.activeButton : styles.navButton
-          }
+          className={activeSection === "account" ? styles.activeButton : styles.navButton}
           onClick={() => setActiveSection("account")}
         >
           Account Settings
@@ -161,12 +158,10 @@ const Reserv = () => {
                     reservation.payment_status === "unpaid" && (
                       <button
                         className={styles.payButton}
-                        onClick={() =>
-                          handlePayment(
-                            reservation.total_price,
-                            reservation.hotel_id
-                          )
-                        }
+                        onClick={() => handlePayment(
+                          reservation.total_price,
+                          reservation.hotel_id
+                        )}
                       >
                         Pay
                       </button>
@@ -195,10 +190,7 @@ const Reserv = () => {
                 type="text"
                 name="name"
                 value={accountData.name}
-                onChange={(e) =>
-                  setAccountData({ ...accountData, name: e.target.value })
-                }
-              />
+                onChange={(e) => setAccountData({ ...accountData, name: e.target.value })} />
             </label>
             <label>
               Email:
@@ -206,10 +198,7 @@ const Reserv = () => {
                 type="email"
                 name="email"
                 value={accountData.email}
-                onChange={(e) =>
-                  setAccountData({ ...accountData, email: e.target.value })
-                }
-              />
+                onChange={(e) => setAccountData({ ...accountData, email: e.target.value })} />
             </label>
             <label>
               Phone Number:
@@ -217,13 +206,10 @@ const Reserv = () => {
                 type="text"
                 name="phone_number"
                 value={accountData.phone_number}
-                onChange={(e) =>
-                  setAccountData({
-                    ...accountData,
-                    phone_number: e.target.value,
-                  })
-                }
-              />
+                onChange={(e) => setAccountData({
+                  ...accountData,
+                  phone_number: e.target.value,
+                })} />
             </label>
             <label>
               New Password:
@@ -243,7 +229,7 @@ const Reserv = () => {
           </form>
         )}
       </div>
-    </div>
+    </div></>
   );
 };
 

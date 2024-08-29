@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RoomSuits from "./RoomCatagory";
 import Footer from "./Footer";
+import Navbar from "../Landing Page/Navbar";
 
 function Booking() {
   const { id } = useParams(); // Extract the hotel ID from the URL parameters
@@ -45,6 +46,7 @@ function Booking() {
 
   return (
     <>
+    <Navbar/>
       <RoomSuits categories={categories} />
       {/* <Video videoSrc={"path/to/video"} /> */}
       <Footer />

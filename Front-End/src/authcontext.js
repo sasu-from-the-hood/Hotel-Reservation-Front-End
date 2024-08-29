@@ -11,6 +11,8 @@ export const AuthProvider = ({ children }) => {
     userType: null, // 'user', 'admin', 'superadmin'
   });
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -23,6 +25,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem("token");
       }
     }
+    setLoading(false);
   }, []);
 
   const login = (token) => {
@@ -38,8 +41,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ ...authState, login, logout }}>
-      {children}
+    <AuthContext.Provider value={{ ...authState, login, logout, loading }}>
+      {!loading && children}
     </AuthContext.Provider>
   );
 };

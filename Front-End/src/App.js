@@ -8,6 +8,7 @@ import Booking from "./Hotel Booking/Booking.jsx";
 import HotelRoom from "./Hotel Room/HotelRoom.jsx";
 import Reserv from "./reservation_status/status.jsx"; // Import the Reserv component
 import Notification from "./Landing Page/Notification.jsx";
+import ProtectedRoute from "./protectedRoutes.js";
 
 const App = () => {
   return (
@@ -17,11 +18,14 @@ const App = () => {
         <Route path="/notification" element={<Notification />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/list-of-hotels" element={<HotelListing />} />
-        <Route path="/admindashboard/*" element={<AdminDashboard />} />
         <Route path="/hotel-room/:id" element={<HotelRoom />} />
         <Route path="/Book/:id" element={<Booking />} />
+        <Route element={<ProtectedRoute allowedTypes={"user"} />}>
         <Route path="/reservations" element={<Reserv />} />
-        {/* Add the Reserv route */}
+        </Route>
+        <Route element={<ProtectedRoute allowedTypes={"admin"} />}>
+          <Route path="/admindashboard/*" element={<AdminDashboard />} />
+        </Route>
       </Routes>
     </Router>
   );

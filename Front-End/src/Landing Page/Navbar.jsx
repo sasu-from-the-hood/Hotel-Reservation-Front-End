@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
-import Notification from "./Notification"; // Import the Notification component
+import { faBell, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import Notification from "./Notification";
+import { useAuth } from "../authcontext"; // Import useAuth from your context
 import styles from "./Navbar.module.css";
-import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+
 const Navbar = () => {
   const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
-  const [isNotificationVisible, setIsNotificationVisible] = useState(false); // State to manage notification visibility
-  const notificationRef = useRef(null); // Ref for the notification overlay
+  const [isNotificationVisible, setIsNotificationVisible] = useState(false);
+  const notificationRef = useRef(null);
   const navigate = useNavigate();
+
+  const { isAuthenticated, logout } = useAuth(); // Get authentication state and logout function
 
   const handleMenuToggle = () => {
     setIsMobileMenuActive((prev) => !prev);
@@ -33,12 +36,16 @@ const Navbar = () => {
 
   const handleNotificationClick = (e) => {
     e.preventDefault();
-    setIsNotificationVisible((prev) => !prev); // Toggle notification visibility
+    setIsNotificationVisible((prev) => !prev);
+  };
+
+  const handleLogout = () => {
+    logout(); // Call the logout function from your context
+    navigate("/"); // Redirect to home page after logout
   };
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      // If clicking outside the notification area, hide the notification
       if (
         notificationRef.current &&
         !notificationRef.current.contains(e.target) &&
@@ -101,33 +108,46 @@ const Navbar = () => {
         >
           Contact Us
         </Link>
-        <Link
-          to="/reservations"
-          className={styles.navLink}
-          onClick={(e) => {
-            e.preventDefault();
-            handleMenuToggle();
-            navigate("/reservations");
-          }}
-        >
-          Status
-        </Link>
+        {isAuthenticated && (
+          <Link
+            to="/reservations"
+            className={styles.navLink}
+            onClick={(e) => {
+              e.preventDefault();
+              handleMenuToggle();
+              navigate("/reservations");
+            }}
+          >
+            Status
+          </Link>
+        )}
       </div>
       <div className={styles.navButtons}>
-        <button className={styles.navButton} onClick={handleNotificationClick}>
-          <FontAwesomeIcon icon={faBell} />
-        </button>
-        <Link
-          to="/registration"
-          className={styles.navButton}
-          onClick={handleMenuToggle}
-        >
-          Sign Up / Login
-        </Link>
+        {isAuthenticated ? (
+          <>
+            <button
+              className={styles.navButton}
+              onClick={handleNotificationClick}
+            >
+              <FontAwesomeIcon icon={faBell} />
+            </button>
+            <button className={styles.navButton} onClick={handleLogout}>
+              Log Out
+            </button>
+          </>
+        ) : (
+          <Link
+            to="/registration"
+            className={styles.navButton}
+            onClick={handleMenuToggle}
+          >
+            Sign Up / Login
+          </Link>
+        )}
       </div>
       {isNotificationVisible && (
         <div
-          ref={notificationRef} // Attach the ref to the notification overlay
+          ref={notificationRef}
           className={styles.notificationOverlay}
         >
           <Notification />
@@ -166,24 +186,32 @@ const Navbar = () => {
         >
           Contact Us
         </Link>
-        <Link
-          to="/reservations"
-          className={styles.navLink}
-          onClick={(e) => {
-            e.preventDefault();
-            handleMenuToggle();
-            navigate("/reservations");
-          }}
-        >
-          Status
-        </Link>
-        <Link
-          to="/registration"
-          className={styles.navButton}
-          onClick={handleMenuToggle}
-        >
-          Sign Up / Login
-        </Link>
+        {isAuthenticated && (
+          <Link
+            to="/reservations"
+            className={styles.navLink}
+            onClick={(e) => {
+              e.preventDefault();
+              handleMenuToggle();
+              navigate("/reservations");
+            }}
+          >
+            Status
+          </Link>
+        )}
+        {isAuthenticated ? (
+          <button className={styles.navButton} onClick={handleLogout}>
+            Log Out
+          </button>
+        ) : (
+          <Link
+            to="/registration"
+            className={styles.navButton}
+            onClick={handleMenuToggle}
+          >
+            Sign Up / Login
+          </Link>
+        )}
       </div>
     </nav>
   );

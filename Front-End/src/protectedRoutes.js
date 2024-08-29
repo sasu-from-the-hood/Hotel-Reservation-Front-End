@@ -3,7 +3,11 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "./authcontext";
 
 const ProtectedRoute = ({ allowedTypes }) => {
-  const { isAuthenticated, userType } = useAuth();
+  const { isAuthenticated, userType, loading } = useAuth();
+
+  if (loading) {
+    return <div>Loading...</div>; // You can replace this with a spinner or a more sophisticated loading screen.
+  }
 
   if (!isAuthenticated) {
     return <Navigate to="/registration" />;

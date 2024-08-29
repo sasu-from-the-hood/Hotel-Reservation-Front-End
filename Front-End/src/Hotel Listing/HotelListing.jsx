@@ -10,6 +10,7 @@ import {
   faBurger,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
+import Navbar from "../Landing Page/Navbar";
 
 export default function HotelListing() {
   const [hotels, setHotels] = useState([]);
@@ -52,6 +53,7 @@ export default function HotelListing() {
 
   return (
     <main>
+      <Navbar/>
       <div className={styles.hotelListContainer}>
         <h1>Hotel Listing</h1>
         <div>
