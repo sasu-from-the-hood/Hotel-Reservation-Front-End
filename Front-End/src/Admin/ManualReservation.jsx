@@ -64,8 +64,8 @@ const ManualReservation = () => {
       .then((response) => {
         toast.success("Manual reservation created successfully");
         setTimeout(() => {
-          navigate("/admindashboard");
-        }, 3000); // Redirect after 3 seconds
+          navigate("/admindashboard/bookings");
+        }, 2000); // Redirect after 3 seconds
       })
       .catch((error) => {
         toast.error("Error creating reservation"+error.error);
