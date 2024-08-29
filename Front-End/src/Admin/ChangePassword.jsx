@@ -1,44 +1,58 @@
 import React, { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styles from "./ChangePassword.module.css"; // Assuming you have a CSS module for styling
 
 const ChangePassword = () => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      setMessage("New passwords do not match");
+      toast.error("New passwords do not match");
       return;
     }
 
-    // Placeholder for API call
-    const response = await fetch("/api/change-password", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        currentPassword,
-        newPassword,
-      }),
-    });
+    const token = localStorage.getItem("token"); // Retrieve the token from localStorage
 
-    const data = await response.json();
+    if (!token) {
+      toast.error("You must be logged in to change your password");
+      return;
+    }
 
-    if (data.success) {
-      setMessage("Password changed successfully");
-    } else {
-      setMessage(data.message || "Error changing password");
+    try {
+      const response = await fetch(
+        "http://localhost:5000/admin/changepassword",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+          },
+          body: JSON.stringify({
+            currentPassword,
+            newPassword,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success("Password changed successfully");
+      } else {
+        toast.error(data.message || "Error changing password");
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again.");
     }
   };
 
   return (
     <div className={styles.container}>
       <h2>Change Password</h2>
-      {message && <p className={styles.message}>{message}</p>}
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.inputGroup}>
           <label htmlFor="currentPassword">Current Password</label>
@@ -77,6 +91,8 @@ const ChangePassword = () => {
           Change Password
         </button>
       </form>
+
+      <ToastContainer />
     </div>
   );
 };
