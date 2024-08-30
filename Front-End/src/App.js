@@ -9,6 +9,7 @@ import HotelRoom from "./Hotel Room/HotelRoom.jsx";
 import Reserv from "./reservation_status/status.jsx";
 import SuperAdmin from "./Super Admin/SuperAdmin.jsx";
 import Notification from "./Landing Page/Notification.jsx";
+import ProtectedRoute from "./protectedRoutes.js";
 
 const App = () => {
   return (
@@ -18,12 +19,14 @@ const App = () => {
         <Route path="/notification" element={<Notification />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/list-of-hotels" element={<HotelListing />} />
-        <Route path="/admindashboard/*" element={<AdminDashboard />} />
         <Route path="/hotel-room/:id" element={<HotelRoom />} />
         <Route path="/Book/:id" element={<Booking />} />
-        <Route path="/reservations" element={<Reserv />} />
-        <Route path="/SuperAdmin/*" element={<SuperAdmin />} />
-        {/* Add the Reserv route */}
+        <Route element={<ProtectedRoute allowedTypes={"user"} />}>
+          <Route path="/reservations" element={<Reserv />} />
+        </Route>
+        <Route element={<ProtectedRoute allowedTypes={"admin"} />}>
+          <Route path="/admindashboard/*" element={<AdminDashboard />} />
+        </Route>
       </Routes>
     </Router>
   );

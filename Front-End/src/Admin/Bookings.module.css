@@ -79,3 +79,23 @@ body {
   background-color: #3e8e41;
   transform: translateY(2px);
 }
+
+.filterButtons {
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.filterButtons button {
+  background-color: #555;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.filterButtons button:hover {
+  background-color: #777;
+}

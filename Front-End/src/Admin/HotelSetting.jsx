@@ -8,19 +8,27 @@ const HotelSetting = () => {
     price: "",
     description: "",
     rooms: "",
+    photo: null,
   });
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7;
+  const [editingCategory, setEditingCategory] = useState(null);
 
-  
-  useEffect(() => {
-    fetch("http://localhost:5000/categories")
+  const fetchCategories = () => {
+    fetch("http://localhost:5000/admin/category", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => setCategories(data))
       .catch((error) => console.error("Error fetching categories:", error));
+  };
+
+  useEffect(() => {
+    fetchCategories();
   }, []);
 
- 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewCategory({
@@ -29,49 +37,88 @@ const HotelSetting = () => {
     });
   };
 
-  // Handle rooms input separately
+  const handleFileChange = (e) => {
+    setNewCategory({
+      ...newCategory,
+      photo: e.target.files[0],
+    });
+  };
+
   const handleRoomsChange = (e) => {
     const { value } = e.target;
     setNewCategory({
       ...newCategory,
-      rooms: value, 
+      rooms: value,
     });
   };
 
-  
   const handleAddCategory = (e) => {
     e.preventDefault();
 
-    const roomsArray = newCategory.rooms
-      .split(",")
-      .map((room) => room.trim())
-      .filter((room) => room !== "" && !isNaN(room))
-      .map((room) => parseInt(room, 10));
+    const formData = new FormData();
+    formData.append("category_name", newCategory.name);
+    formData.append("price", newCategory.price);
+    formData.append("description", newCategory.description);
+    formData.append("rooms", newCategory.rooms);
+    formData.append("photo", newCategory.photo);
 
-    fetch("http://localhost:5000/categories", {
+    fetch("http://localhost:5000/admin/category/addcategory", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      body: JSON.stringify({
-        category_name: newCategory.name,
-        price: newCategory.price,
-        description: newCategory.description,
-        total_rooms: roomsArray.length,
-        available_rooms: roomsArray.length,
-        rooms: roomsArray,
-      }),
+      body: formData,
     })
       .then((response) => response.json())
       .then((data) => {
         alert("Category and rooms added successfully");
-        setCategories([...categories, data]);
-        setNewCategory({ name: "", price: "", description: "", rooms: "" }); 
+        fetchCategories(); // Refresh categories after adding
+        setNewCategory({
+          name: "",
+          price: "",
+          description: "",
+          rooms: "",
+          photo: null,
+        });
       })
       .catch((error) => console.error("Error adding category:", error));
   };
 
-  
+  const handleUpdateCategory = (e, category) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("category_id", category.category_id);
+    formData.append(
+      "category_name",
+      newCategory.name || category.category_name
+    );
+    formData.append("price", newCategory.price || category.price);
+    formData.append(
+      "description",
+      newCategory.description || category.description
+    );
+    formData.append("photo", newCategory.photo || category.photo);
+
+    fetch(
+      `http://localhost:5000/admin/category/update/${category.category_id}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: formData,
+      }
+    )
+      .then((response) => response.json())
+      .then((updatedCategory) => {
+        alert("Category updated successfully");
+        fetchCategories(); // Refresh categories after updating
+        setEditingCategory(null);
+      })
+      .catch((error) => console.error("Error updating category:", error));
+  };
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentCategories = categories.slice(indexOfFirstItem, indexOfLastItem);
@@ -96,6 +143,8 @@ const HotelSetting = () => {
               <th>Description</th>
               <th>Total Rooms</th>
               <th>Available Rooms</th>
+              <th>Photo</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -106,13 +155,59 @@ const HotelSetting = () => {
                 <td>{category.description}</td>
                 <td>{category.total_rooms}</td>
                 <td>{category.available_rooms}</td>
+                <td>
+                  {category.photo && (
+                    <img
+                      src={`http://localhost:5000/hotel_image/${category.photo}`}
+                      alt="Category"
+                      width="50"
+                    />
+                  )}
+                </td>
+                <td>
+                  <button
+                    onClick={() => setEditingCategory(category)}
+                    className={styles.actionButton}
+                  >
+                    Edit
+                  </button>
+                  {editingCategory &&
+                    editingCategory.category_id === category.category_id && (
+                      <form onSubmit={(e) => handleUpdateCategory(e, category)}>
+                        <div>
+                          <input
+                            type="text"
+                            name="name"
+                            defaultValue={category.category_name}
+                            onChange={handleInputChange}
+                          />
+                          <input
+                            type="number"
+                            name="price"
+                            defaultValue={category.price}
+                            onChange={handleInputChange}
+                          />
+                          <textarea
+                            name="description"
+                            defaultValue={category.description}
+                            onChange={handleInputChange}
+                          ></textarea>
+                          <input
+                            type="file"
+                            name="photo"
+                            onChange={handleFileChange}
+                          />
+                          <button type="submit">Update</button>
+                        </div>
+                      </form>
+                    )}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      
       <div className={styles.pagination}>
         <button
           onClick={() => handlePageChange(currentPage - 1)}
@@ -137,7 +232,6 @@ const HotelSetting = () => {
         </button>
       </div>
 
-      
       <div className={styles.formContainer}>
         <h2>Add New Category</h2>
         <form onSubmit={handleAddCategory}>
@@ -177,6 +271,15 @@ const HotelSetting = () => {
               name="rooms"
               value={newCategory.rooms}
               onChange={handleRoomsChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Photo:</label>
+            <input
+              type="file"
+              name="photo"
+              onChange={handleFileChange}
               required
             />
           </div>

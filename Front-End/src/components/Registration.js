@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import "./registration.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from "../authcontext";
@@ -17,7 +16,19 @@ const Registration = () => {
   const [swRegistration, setSwRegistration] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const { login } = useAuth();
+  const { login, isAuthenticated, userType } = useAuth();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (userType === "admin") {
+        navigate("/admindashboard");
+      } else if (userType === "superadmin") {
+        navigate("/superadmindashboard");
+      } else {
+        navigate("/");
+      }
+    }
+  }, [isAuthenticated, userType, navigate]);
 
   useEffect(() => {
     if ("serviceWorker" in navigator) {

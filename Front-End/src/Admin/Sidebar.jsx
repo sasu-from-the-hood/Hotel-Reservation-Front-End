@@ -13,8 +13,11 @@ import {
   faKey,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Sidebar.module.css";
+import { useAuth } from "../authcontext";
 
 const Sidebar = ({ onClick, isSidebarOpen }) => {
+  const { logout } = useAuth();
+
   return (
     <div
       className={`${styles.sidebar} ${
@@ -76,11 +79,9 @@ const Sidebar = ({ onClick, isSidebarOpen }) => {
               <span>{isSidebarOpen && "Change Password"}</span>
             </NavLink>
           </li>
-          <li>
-            <NavLink to="x">
-              <FontAwesomeIcon icon={faSignOutAlt} />
-              <span>{isSidebarOpen && "Log out"}</span>
-            </NavLink>
+          <li onClick={logout}>
+            <FontAwesomeIcon icon={faSignOutAlt} />
+            <span>{isSidebarOpen && "Log out"}</span>
           </li>
         </ul>
       </nav>

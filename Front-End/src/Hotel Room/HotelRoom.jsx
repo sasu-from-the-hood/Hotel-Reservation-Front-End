@@ -1,6 +1,7 @@
 import styles from "./HotelRoom.module.css";
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Navbar from "../Landing Page/Navbar";
 
 export default function HotelRoom() {
   const location = useLocation();
@@ -62,43 +63,42 @@ export default function HotelRoom() {
     }
   };
 
-  return (
-    <div className={styles.hotelRoomContainer}>
-      <div className={styles.hotelRoomLeftCol}>
-        <img src={`/${room.photo}`} alt={room.type} />
-        <div>
-          <h1>{room.category_name}</h1>
-          <h1>{room.hotel_id}</h1>
-          <p>
-            {room.price} ETB/ <span>NIGHT</span>
-          </p>
-        </div>
-      </div>
+  return (     
+     <><Navbar /><div className={styles.hotelRoomContainer}>
+    <div className={styles.hotelRoomLeftCol}>
+      <img
+        src={`http://localhost:5000/hotel_image/${room.photo || "default.jpg"}`}
+        alt={room.type} />
+      <div>
+        <h1>{room.category_name}</h1>
 
-      <div className={styles.hotelRoomRightCol}>
-        <form onSubmit={handleSubmit}>
-          <h1>Check Availability</h1>
-          <input
-            type="date"
-            placeholder="Arrival Date"
-            value={arrivalDate}
-            onChange={(e) => setArrivalDate(e.target.value)}
-            required
-          />
-          <input
-            type="date"
-            placeholder="Departure Date"
-            value={departureDate}
-            onChange={(e) => setDepartureDate(e.target.value)}
-            required
-          />
-          <input
-            type="submit"
-            className={styles.submitBtn}
-            value="RESERVE NOW"
-          />
-        </form>
+        <p>
+          {room.price} ETB/ <span>NIGHT</span>
+        </p>
       </div>
     </div>
+
+    <div className={styles.hotelRoomRightCol}>
+      <form onSubmit={handleSubmit}>
+        <h1>Check Availability</h1>
+        <input
+          type="date"
+          placeholder="Arrival Date"
+          value={arrivalDate}
+          onChange={(e) => setArrivalDate(e.target.value)}
+          required />
+        <input
+          type="date"
+          placeholder="Departure Date"
+          value={departureDate}
+          onChange={(e) => setDepartureDate(e.target.value)}
+          required />
+        <input
+          type="submit"
+          className={styles.submitBtn}
+          value="RESERVE NOW" />
+      </form>
+    </div>
+  </div></>
   );
 }

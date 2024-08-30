@@ -27,7 +27,7 @@ body {
   background-color: rgba(0, 0, 0, 0.4);
   padding: 10px 30px;
   border-radius: 20px;
-  width: 400px;
+  width: 300px;
   margin-top: 10px;
 }
 /* nav :global(.active) {
@@ -36,8 +36,12 @@ body {
 .filterLinks a {
   text-decoration: none;
   border-radius: 5px;
-  color: #333;
-  transition: background-color 0.3s;
+  color: white;
+  transition: background-color 0.3s, color 0.3s, text-decoration 0.3s;
+}
+
+.filterLinks a:hover {
+  text-decoration: underline; /* Add underline on hover */
 }
 
 .filterLinks .active {
@@ -72,8 +76,9 @@ body {
   border-radius: 50%;
 }
 .notification {
-  font-size: 24px;
+  font-size: 30px;
   color: #fff;
+  margin-right: 2rem;
 }
 .roomSearch::placeholder {
   color: white;
