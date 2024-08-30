@@ -3,6 +3,7 @@ body {
 }
 main {
   padding: 1rem 4rem;
+  background-color: #fff;
 }
 .hotelListContainer h1 {
   color: #000;
