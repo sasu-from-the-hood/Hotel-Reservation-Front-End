@@ -20,17 +20,18 @@ const Navbar = () => {
 
   const handleLinkClick = (e, targetId) => {
     e.preventDefault();
-    const targetElement = document.getElementById(targetId);
 
-    if (targetElement) {
-      window.scrollTo({
-        top: targetElement.offsetTop,
-        behavior: "smooth",
-      });
+    if (window.location.pathname !== "/") {
+      navigate("/", { state: { targetId } });
+    } else {
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: "smooth" });
+      }
     }
 
     if (isMobileMenuActive) {
-      setIsMobileMenuActive(false);
+      setIsMobileMenuActive(false); // Close mobile menu on link click
     }
   };
 
@@ -80,46 +81,42 @@ const Navbar = () => {
           isMobileMenuActive ? styles.active : ""
         }`}
       >
-        <Link
-          to="#home"
+        <a
+          href="#home"
           className={styles.navLink}
           onClick={(e) => handleLinkClick(e, "home")}
         >
           Home
-        </Link>
-        <Link
-          to="#hot-deals"
+        </a>
+        <a
+          href="#hot-deals"
           className={styles.navLink}
           onClick={(e) => handleLinkClick(e, "hot-deals")}
         >
           Hot Deals
-        </Link>
-        <Link
-          to="#about-us"
+        </a>
+        <a
+          href="#about-us"
           className={styles.navLink}
           onClick={(e) => handleLinkClick(e, "about-us")}
         >
           About Us
-        </Link>
-        <Link
-          to="#contact-us"
+        </a>
+        <a
+          href="#contact-us"
           className={styles.navLink}
           onClick={(e) => handleLinkClick(e, "contact-us")}
         >
           Contact Us
-        </Link>
+        </a>
         {isAuthenticated && (
-          <Link
-            to="/reservations"
+          <a
+            href="#reservations"
             className={styles.navLink}
-            onClick={(e) => {
-              e.preventDefault();
-              handleMenuToggle();
-              navigate("/reservations");
-            }}
+            onClick={() => navigate("/reservations")}
           >
             Status
-          </Link>
+          </a>
         )}
       </div>
       <div className={styles.navButtons}>
@@ -136,20 +133,17 @@ const Navbar = () => {
             </button>
           </>
         ) : (
-          <Link
-            to="/registration"
+          <a
+            href="#registration"
             className={styles.navButton}
-            onClick={handleMenuToggle}
+            onClick={() => navigate("/registration")}
           >
             Sign Up / Login
-          </Link>
+          </a>
         )}
       </div>
       {isNotificationVisible && (
-        <div
-          ref={notificationRef}
-          className={styles.notificationOverlay}
-        >
+        <div ref={notificationRef} className={styles.notificationOverlay}>
           <Notification />
         </div>
       )}
@@ -158,59 +152,61 @@ const Navbar = () => {
           isMobileMenuActive ? styles.active : ""
         }`}
       >
-        <Link
-          to="#home"
+        <a
+          href="#home"
           className={styles.navLink}
           onClick={(e) => handleLinkClick(e, "home")}
         >
           Home
-        </Link>
-        <Link
-          to="#hot-deals"
+        </a>
+        <a
+          href="#hot-deals"
           className={styles.navLink}
           onClick={(e) => handleLinkClick(e, "hot-deals")}
         >
           Hot Deals
-        </Link>
-        <Link
-          to="#about-us"
+        </a>
+        <a
+          href="#about-us"
           className={styles.navLink}
           onClick={(e) => handleLinkClick(e, "about-us")}
         >
           About Us
-        </Link>
-        <Link
-          to="#contact-us"
+        </a>
+        <a
+          href="#contact-us"
           className={styles.navLink}
           onClick={(e) => handleLinkClick(e, "contact-us")}
         >
           Contact Us
-        </Link>
+        </a>
         {isAuthenticated && (
-          <Link
-            to="/reservations"
+          <a
+            href="#reservations"
             className={styles.navLink}
-            onClick={(e) => {
-              e.preventDefault();
+            onClick={() => {
               handleMenuToggle();
               navigate("/reservations");
             }}
           >
             Status
-          </Link>
+          </a>
         )}
         {isAuthenticated ? (
           <button className={styles.navButton} onClick={handleLogout}>
             Log Out
           </button>
         ) : (
-          <Link
-            to="/registration"
+          <a
+            href="#registration"
             className={styles.navButton}
-            onClick={handleMenuToggle}
+            onClick={() => {
+              handleMenuToggle();
+              navigate("/registration");
+            }}
           >
             Sign Up / Login
-          </Link>
+          </a>
         )}
       </div>
     </nav>
