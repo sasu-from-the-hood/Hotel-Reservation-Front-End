@@ -26,6 +26,46 @@
       "subaccount_id": "sub_456",
       "photo": "img/south-star-international-hotel.jpg",
       "id": "7c67"
+    },
+    {
+      "id": "c9ud9fnjz",
+      "hotel_name": "Messay International Hotel",
+      "location": "https://maps.app.goo.gl/7cjvyut7TXJ241YW6",
+      "photo": "C:\\fakepath\\55e889dbac10eccbae7c899572856c42.jpg",
+      "rating": 0,
+      "subaccount_id": "sub_sh16wfxoo"
+    },
+    {
+      "id": "v9peejxnq",
+      "hotel_name": "Messay International Hotel",
+      "location": "https://maps.app.goo.gl/7cjvyut7TXJ241YW6",
+      "photo": "C:\\fakepath\\6b354ce44ca5536b6de551da233adaf9.jpg",
+      "rating": 0,
+      "subaccount_id": "sub_rp5wn07pw"
+    },
+    {
+      "id": "sdzr3laup",
+      "hotel_name": "Messay International Hotel",
+      "location": "https://maps.app.goo.gl/7cjvyut7TXJ241YW6",
+      "photo": {},
+      "rating": 0,
+      "subaccount_id": "sub_1g9pf0qe3"
+    },
+    {
+      "id": "u5mmj4tqz",
+      "hotel_name": "Messay International Hotel",
+      "location": "https://maps.app.goo.gl/7cjvyut7TXJ241YW6",
+      "photo": {},
+      "rating": 0,
+      "subaccount_id": "sub_6ot3zbr04"
+    },
+    {
+      "id": "no6t91i3d",
+      "hotel_name": "Messay International Hotel",
+      "location": "https://maps.app.goo.gl/7cjvyut7TXJ241YW6",
+      "photo": {},
+      "rating": 0,
+      "subaccount_id": "sub_ds9cacb4h"
     }
   ],
   "categories": [
@@ -126,9 +166,7 @@
       "description": "hihi",
       "total_rooms": 1,
       "available_rooms": 1,
-      "rooms": [
-        null
-      ]
+      "rooms": [null]
     },
     {
       "id": "d9f6",
@@ -137,11 +175,7 @@
       "description": "nice view of some bad bitches\n",
       "total_rooms": 3,
       "available_rooms": 3,
-      "rooms": [
-        100,
-        200,
-        300
-      ]
+      "rooms": [100, 200, 300]
     }
   ],
   "rooms": [
@@ -149,12 +183,7 @@
       "number": "101",
       "type": "Single",
       "floor": "1st",
-      "facility": [
-        "WiFi",
-        "TV",
-        "Air Conditioning",
-        "Private Bathroom"
-      ],
+      "facility": ["WiFi", "TV", "Air Conditioning", "Private Bathroom"],
       "status": "Available",
       "id": "92b8"
     },
@@ -162,12 +191,7 @@
       "number": "102",
       "type": "Double",
       "floor": "1st",
-      "facility": [
-        "WiFi",
-        "TV",
-        "Mini Bar",
-        "Balcony"
-      ],
+      "facility": ["WiFi", "TV", "Mini Bar", "Balcony"],
       "status": "Booked",
       "id": "131a"
     },
@@ -175,12 +199,7 @@
       "number": "201",
       "type": "Suite",
       "floor": "2nd",
-      "facility": [
-        "WiFi",
-        "TV",
-        "Kitchenette",
-        "Private Balcony"
-      ],
+      "facility": ["WiFi", "TV", "Kitchenette", "Private Balcony"],
       "status": "Reserved",
       "id": "3e45"
     },
@@ -188,12 +207,7 @@
       "number": "202",
       "type": "Single",
       "floor": "2nd",
-      "facility": [
-        "WiFi",
-        "TV",
-        "Air Conditioning",
-        "Room Service"
-      ],
+      "facility": ["WiFi", "TV", "Air Conditioning", "Room Service"],
       "status": "Available",
       "id": "72bb"
     },
@@ -201,12 +215,7 @@
       "number": "301",
       "type": "Double",
       "floor": "3rd",
-      "facility": [
-        "WiFi",
-        "TV",
-        "Mini Bar",
-        "Jacuzzi"
-      ],
+      "facility": ["WiFi", "TV", "Mini Bar", "Jacuzzi"],
       "status": "Booked",
       "id": "626b"
     },
@@ -214,12 +223,7 @@
       "number": "302",
       "type": "Suite",
       "floor": "3rd",
-      "facility": [
-        "WiFi",
-        "TV",
-        "Private Sauna",
-        "Ocean View"
-      ],
+      "facility": ["WiFi", "TV", "Private Sauna", "Ocean View"],
       "status": "Reserved",
       "id": "d0d3"
     },
@@ -227,12 +231,7 @@
       "number": "401",
       "type": "Single",
       "floor": "4th",
-      "facility": [
-        "WiFi",
-        "TV",
-        "Air Conditioning",
-        "Room Service"
-      ],
+      "facility": ["WiFi", "TV", "Air Conditioning", "Room Service"],
       "status": "Available",
       "id": "a9ec"
     },
@@ -240,12 +239,7 @@
       "number": "402",
       "type": "Double",
       "floor": "4th",
-      "facility": [
-        "WiFi",
-        "TV",
-        "Mini Bar",
-        "Balcony"
-      ],
+      "facility": ["WiFi", "TV", "Mini Bar", "Balcony"],
       "status": "Booked",
       "id": "b746"
     }
@@ -418,7 +412,8 @@
       "category_id": 1,
       "check_in_date": "2024-09-01",
       "check_out_date": "2024-09-04",
-      "duration": 3
+      "duration": 3,
+      "id": "ec86"
     },
     {
       "id": "95a6",
@@ -438,5 +433,43 @@
       "check_out_date": "2024-08-29",
       "duration": 2
     }
-  ]
+  ],
+  "HotelAdmin": [
+    {
+      "id": "f420",
+      "name": "Biruk Amanuel ",
+      "email": "su1975165@gmail.com",
+      "password": "123",
+      "admin_type": "normal"
+    }
+  ],
+  "superadminStatistics": {
+    "hotelCount": 10,
+    "hotels": [
+      {
+        "hotel_id": 1,
+        "hotel_name": "Hotel One",
+        "location": "City Center",
+        "photo": "photo_url",
+        "rating": 4.5,
+        "subaccount_id": "sub_123"
+      },
+      {
+        "hotel_id": 2,
+        "hotel_name": "Hotel Two",
+        "location": "City Outskirts",
+        "photo": "photo_url",
+        "rating": 4.0,
+        "subaccount_id": "sub_124"
+      },
+      {
+        "hotel_id": 3,
+        "hotel_name": "Hotel Three",
+        "location": "Downtown",
+        "photo": "photo_url",
+        "rating": 3.8,
+        "subaccount_id": "sub_125"
+      }
+    ]
+  }
 }

@@ -1,0 +1,59 @@
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  margin-right: 20px;
+}
+
+.statItem i {
+  margin-right: 8px;
+}
+
+.container {
+  padding: 20px;
+}
+
+.heading {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+.analyticsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 0.5rem;
+  justify-content: center;
+}
+.charts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+.analyticsRow {
+  position: relative;
+  padding: 1rem 0.4rem;
+  background-color: rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+}
+.analyticsRow h4 {
+  font-size: 24px;
+  color: white;
+  padding-top: 15px;
+}
+.analyticsRow span {
+  color: rgb(110, 110, 110);
+  font-size: 13px;
+}
+.icon {
+  font-size: 25px;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}

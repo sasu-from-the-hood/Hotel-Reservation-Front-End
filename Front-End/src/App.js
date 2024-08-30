@@ -6,7 +6,8 @@ import AdminDashboard from "./Admin/AdminDashboard.jsx";
 import HotelListing from "./Hotel Listing/HotelListing.jsx";
 import Booking from "./Hotel Booking/Booking.jsx";
 import HotelRoom from "./Hotel Room/HotelRoom.jsx";
-import Reserv from "./reservation_status/status.jsx"; // Import the Reserv component
+import Reserv from "./reservation_status/status.jsx";
+import SuperAdmin from "./Super Admin/SuperAdmin.jsx";
 import Notification from "./Landing Page/Notification.jsx";
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/hotel-room/:id" element={<HotelRoom />} />
         <Route path="/Book/:id" element={<Booking />} />
         <Route path="/reservations" element={<Reserv />} />
+        <Route path="/SuperAdmin/*" element={<SuperAdmin />} />
         {/* Add the Reserv route */}
       </Routes>
     </Router>
