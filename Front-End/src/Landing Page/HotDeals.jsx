@@ -34,7 +34,12 @@ function HotDealCard({ deal }) {
   return (
     <section>
       <div className={styles.propertyCard}>
-        <img src={deal.photo} alt={deal.hotel_name} />
+        <img
+          src={`http://localhost:5000/hotel_image/${
+            deal.photo || "default.jpg"
+          }`}
+          alt={deal.hotel_name}
+        />
         <hr className={styles.divider} />
         <div className={styles.propertyDetails}>
           <span>{deal.hotel_name}</span>
