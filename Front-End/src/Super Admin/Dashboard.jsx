@@ -6,9 +6,6 @@ import {
   YAxis,
   Tooltip,
   Legend,
-  PieChart,
-  Pie,
-  Cell,
   LineChart,
   Line,
 } from "recharts";
@@ -20,54 +17,51 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Dashboard.module.css";
+import axios from "axios";
 
 const Dashboard = () => {
-  const [hotelCount, setHotelCount] = useState(0);
-  const [admins, setAdmins] = useState(0);
-  const [rooms, setRooms] = useState(0);
-  const [users, setUsers] = useState(0);
+  const [dashboardInfo, setDashboardInfo] = useState({
+    hotelCount: 0,
+    adminCount: 0,
+    roomCount: 0,
+    userCount: 0,
+    userRegistrationByMonth: {},
+  });
 
   useEffect(() => {
-    fetch("http://localhost:5000/superadmin/statistics")
-      .then((response) => response.json())
-      .then((data) => {
-        setHotelCount(data.hotelCount);
-        setAdmins(data.adminCount);
-        setRooms(data.roomCount);
-        setUsers(data.userCount);
+    // Fetch dashboard info
+    axios
+      .get("http://localhost:5000/superadmin/statistics", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       })
-      .catch((error) => console.error("Error fetching data:", error));
+      .then((response) => {
+        setDashboardInfo(response.data);
+      });
   }, []);
 
-  const userGrowthData = [
-    { date: "2024-08-01", users: 50 },
-    { date: "2024-08-08", users: 100 },
-    { date: "2024-08-15", users: 150 },
-    { date: "2024-08-22", users: 175 },
-    { date: "2024-08-29", users: 200 },
-  ];
+  const hotelRegistrationData = dashboardInfo.userRegistrationByMonth;
 
-  // Simulate month-to-month data for hotel registrations
-  const hotelRegistrationData = [
-    { month: "Jan", HotelRegistered: 2 },
-    { month: "Feb", HotelRegistered: 3 },
-    { month: "Mar", HotelRegistered: 4 },
-    { month: "Apr", HotelRegistered: 1 },
-    { month: "May", HotelRegistered: 2 },
-    { month: "Jun", HotelRegistered: 3 },
-    { month: "Jul", HotelRegistered: 4 },
-    { month: "Aug", HotelRegistered: 6 },
-  ];
+  // Function to generate user growth data across years
+  const generateUserGrowthData = () => {
+    let cumulativeUsers = 0;
+    const growthData = {};
 
-  // Data for the pie chart
-  // const pieChartData = [
-  //   { name: "Total Hotels", value: hotelCount },
-  //   { name: "Number of Admins", value: admins },
-  //   { name: "Number of Rooms", value: rooms },
-  //   { name: "Number of Users", value: users },
-  // ];
+    Object.entries(hotelRegistrationData).forEach(([year, data]) => {
+      growthData[year] = data.map((entry) => {
+        cumulativeUsers += entry.userCount;
+        return {
+          month: entry.month,
+          users: cumulativeUsers,
+        };
+      });
+    });
 
-  // const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+    return growthData;
+  };
+
+  const userGrowthData = generateUserGrowthData();
 
   return (
     <div className={styles.container}>
@@ -80,7 +74,7 @@ const Dashboard = () => {
             style={{ color: "#3498db" }}
             icon={faHotel}
           />
-          <h4>{hotelCount}</h4>
+          <h4>{dashboardInfo.hotelCount}</h4>
           <span>Total Hotels</span>
         </div>
         <div className={styles.analyticsRow}>
@@ -89,7 +83,7 @@ const Dashboard = () => {
             style={{ color: "#e74c3c" }}
             icon={faUserShield}
           />
-          <h4>{admins}</h4>
+          <h4>{dashboardInfo.adminCount}</h4>
           <span>Number of Admins</span>
         </div>
         <div className={styles.analyticsRow}>
@@ -98,7 +92,7 @@ const Dashboard = () => {
             style={{ color: "#2ecc71" }}
             icon={faBed}
           />
-          <h4>{rooms}</h4>
+          <h4>{dashboardInfo.roomCount}</h4>
           <span>Number of Rooms</span>
         </div>
         <div className={styles.analyticsRow}>
@@ -107,50 +101,41 @@ const Dashboard = () => {
             style={{ color: "#f1c40f" }}
             icon={faUsers}
           />
-          <h4>{users}</h4>
+          <h4>{dashboardInfo.userCount}</h4>
           <span>Number of Users</span>
         </div>
       </div>
+
       <div className={styles.charts}>
         {/* Bar Chart: Hotels Registered Per Month */}
-        <BarChart width={500} height={300} data={hotelRegistrationData}>
-          <XAxis dataKey="month" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="HotelRegistered" fill="#82ca9d" />
-        </BarChart>
-        {/* Pie Chart: Distribution of Stats */}
-        {/* <PieChart width={600} height={400}>
-          <Pie
-            data={pieChartData}
-            cx={240}
-            cy={200}
-            labelLine={false}
-            label={({ name, percent }) =>
-              `${name}: ${(percent * 100).toFixed(0)}%`
-            }
-            outerRadius={150}
-            fill="#8884d8"
-            dataKey="value"
-          >
-            {pieChartData.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-          </Pie>
-          <Tooltip />
-        </PieChart> */}
-        {/* Graph Section: User Growth */}
-        <LineChart width={650} height={350} data={userGrowthData}>
-          <XAxis dataKey="date" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="users" stroke="#8884d8" />
-        </LineChart>
+        {Object.entries(hotelRegistrationData).map(([year, data]) => (
+          <div key={year} className={styles.chartWrapper}>
+            <h3>{year} User Registrations</h3>
+            <BarChart width={500} height={300} data={data}>
+              <XAxis dataKey="month" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="userCount" fill="#82ca9d" />
+            </BarChart>
+          </div>
+        ))}
+      </div>
+
+      <div className={styles.charts}>
+        {/* Line Charts: User Growth for Each Year */}
+        {Object.entries(userGrowthData).map(([year, data]) => (
+          <div key={year} className={styles.chartWrapper}>
+            <h3>{year} User Growth</h3>
+            <LineChart width={650} height={350} data={data}>
+              <XAxis dataKey="month" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="users" stroke="#8884d8" />
+            </LineChart>
+          </div>
+        ))}
       </div>
     </div>
   );

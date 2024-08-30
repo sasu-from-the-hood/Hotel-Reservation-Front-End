@@ -23,7 +23,7 @@ const Registration = () => {
       if (userType === "admin") {
         navigate("/admindashboard");
       } else if (userType === "superadmin") {
-        navigate("/superadmindashboard");
+        navigate("/superadmin");
       } else {
         navigate("/");
       }

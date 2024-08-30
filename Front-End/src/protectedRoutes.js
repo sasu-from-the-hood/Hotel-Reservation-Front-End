@@ -6,14 +6,14 @@ const ProtectedRoute = ({ allowedTypes }) => {
   const { isAuthenticated, userType, loading } = useAuth();
 
   if (loading) {
-    return <div>Loading...</div>; // You can replace this with a spinner or a more sophisticated loading screen.
+    return <div>Loading...</div>;
   }
 
   if (!isAuthenticated) {
     return <Navigate to="/registration" />;
   }
 
-  if (allowedTypes && !allowedTypes.includes(userType)) {
+  if (allowedTypes && userType !== allowedTypes) {
     return <Navigate to="/" />; // Redirect to home or a 403 page
   }
 

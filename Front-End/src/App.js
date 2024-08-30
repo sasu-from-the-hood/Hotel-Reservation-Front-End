@@ -16,8 +16,10 @@ const App = () => {
     <Router>
       <Routes>
         <Route index element={<Home />} />
-        <Route path="/superadmin/*" element={<SuperAdmin />} />
+        <Route element={<ProtectedRoute allowedTypes="user" />}>
         <Route path="/notification" element={<Notification />} />
+        </Route>
+     
         <Route path="/registration" element={<Registration />} />
         <Route path="/list-of-hotels" element={<HotelListing />} />
         <Route path="/hotel-room/:id" element={<HotelRoom />} />
@@ -27,6 +29,9 @@ const App = () => {
         </Route>
         <Route element={<ProtectedRoute allowedTypes="admin" />}>
           <Route path="/admindashboard/*" element={<AdminDashboard />} />
+        </Route>
+        <Route element={<ProtectedRoute allowedTypes="superadmin" />}>
+        <Route path="/superadmin/*" element={<SuperAdmin />} />
         </Route>
       </Routes>
     </Router>

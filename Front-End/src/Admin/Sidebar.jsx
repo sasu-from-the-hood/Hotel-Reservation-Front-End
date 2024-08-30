@@ -79,7 +79,7 @@ const Sidebar = ({ onClick, isSidebarOpen }) => {
               <span>{isSidebarOpen && "Change Password"}</span>
             </NavLink>
           </li>
-          <li onClick={logout}>
+          <li onClick={logout}style={{ cursor: "pointer" }}>
             <FontAwesomeIcon icon={faSignOutAlt} />
             <span>{isSidebarOpen && "Log out"}</span>
           </li>

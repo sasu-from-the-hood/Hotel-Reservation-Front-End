@@ -6,10 +6,13 @@ import {
   faChevronLeft,
   faChevronRight,
   faCog,
+  faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Sidebar.module.css";
+import { useAuth } from "../authcontext";
 
 const Sidebar = ({ onClick, isSidebarOpen }) => {
+  const { logout } = useAuth();
   return (
     <div
       className={`${styles.sidebar} ${
@@ -46,6 +49,10 @@ const Sidebar = ({ onClick, isSidebarOpen }) => {
               <FontAwesomeIcon icon={faCog} />
               <span>{isSidebarOpen && "Manage Hotel"}</span>
             </NavLink>
+          </li>
+          <li onClick={logout}style={{ cursor: "pointer" }}>
+            <FontAwesomeIcon icon={faSignOutAlt} />
+            <span>{isSidebarOpen && "Log out"}</span>
           </li>
         </ul>
       </nav>

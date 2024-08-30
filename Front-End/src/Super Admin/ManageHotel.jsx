@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styles from "./ManageHotel.module.css";
 import Modal from "./Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ManageHotels = () => {
   const [hotels, setHotels] = useState([]);
@@ -12,7 +15,7 @@ const ManageHotels = () => {
     hotel_name: "",
     location: "",
     photo: null,
-    rating: 0, // Default rating
+    rating: 0,
     subaccount_id: "",
   });
   const [newAdmin, setNewAdmin] = useState({
@@ -22,17 +25,27 @@ const ManageHotels = () => {
     admin_type: "",
     hotel_id: "",
   });
-  const [successMessage, setSuccessMessage] = useState("");
   const [editingHotel, setEditingHotel] = useState(null);
 
   useEffect(() => {
-    // Fetch hotels from the backend
-    fetch("http://localhost:5000/superadmin/statistics")
-      .then((response) => response.json())
-      .then((data) => {
-        setHotels(data.hotels);
+    axios
+      .get("http://localhost:5000/superadmin/hotels", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       })
-      .catch((error) => console.error(error));
+      .then((response) => {
+        const fetchedHotels = response.data.hotels || [];
+        setHotels(fetchedHotels.map((hotel) => ({
+          hotel_id: hotel.hotel_id,
+          hotel_name: hotel.hotel_name,
+          rating: hotel.rating,
+        })));
+      })
+      .catch((error) => {
+        console.error(error);
+        setHotels([]); // Set to an empty array on fetch error
+      });
   }, []);
 
   const handleHotelChange = (e) => {
@@ -57,7 +70,8 @@ const ManageHotels = () => {
     });
   };
 
-  const submitNewHotel = () => {
+  const handleSubmitHotel = (e) => {
+    e.preventDefault();
     const formData = new FormData();
     formData.append("hotel_name", newHotel.hotel_name);
     formData.append("location", newHotel.location);
@@ -65,66 +79,70 @@ const ManageHotels = () => {
     formData.append("rating", newHotel.rating);
     formData.append("subaccount_id", newHotel.subaccount_id);
 
-    fetch("http://localhost:5000/superadmin/add_hotels", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setShowAddHotelModal(false);
+    axios
+      .post("http://localhost:5000/superadmin/add_hotels", formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        const hotel_id = response.data.hotel;
 
-        // Automatically open the add admin modal and set the hotel ID
         setNewAdmin((prevAdmin) => ({
           ...prevAdmin,
-          hotel_id: data.hotel,
+          hotel_id: hotel_id,
         }));
         setShowAddAdminModal(true);
-
-        // Refresh the hotel list
         setHotels((prevHotels) => [
           ...prevHotels,
-          { ...newHotel, hotel_id: data.hotel },
+          { ...newHotel, hotel_id: hotel_id },
         ]);
+        setShowAddHotelModal(false);
+        toast.success("Hotel added successfully!");
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        toast.error("Error adding hotel");
+      });
   };
 
-  const submitNewAdmin = () => {
-    fetch("http://localhost:5000/superadmin/add_admin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newAdmin),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setShowAddAdminModal(false);
-        setSuccessMessage("Admin successfully added!");
-
-        // Clear the success message after a delay
-        setTimeout(() => {
-          setSuccessMessage("");
-        }, 3000);
+  const handleSubmitAdmin = (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:5000/superadmin/add_admin", newAdmin, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       })
-      .catch((error) => console.error(error));
+      .then(() => {
+        setShowAddAdminModal(false);
+        toast.success("Admin successfully added!");
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("Error adding admin");
+      });
   };
 
   const handleDeleteHotel = (hotel_id) => {
-    fetch(`http://localhost:5000/superadmin/delete_hotel/${hotel_id}`, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        // Remove deleted hotel from the list
+    axios
+      .delete(`http://localhost:5000/superadmin/delete_hotel/${hotel_id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then(() => {
         setHotels((prevHotels) =>
           prevHotels.filter((hotel) => hotel.hotel_id !== hotel_id)
         );
+        toast.success("Hotel deleted successfully!");
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        toast.error(error.response.data.error);
+      });
   };
 
   return (
@@ -133,10 +151,6 @@ const ManageHotels = () => {
       <button onClick={() => setShowAddHotelModal(true)}>
         Add a New Hotel
       </button>
-
-      {successMessage && (
-        <div className={styles.successMessage}>{successMessage}</div>
-      )}
 
       <table className={styles.table}>
         <thead>
@@ -169,7 +183,6 @@ const ManageHotels = () => {
         </tbody>
       </table>
 
-      {/* Modal for adding/editing a new hotel */}
       <Modal
         isOpen={showAddHotelModal}
         title={editingHotel ? "Edit Hotel" : "Add New Hotel"}
@@ -178,12 +191,7 @@ const ManageHotels = () => {
           setEditingHotel(null);
         }}
       >
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            submitNewHotel();
-          }}
-        >
+        <form onSubmit={handleSubmitHotel}>
           <div>
             <label>Hotel Name</label>
             <input
@@ -241,18 +249,12 @@ const ManageHotels = () => {
         </form>
       </Modal>
 
-      {/* Modal for adding a new admin */}
       <Modal
         isOpen={showAddAdminModal}
         title="Add New Admin"
         onClose={() => setShowAddAdminModal(false)}
       >
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            submitNewAdmin();
-          }}
-        >
+        <form onSubmit={handleSubmitAdmin}>
           <div>
             <label>Name</label>
             <input
@@ -307,6 +309,8 @@ const ManageHotels = () => {
           <button type="submit">Submit</button>
         </form>
       </Modal>
+
+      <ToastContainer />
     </div>
   );
 };
