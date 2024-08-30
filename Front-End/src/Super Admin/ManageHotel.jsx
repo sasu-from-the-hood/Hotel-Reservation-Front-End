@@ -6,13 +6,14 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const ManageHotels = () => {
   const [hotels, setHotels] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [showAddHotelModal, setShowAddHotelModal] = useState(false);
   const [showAddAdminModal, setShowAddAdminModal] = useState(false);
   const [newHotel, setNewHotel] = useState({
     hotel_name: "",
     location: "",
-    photo: "",
+    photo: null,
+    rating: 0, // Default rating
+    subaccount_id: "",
   });
   const [newAdmin, setNewAdmin] = useState({
     name: "",
@@ -25,14 +26,12 @@ const ManageHotels = () => {
   const [editingHotel, setEditingHotel] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/hotels")
+    // Fetch hotels from the backend
+    fetch("http://localhost:5000/superadmin/statistics")
       .then((response) => response.json())
-      .then((data) => setHotels(data))
-      .catch((error) => console.error(error));
-
-    fetch("http://localhost:5000/categories")
-      .then((response) => response.json())
-      .then((data) => setCategories(data))
+      .then((data) => {
+        setHotels(data.hotels);
+      })
       .catch((error) => console.error(error));
   }, []);
 
@@ -45,10 +44,9 @@ const ManageHotels = () => {
   };
 
   const handlePhotoChange = (e) => {
-    const file = e.target.files[0];
     setNewHotel((prevHotel) => ({
       ...prevHotel,
-      photo: file,
+      photo: e.target.files[0],
     }));
   };
 
@@ -60,19 +58,16 @@ const ManageHotels = () => {
   };
 
   const submitNewHotel = () => {
-    const hotelData = {
-      ...newHotel,
-      rating: 0, // Set default rating
-      subaccount_id: "sub_" + Math.random().toString(36).substr(2, 9), 
-      id: Math.random().toString(36).substr(2, 9), 
-    };
+    const formData = new FormData();
+    formData.append("hotel_name", newHotel.hotel_name);
+    formData.append("location", newHotel.location);
+    formData.append("photo", newHotel.photo);
+    formData.append("rating", newHotel.rating);
+    formData.append("subaccount_id", newHotel.subaccount_id);
 
-    fetch("http://localhost:5000/hotels", {
+    fetch("http://localhost:5000/superadmin/add_hotels", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(hotelData),
+      body: formData,
     })
       .then((response) => response.json())
       .then((data) => {
@@ -82,28 +77,26 @@ const ManageHotels = () => {
         // Automatically open the add admin modal and set the hotel ID
         setNewAdmin((prevAdmin) => ({
           ...prevAdmin,
-          hotel_id: data.hotel_id,
+          hotel_id: data.hotel,
         }));
         setShowAddAdminModal(true);
 
         // Refresh the hotel list
-        setHotels((prevHotels) => [...prevHotels, data]);
+        setHotels((prevHotels) => [
+          ...prevHotels,
+          { ...newHotel, hotel_id: data.hotel },
+        ]);
       })
       .catch((error) => console.error(error));
   };
 
   const submitNewAdmin = () => {
-    const adminData = {
-      ...newAdmin,
-      hotel_id: newAdmin.hotel_id || newHotel.hotel_id, // Ensure hotel_id is set
-    };
-
-    fetch("http://localhost:5000/HotelAdmin", {
+    fetch("http://localhost:5000/superadmin/add_admin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(adminData),
+      body: JSON.stringify(newAdmin),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -119,11 +112,19 @@ const ManageHotels = () => {
       .catch((error) => console.error(error));
   };
 
-  const getCategoriesForHotel = (hotelId) => {
-    return categories
-      .filter((category) => category.hotel_id === hotelId)
-      .map((category) => category.category_name)
-      .join(", ");
+  const handleDeleteHotel = (hotel_id) => {
+    fetch(`http://localhost:5000/superadmin/delete_hotel/${hotel_id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        // Remove deleted hotel from the list
+        setHotels((prevHotels) =>
+          prevHotels.filter((hotel) => hotel.hotel_id !== hotel_id)
+        );
+      })
+      .catch((error) => console.error(error));
   };
 
   return (
@@ -143,8 +144,7 @@ const ManageHotels = () => {
             <th>Hotel ID</th>
             <th>Hotel Name</th>
             <th>Rating</th>
-            <th>Categories</th>
-            <th>Action</th> {/* New column for actions */}
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -153,16 +153,13 @@ const ManageHotels = () => {
               <td>{hotel.hotel_id}</td>
               <td>{hotel.hotel_name}</td>
               <td>{hotel.rating}</td>
-              <td>{getCategoriesForHotel(hotel.hotel_id) || "N/A"}</td>
               <td>
-                <button
-                //  onClick={() => handleEditHotel(hotel)}
-                >
+                <button>
                   <FontAwesomeIcon icon={faEdit} />
                 </button>
                 <button
                   style={{ marginLeft: "5px" }}
-                  // onClick={() => handleDeleteHotel(hotel.hotel_id)}
+                  onClick={() => handleDeleteHotel(hotel.hotel_id)}
                 >
                   <FontAwesomeIcon icon={faTrash} />
                 </button>
@@ -178,13 +175,12 @@ const ManageHotels = () => {
         title={editingHotel ? "Edit Hotel" : "Add New Hotel"}
         onClose={() => {
           setShowAddHotelModal(false);
-          setEditingHotel(null); // Clear editing hotel state
+          setEditingHotel(null);
         }}
       >
         <form
           onSubmit={(e) => {
             e.preventDefault();
-
             submitNewHotel();
           }}
         >
@@ -214,7 +210,27 @@ const ManageHotels = () => {
               type="file"
               name="photo"
               onChange={handlePhotoChange}
-              required={!editingHotel} // Photo is not required for editing
+              required
+            />
+          </div>
+          <div>
+            <label>Rating</label>
+            <input
+              type="number"
+              name="rating"
+              value={newHotel.rating}
+              onChange={handleHotelChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Subaccount ID</label>
+            <input
+              type="text"
+              name="subaccount_id"
+              value={newHotel.subaccount_id}
+              onChange={handleHotelChange}
+              required
             />
           </div>
           <div className={styles.btn}>
@@ -267,7 +283,6 @@ const ManageHotels = () => {
               required
             />
           </div>
-
           <div>
             <label>Admin Type</label>
             <input
@@ -281,7 +296,7 @@ const ManageHotels = () => {
           <div>
             <label>Hotel ID</label>
             <input
-              type="number"
+              type="text"
               name="hotel_id"
               value={newAdmin.hotel_id}
               onChange={handleAdminChange}

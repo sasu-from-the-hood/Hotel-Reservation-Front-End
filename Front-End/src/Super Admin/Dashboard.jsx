@@ -23,17 +23,18 @@ import styles from "./Dashboard.module.css";
 
 const Dashboard = () => {
   const [hotelCount, setHotelCount] = useState(0);
-  const [hotels, setHotels] = useState([]);
-  const [admins, setAdmins] = useState(5);
-  const [rooms, setRooms] = useState(100);
-  const [users, setUsers] = useState(200);
+  const [admins, setAdmins] = useState(0);
+  const [rooms, setRooms] = useState(0);
+  const [users, setUsers] = useState(0);
 
   useEffect(() => {
-    fetch("http://localhost:5000/superadminStatistics")
+    fetch("http://localhost:5000/superadmin/statistics")
       .then((response) => response.json())
       .then((data) => {
         setHotelCount(data.hotelCount);
-        setHotels(data.hotels);
+        setAdmins(data.adminCount);
+        setRooms(data.roomCount);
+        setUsers(data.userCount);
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);

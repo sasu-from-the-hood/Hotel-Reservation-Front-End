@@ -53,7 +53,7 @@ export default function HotelListing() {
 
   return (
     <main>
-      <Navbar/>
+      <Navbar />
       <div className={styles.hotelListContainer}>
         <h1>Hotel Listing</h1>
         <div>
@@ -72,7 +72,12 @@ export default function HotelListing() {
           {filteredHotels.map((hotel) => (
             <div className={styles.hotel} key={hotel.id}>
               <div className={styles.hotelService}>
-                <img src={hotel.photo} alt={hotel.hotel_name} />
+                <img
+                  src={`http://localhost:5000/hotel_image/${
+                    hotel.photo || "default.jpg"
+                  }`}
+                  alt={hotel.hotel_name}
+                />
                 <p>
                   {typeof hotel.rating === "number"
                     ? hotel.rating.toFixed(1)
