@@ -1,0 +1,161 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+.container div h2 {
+  color: #ccc;
+}
+.container h1 {
+  color: #d49d44;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+.modalHeader {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.modalHeader h3 {
+  color: black;
+  font-size: 1rem;
+}
+.modalContent form label {
+  color: black;
+  white-space: nowrap;
+}
+.modalContent form div {
+  display: flex;
+  gap: 5rem;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+.modalContent form div input {
+  /* background-color: red; */
+  border: 1px solid black;
+}
+.buildingIcon {
+  color: rgb(170, 170, 170);
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 8px;
+  padding: 0.4rem;
+}
+.table th,
+.table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+.table td {
+  color: #f4f4f4;
+}
+.table th {
+  background-color: #f4f4f4;
+}
+.table img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+.formContainer {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; 
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+}
+button {
+  padding: 0.75rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+.pagination {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; 
+}
+
+.modalContent {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+
+.modalBtn {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.modalBtn button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modalBtn button.cancelBtn {
+  background-color: #f44336; 
+}
+
+.modalBtn button:hover {
+  opacity: 0.9;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

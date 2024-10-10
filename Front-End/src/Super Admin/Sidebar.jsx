@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,9 +10,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Sidebar.module.css";
 import { useAuth } from "../authcontext";
+import ConfirmationModal from "../Admin/ConfirmationModal"; // Import the ConfirmationModal component
 
 const Sidebar = ({ onClick, isSidebarOpen }) => {
   const { logout } = useAuth();
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
+
+  // Function to handle logout confirmation
+  const handleConfirmLogout = () => {
+    logout(); // Perform the logout
+    setIsModalOpen(false); // Close the modal after confirming
+  };
+
   return (
     <div
       className={`${styles.sidebar} ${
@@ -50,12 +59,22 @@ const Sidebar = ({ onClick, isSidebarOpen }) => {
               <span>{isSidebarOpen && "Manage Hotel"}</span>
             </NavLink>
           </li>
-          <li onClick={logout}style={{ cursor: "pointer" }}>
+          <li
+            onClick={() => setIsModalOpen(true)} // Open the confirmation modal on click
+            style={{ cursor: "pointer" }}
+          >
             <FontAwesomeIcon icon={faSignOutAlt} />
             <span>{isSidebarOpen && "Log out"}</span>
           </li>
         </ul>
       </nav>
+
+      {/* Render the ConfirmationModal */}
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleConfirmLogout}
+      />
     </div>
   );
 };

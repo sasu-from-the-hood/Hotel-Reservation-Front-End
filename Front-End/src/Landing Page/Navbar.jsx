@@ -3,12 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Notification from "./Notification";
+import ConfirmationModal from "../Admin/ConfirmationModal"; // Import the ConfirmationModal
 import { useAuth } from "../authcontext"; // Import useAuth from your context
 import styles from "./Navbar.module.css";
 
 const Navbar = () => {
   const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
   const notificationRef = useRef(null);
   const navigate = useNavigate();
 
@@ -39,7 +41,12 @@ const Navbar = () => {
     setIsNotificationVisible((prev) => !prev);
   };
 
-  const handleLogout = () => {
+  const handleLogoutClick = () => {
+    setIsModalOpen(true); // Open the confirmation modal
+  };
+
+  const handleConfirmLogout = () => {
+    setIsModalOpen(false);
     logout(); // Call the logout function from your context
     navigate("/"); // Redirect to home page after logout
   };
@@ -131,7 +138,7 @@ const Navbar = () => {
             >
               <FontAwesomeIcon icon={faBell} />
             </button>
-            <button className={styles.navButton} onClick={handleLogout}>
+            <button className={styles.navButton} onClick={handleLogoutClick}>
               Log Out
             </button>
           </>
@@ -146,10 +153,7 @@ const Navbar = () => {
         )}
       </div>
       {isNotificationVisible && (
-        <div
-          ref={notificationRef}
-          className={styles.notificationOverlay}
-        >
+        <div ref={notificationRef} className={styles.notificationOverlay}>
           <Notification />
         </div>
       )}
@@ -200,7 +204,7 @@ const Navbar = () => {
           </Link>
         )}
         {isAuthenticated ? (
-          <button className={styles.navButton} onClick={handleLogout}>
+          <button className={styles.navButton} onClick={handleLogoutClick}>
             Log Out
           </button>
         ) : (
@@ -213,6 +217,12 @@ const Navbar = () => {
           </Link>
         )}
       </div>
+      {/* Confirmation Modal for Logout */}
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleConfirmLogout}
+      />
     </nav>
   );
 };

@@ -2,17 +2,16 @@ body {
   background-color: #252629;
 }
 
-.dashboardContainer {
+/* .dashboardContainer {
   display: flex;
   min-height: 100vh;
 }
 
 .content {
   flex: 1;
-  /* padding: 20px; */
   background-color: #252629;
   transition: padding-left 0.3s ease;
-}
+} */
 
 .contentOpen {
   padding-left: 250px;

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../Hotel Listing/HotelListing.module.css";
-// import styles from "./HotDeals.module.css";
+import styles from "./HotelListing.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faWifi,
@@ -12,7 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import LoadingPage from "../components/LoadingPage";
 
-export default function HotDeals() {
+export default function HotelListing() {
   const [topHotels, setTopHotels] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -45,7 +44,7 @@ export default function HotDeals() {
   return (
     <main>
       <div className={styles.hotelListContainer}>
-        <h3 className={styles.title}>Top 3 Rated Hotels</h3>
+        <h1>Top 3 Rated Hotels</h1>
         <div className={styles.hotelListGrid}>
           {topHotels.map((hotel) => (
             <div className={styles.hotel} key={hotel.hotel_id}>

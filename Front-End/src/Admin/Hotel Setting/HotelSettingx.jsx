@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBuilding } from "@fortawesome/free-solid-svg-icons";
 import styles from "./HotelSetting.module.css";
 
 const HotelSetting = () => {
@@ -13,6 +15,7 @@ const HotelSetting = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7;
   const [editingCategory, setEditingCategory] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const fetchCategories = () => {
     fetch("http://localhost:5000/admin/category", {
@@ -72,7 +75,7 @@ const HotelSetting = () => {
       .then((response) => response.json())
       .then((data) => {
         alert("Category and rooms added successfully");
-        fetchCategories(); // Refresh categories after adding
+        fetchCategories();
         setNewCategory({
           name: "",
           price: "",
@@ -82,6 +85,18 @@ const HotelSetting = () => {
         });
       })
       .catch((error) => console.error("Error adding category:", error));
+  };
+
+  const handleEditClick = (category) => {
+    setEditingCategory(category);
+    setNewCategory({
+      name: category.category_name,
+      price: category.price,
+      description: category.description,
+      rooms: category.total_rooms,
+      photo: null,
+    });
+    setShowModal(true);
   };
 
   const handleUpdateCategory = (e, category) => {
@@ -114,6 +129,7 @@ const HotelSetting = () => {
       .then((updatedCategory) => {
         alert("Category updated successfully");
         fetchCategories(); // Refresh categories after updating
+        setShowModal(false); // Close the modal
         setEditingCategory(null);
       })
       .catch((error) => console.error("Error updating category:", error));
@@ -166,41 +182,11 @@ const HotelSetting = () => {
                 </td>
                 <td>
                   <button
-                    onClick={() => setEditingCategory(category)}
+                    onClick={() => handleEditClick(category)}
                     className={styles.actionButton}
                   >
                     Edit
                   </button>
-                  {editingCategory &&
-                    editingCategory.category_id === category.category_id && (
-                      <form onSubmit={(e) => handleUpdateCategory(e, category)}>
-                        <div>
-                          <input
-                            type="text"
-                            name="name"
-                            defaultValue={category.category_name}
-                            onChange={handleInputChange}
-                          />
-                          <input
-                            type="number"
-                            name="price"
-                            defaultValue={category.price}
-                            onChange={handleInputChange}
-                          />
-                          <textarea
-                            name="description"
-                            defaultValue={category.description}
-                            onChange={handleInputChange}
-                          ></textarea>
-                          <input
-                            type="file"
-                            name="photo"
-                            onChange={handleFileChange}
-                          />
-                          <button type="submit">Update</button>
-                        </div>
-                      </form>
-                    )}
                 </td>
               </tr>
             ))}
@@ -288,6 +274,62 @@ const HotelSetting = () => {
           </div>
         </form>
       </div>
+
+      {showModal && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <div className={styles.modalHeader}>
+              <FontAwesomeIcon
+                icon={faBuilding}
+                className={styles.buildingIcon}
+              />
+              <h3>Edit Category</h3>
+            </div>
+            <form onSubmit={(e) => handleUpdateCategory(e, editingCategory)}>
+              <div>
+                <label>Category Name:</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={newCategory.name}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label>Price:</label>
+                <input
+                  type="number"
+                  name="price"
+                  value={newCategory.price}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label>Description:</label>
+                <textarea
+                  name="description"
+                  value={newCategory.description}
+                  onChange={handleInputChange}
+                ></textarea>
+              </div>
+              <div>
+                <label>Photo:</label>
+                <input type="file" name="photo" onChange={handleFileChange} />
+              </div>
+              <div className={styles.modalBtn}>
+                <button type="submit">Save Changes</button>
+                <button
+                  type="button"
+                  onClick={() => setShowModal(false)}
+                  className={styles.cancelBtn}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

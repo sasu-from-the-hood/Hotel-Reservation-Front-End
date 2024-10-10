@@ -1,17 +1,20 @@
 .propertyCard {
-  width: 100%;
-  /* cursor: pointer; */
+  min-width: 23rem;
   box-shadow: -1px 1px 4px 3px rgba(0, 0, 0, 0.25);
   padding: 2px;
+  position: relative;
   transition: box-shadow 0.2s;
 }
-
+.section {
+  padding-top: 5rem;
+}
 .propertyCard:hover {
   box-shadow: -1px 1px 5px 4px rgba(0, 0, 0, 0.39);
 }
 .propertyCard img {
+  height: 40vh;
+  object-fit: cover;
   width: 100%;
-  padding-bottom: 1rem;
 }
 
 .propertyCard hr {
@@ -22,31 +25,38 @@
   align-items: center;
   justify-content: center;
   padding: 15px;
+  position: absolute;
+  top: 25%;
+  left: 35%;
 }
 .bookNow button {
-  border: none;
+  border: 2px solid rgb(31, 31, 196);
   padding: 0.6rem;
   cursor: pointer;
   color: #fff;
-  background-color: rgb(31, 31, 226);
-  border-radius: 10px;
+  background-color: transparent;
+  font-weight: bold;
+  transition: background-color 0.5s;
+}
+.bookNow button:hover {
+  background-color: rgb(31, 31, 196);
 }
 .propertyCardContent {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  gap: 0.15rem;
 }
 .propertyCardContent div {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 2rem;
+  justify-content: space-between;
+  color: #fff;
+  padding: 0 1rem;
 }
+
 .hotDealsTitle {
+  font-size: 2.5rem;
+  color: #af8c53;
   text-align: center;
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -55,7 +65,12 @@
 
 .hotDealsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  gap: 1.4rem;
-  padding: 1rem 4rem;
+  grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
+  gap: 16px;
+  padding: 0 4rem;
+  place-items: center;
+  justify-content: center;
+}
+.propertyCardDivider {
+  margin: 0.5rem 0;
 }

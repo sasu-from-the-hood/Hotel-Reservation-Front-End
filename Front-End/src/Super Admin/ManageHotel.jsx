@@ -36,11 +36,13 @@ const ManageHotels = () => {
       })
       .then((response) => {
         const fetchedHotels = response.data.hotels || [];
-        setHotels(fetchedHotels.map((hotel) => ({
-          hotel_id: hotel.hotel_id,
-          hotel_name: hotel.hotel_name,
-          rating: hotel.rating,
-        })));
+        setHotels(
+          fetchedHotels.map((hotel) => ({
+            hotel_id: hotel.hotel_id,
+            hotel_name: hotel.hotel_name,
+            rating: hotel.rating,
+          }))
+        );
       })
       .catch((error) => {
         console.error(error);

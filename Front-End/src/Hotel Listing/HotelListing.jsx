@@ -10,14 +10,14 @@ import {
   faBurger,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
-import Navbar from "../Landing Page/Navbar";
+import LoadingPage from "../components/LoadingPage";
 
 export default function HotelListing() {
   const [hotels, setHotels] = useState([]);
   const [defaultHotels, setDefaultHotels] = useState([]);
-
   const [searchTerm, setSearchTerm] = useState("");
   const [isSorted, setIsSorted] = useState(false);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,9 +25,13 @@ export default function HotelListing() {
       .then((response) => response.json())
       .then((data) => {
         setHotels(data);
-        setDefaultHotels(data); // Store the original hotel order
+        setDefaultHotels(data);
+        setLoading(false);
       })
-      .catch((error) => console.error("Error fetching hotels:", error));
+      .catch((error) => {
+        console.error("Error fetching hotels:", error);
+        setLoading(false);
+      });
   }, []);
 
   const handleViewDetail = (id) => {
@@ -51,9 +55,12 @@ export default function HotelListing() {
     hotel.hotel_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  if (loading) {
+    return <LoadingPage />;
+  }
+
   return (
     <main>
-      <Navbar />
       <div className={styles.hotelListContainer}>
         <h1>Hotel Listing</h1>
         <div>
@@ -81,7 +88,7 @@ export default function HotelListing() {
                 <p>
                   {typeof hotel.rating === "number"
                     ? hotel.rating.toFixed(1)
-                    : "N/A"}{" "}
+                    : "N/A"}
                   <FontAwesomeIcon icon={faStar} />
                 </p>
                 <div>
