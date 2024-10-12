@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import styles from "./Reserv.module.css";
+import styles from "./accountSetting.module.css";
 
 const AccountSettings = () => {
   const [accountData, setAccountData] = useState({
@@ -57,56 +57,61 @@ const AccountSettings = () => {
   if (error) return <div className={styles.error}>{error}</div>;
 
   return (
-    <form className={styles.accountForm} onSubmit={handleAccountUpdate}>
-      <label>
-        Name:
-        <input
-          type="text"
-          name="name"
-          value={accountData.name}
-          onChange={(e) =>
-            setAccountData({ ...accountData, name: e.target.value })
-          }
-        />
-      </label>
-      <label>
-        Email:
-        <input
-          type="email"
-          name="email"
-          value={accountData.email}
-          onChange={(e) =>
-            setAccountData({ ...accountData, email: e.target.value })
-          }
-        />
-      </label>
-      <label>
-        Phone Number:
-        <input
-          type="text"
-          name="phone_number"
-          value={accountData.phone_number}
-          onChange={(e) =>
-            setAccountData({ ...accountData, phone_number: e.target.value })
-          }
-        />
-      </label>
-      <label>
-        New Password:
-        <input type="password" name="password" />
-      </label>
-      <label>
-        ID Card Front Photo:
-        <input type="file" name="id_card_front" />
-      </label>
-      <label>
-        ID Card Back Photo:
-        <input type="file" name="id_card_back" />
-      </label>
-      <button type="submit" className={styles.saveButton}>
-        Update Account
-      </button>
-    </form>
+    <div className={styles.container}> {/* Container for styling */}
+      <h2 style={{ marginBottom: "20px", textAlign: "center", color: "#007bff" }}>
+        Account Settings
+      </h2>
+      <form className={styles.accountForm} onSubmit={handleAccountUpdate}>
+        <label>
+          Name:
+          <input
+            type="text"
+            name="name"
+            value={accountData.name}
+            onChange={(e) =>
+              setAccountData({ ...accountData, name: e.target.value })
+            }
+          />
+        </label>
+        <label>
+          Email:
+          <input
+            type="email"
+            name="email"
+            value={accountData.email}
+            onChange={(e) =>
+              setAccountData({ ...accountData, email: e.target.value })
+            }
+          />
+        </label>
+        <label>
+          Phone Number:
+          <input
+            type="text"
+            name="phone_number"
+            value={accountData.phone_number}
+            onChange={(e) =>
+              setAccountData({ ...accountData, phone_number: e.target.value })
+            }
+          />
+        </label>
+        <label>
+          New Password:
+          <input type="password" name="password" placeholder="Leave blank if not changing" />
+        </label>
+        <label>
+          ID Card Front Photo:
+          <input type="file" name="id_card_front" />
+        </label>
+        <label>
+          ID Card Back Photo:
+          <input type="file" name="id_card_back" />
+        </label>
+        <button type="submit" className={styles.saveButton}>
+          Update Account
+        </button>
+      </form>
+    </div>
   );
 };
 

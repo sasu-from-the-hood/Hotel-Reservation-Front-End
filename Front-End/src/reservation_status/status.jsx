@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import styles from "./Reserv.module.css";
+import { FaUserCircle, FaHotel, FaCalendarAlt, FaMoneyBillWave, FaCheckCircle, FaClock } from "react-icons/fa"; // Use FaClock for pending status
+import styles from "./reserv.module.css";
 
 const Status = () => {
   const [reservations, setReservations] = useState([]);
@@ -52,33 +53,63 @@ const Status = () => {
 
   return (
     <div className={styles.statusContainer}>
-      {reservations.length === 0 ? (
-        <div>No reservations found</div>
-      ) : (
-        reservations.map((reservation) => (
-          <div key={reservation.reservation_id} className={styles.card}>
-            <h2>Reservation ID: {reservation.reservation_id}</h2>
-            <p><strong>Hotel ID:</strong> {reservation.hotel_id}</p>
-            <p><strong>Category ID:</strong> {reservation.category_id}</p>
-            <p><strong>Room Number:</strong> {reservation.room_number}</p>
-            <p><strong>Reservation Date:</strong> {new Date(reservation.reservation_date).toLocaleDateString()}</p>
-            <p><strong>Duration:</strong> {reservation.duration} nights</p>
-            <p><strong>Total Price:</strong> {reservation.total_price} ETB</p>
-            <p><strong>Status:</strong> {reservation.reservation_status}</p>
-            <p><strong>Payment Status:</strong> {reservation.payment_status}</p>
-            {reservation.reservation_status === "accepted" && reservation.payment_status === "unpaid" && (
-              <button
-                className={styles.payButton}
-                onClick={() => handlePayment(reservation.total_price, reservation.hotel_id)}
-              >
-                Pay
-              </button>
-            )}
-          </div>
-        ))
-      )}
+      {/* Reservation Cards */}
+      <div className={styles.cardsContainer}>
+        {reservations.length === 0 ? (
+          <div className={styles.noReservations}>No reservations found</div>
+        ) : (
+          reservations.map((reservation) => {
+            const reservationDate = new Date(reservation.duration);
+
+            return (
+              <div key={reservation.reservation_id} className={styles.card}>
+                <h2>Reservation ID: {reservation.reservation_id}</h2>
+
+                {/* Group with Icons */}
+
+                <p><FaHotel /> <strong>Hotel ID:</strong> {reservation.hotel_id}</p>
+                <p><FaCalendarAlt /> <strong>Date:</strong> {reservationDate.toLocaleDateString()}</p>
+                <p><FaMoneyBillWave /> <strong>Total Price:</strong> {reservation.total_price} ETB</p>
+
+                {/* div for brack line*/}
+                <div className={styles.line}></div>
+                <p>
+                  <strong>Status:</strong> {reservation.reservation_status}
+                  {reservation.reservation_status === "accepted" ? (
+                    <FaCheckCircle color="green" />
+                  ) : (
+                    <FaClock color="orange" /> // Use FaClock for pending status
+                  )}
+                </p>
+
+
+
+
+                <p><strong>Duration:</strong> {reservation.duration} nights</p>
+                <p><strong>Category ID:</strong> {reservation.category_id}</p>
+                <p><strong>Room Number:</strong> {reservation.room_number}</p>
+                <p style={{ color: reservation.payment_status === "unpaid" ? "red" : "green" }}>
+                  <strong>Payment Status:</strong> {reservation.payment_status}
+                </p>
+
+
+                {reservation.reservation_status === "accepted" && reservation.payment_status === "unpaid" && (
+                  <button
+                    className={styles.payButton}
+                    onClick={() => handlePayment(reservation.total_price, reservation.hotel_id)}
+                  >
+                    Pay Now
+                  </button>
+                )}
+              </div>
+            );
+          })
+        )}
+      </div>
+
+      {/* Checkout Link */}
       {checkoutUrl && (
-        <div className={styles.checkoutContainer}>
+        <footer className={styles.footer}>
           <a
             href={checkoutUrl}
             target="_blank"
@@ -87,7 +118,7 @@ const Status = () => {
           >
             Pay using Chapa
           </a>
-        </div>
+        </footer>
       )}
     </div>
   );

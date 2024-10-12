@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import styles from "./Reserv.module.css";
-// import BackToHome from "../components/BackToHome.jsx";
+import styles from "./reserv.module.css";
 import Sidebar from "./Sidebar";
-import Status from "./Status";
+import Status from "./status";
 import AccountSettings from "./AccountSettings";
 
 const Reserv = () => {
@@ -10,13 +9,13 @@ const Reserv = () => {
 
   return (
     <div className={styles.container}>
-      {/* <BackToHome /> */}
       <div className={styles.dashboard}>
         <Sidebar
-          activeSection={activeSection}
-          setActiveSection={setActiveSection}
+          activeSection={activeSection} // Pass activeSection to Sidebar
+          setActiveSection={setActiveSection} // Pass setActiveSection to Sidebar
         />
         <div className={styles.content}>
+          {/* Render the active section */}
           {activeSection === "status" ? <Status /> : <AccountSettings />}
         </div>
       </div>
