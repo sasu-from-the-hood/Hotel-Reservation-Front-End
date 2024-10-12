@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Sidebar from "./Sidebar.jsx";
 import Dashboard from "./Dashboard.jsx";
-import ManageHotel from "./ManageHotel.jsx";
+import ManageHotel from "./Manage Hotel/ManageHotels.jsx";
 import styles from "./SuperAdmin.module.css";
 import { useState } from "react";
 

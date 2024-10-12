@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBuilding } from "@fortawesome/free-solid-svg-icons";
 import styles from "./HotelSetting.module.css";
 
 const HotelSetting = () => {
@@ -13,7 +15,11 @@ const HotelSetting = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7;
   const [editingCategory, setEditingCategory] = useState(null);
+<<<<<<< HEAD:Front-End/src/Admin/HotelSetting.jsx
   const [isModalOpen, setIsModalOpen] = useState(false);
+=======
+  const [showModal, setShowModal] = useState(false);
+>>>>>>> 787dd9bf7f3eb868b3cfbca1912bd2160ccf5d68:Front-End/src/Admin/Hotel Setting/HotelSettingx.jsx
 
   const fetchCategories = () => {
     fetch("http://localhost:5000/admin/category", {
@@ -73,7 +79,7 @@ const HotelSetting = () => {
       .then((response) => response.json())
       .then((data) => {
         alert("Category and rooms added successfully");
-        fetchCategories(); // Refresh categories after adding
+        fetchCategories();
         setNewCategory({
           name: "",
           price: "",
@@ -85,7 +91,23 @@ const HotelSetting = () => {
       .catch((error) => console.error("Error adding category:", error));
   };
 
+<<<<<<< HEAD:Front-End/src/Admin/HotelSetting.jsx
   const handleUpdateCategory = (e) => {
+=======
+  const handleEditClick = (category) => {
+    setEditingCategory(category);
+    setNewCategory({
+      name: category.category_name,
+      price: category.price,
+      description: category.description,
+      rooms: category.total_rooms,
+      photo: null,
+    });
+    setShowModal(true);
+  };
+
+  const handleUpdateCategory = (e, category) => {
+>>>>>>> 787dd9bf7f3eb868b3cfbca1912bd2160ccf5d68:Front-End/src/Admin/Hotel Setting/HotelSettingx.jsx
     e.preventDefault();
 
     const formData = new FormData();
@@ -115,6 +137,7 @@ const HotelSetting = () => {
       .then((updatedCategory) => {
         alert("Category updated successfully");
         fetchCategories(); // Refresh categories after updating
+        setShowModal(false); // Close the modal
         setEditingCategory(null);
         setIsModalOpen(false);
       })
@@ -184,7 +207,11 @@ const HotelSetting = () => {
                 </td>
                 <td>
                   <button
+<<<<<<< HEAD:Front-End/src/Admin/HotelSetting.jsx
                     onClick={() => openModal(category)}
+=======
+                    onClick={() => handleEditClick(category)}
+>>>>>>> 787dd9bf7f3eb868b3cfbca1912bd2160ccf5d68:Front-End/src/Admin/Hotel Setting/HotelSettingx.jsx
                     className={styles.actionButton}
                   >
                     Edit
@@ -277,6 +304,7 @@ const HotelSetting = () => {
         </form>
       </div>
 
+<<<<<<< HEAD:Front-End/src/Admin/HotelSetting.jsx
       {/* Modal for Editing Category */}
       {isModalOpen && (
         <div className={styles.modal}>
@@ -286,6 +314,19 @@ const HotelSetting = () => {
             </span>
             <h2>Edit Category</h2>
             <form onSubmit={handleUpdateCategory}>
+=======
+      {showModal && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <div className={styles.modalHeader}>
+              <FontAwesomeIcon
+                icon={faBuilding}
+                className={styles.buildingIcon}
+              />
+              <h3>Edit Category</h3>
+            </div>
+            <form onSubmit={(e) => handleUpdateCategory(e, editingCategory)}>
+>>>>>>> 787dd9bf7f3eb868b3cfbca1912bd2160ccf5d68:Front-End/src/Admin/Hotel Setting/HotelSettingx.jsx
               <div>
                 <label>Category Name:</label>
                 <input
@@ -293,7 +334,10 @@ const HotelSetting = () => {
                   name="name"
                   value={newCategory.name}
                   onChange={handleInputChange}
+<<<<<<< HEAD:Front-End/src/Admin/HotelSetting.jsx
                   required
+=======
+>>>>>>> 787dd9bf7f3eb868b3cfbca1912bd2160ccf5d68:Front-End/src/Admin/Hotel Setting/HotelSettingx.jsx
                 />
               </div>
               <div>
@@ -303,7 +347,10 @@ const HotelSetting = () => {
                   name="price"
                   value={newCategory.price}
                   onChange={handleInputChange}
+<<<<<<< HEAD:Front-End/src/Admin/HotelSetting.jsx
                   required
+=======
+>>>>>>> 787dd9bf7f3eb868b3cfbca1912bd2160ccf5d68:Front-End/src/Admin/Hotel Setting/HotelSettingx.jsx
                 />
               </div>
               <div>
@@ -312,6 +359,7 @@ const HotelSetting = () => {
                   name="description"
                   value={newCategory.description}
                   onChange={handleInputChange}
+<<<<<<< HEAD:Front-End/src/Admin/HotelSetting.jsx
                   required
                 ></textarea>
               </div>
@@ -331,6 +379,23 @@ const HotelSetting = () => {
               </div>
               <div className={styles.btn}>
                 <button type="submit">Update Category</button>
+=======
+                ></textarea>
+              </div>
+              <div>
+                <label>Photo:</label>
+                <input type="file" name="photo" onChange={handleFileChange} />
+              </div>
+              <div className={styles.modalBtn}>
+                <button type="submit">Save Changes</button>
+                <button
+                  type="button"
+                  onClick={() => setShowModal(false)}
+                  className={styles.cancelBtn}
+                >
+                  Cancel
+                </button>
+>>>>>>> 787dd9bf7f3eb868b3cfbca1912bd2160ccf5d68:Front-End/src/Admin/Hotel Setting/HotelSettingx.jsx
               </div>
             </form>
           </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -14,9 +14,32 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Sidebar.module.css";
 import { useAuth } from "../authcontext";
+import ConfirmationModal from "./ConfirmationModal";
 
 const Sidebar = ({ onClick, isSidebarOpen }) => {
   const { logout } = useAuth();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleLogoutClick = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
+  const handleConfirmLogout = () => {
+    setIsModalOpen(false);
+    logout();
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 700 && isSidebarOpen) {
+        onClick(); // Close the sidebar
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isSidebarOpen, onClick]);
 
   return (
     <div
@@ -60,7 +83,6 @@ const Sidebar = ({ onClick, isSidebarOpen }) => {
               <span>{isSidebarOpen && "Bookings"}</span>
             </NavLink>
           </li>
-
           <li>
             <NavLink to="/admindashboard/HotelSetting">
               <FontAwesomeIcon icon={faCog} />
@@ -79,12 +101,18 @@ const Sidebar = ({ onClick, isSidebarOpen }) => {
               <span>{isSidebarOpen && "Change Password"}</span>
             </NavLink>
           </li>
-          <li onClick={logout}style={{ cursor: "pointer" }}>
+          <li onClick={handleLogoutClick} style={{ cursor: "pointer" }}>
             <FontAwesomeIcon icon={faSignOutAlt} />
             <span>{isSidebarOpen && "Log out"}</span>
           </li>
         </ul>
       </nav>
+
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmLogout}
+      />
     </div>
   );
 };

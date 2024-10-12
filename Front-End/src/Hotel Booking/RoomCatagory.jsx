@@ -1,7 +1,13 @@
 import React from "react";
 import styles from "./RoomCatagory.module.css";
 import { useNavigate } from "react-router-dom";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBed,
+  faDollarSign,
+  faHotel,
+  faCheck,
+} from "@fortawesome/free-solid-svg-icons";
 export default function RoomSuits({ categories }) {
   const navigate = useNavigate();
 
@@ -21,7 +27,7 @@ export default function RoomSuits({ categories }) {
   }
 
   return (
-    <section>
+    <section className={styles.section}>
       <h1 className={styles.hotDealsTitle}>Room Category</h1>
       <div className={styles.hotDealsGrid}>
         {categories.map((category) => (
@@ -36,20 +42,38 @@ export default function RoomSuits({ categories }) {
               src={`http://localhost:5000/hotel_image/${
                 category.photo || "default.jpg"
               }`} // URL path to the image
-              alt={category.category_name || "Category Image"} // Alt text for accessibility
+              alt={category.category_name || "Category Image"}
             />
-            <hr className="property-card-divider" />
+            <hr className={styles.propertyCardDivider} />
             <div className={styles.propertyCardContent}>
               <div>
-                <span>{category.category_name}</span>
-                <span>Price: {category.price.toFixed(2)} ETB</span>
+                <div>
+                  <FontAwesomeIcon icon={faBed} color="#8B4513" /> Room Type:
+                </div>
+                <div>{category.category_name}</div>
               </div>
               <div>
-                <span>Total Rooms: {category.total_rooms}</span>
-                <span>Available Rooms: {category.available_rooms}</span>
+                <div>
+                  <FontAwesomeIcon icon={faDollarSign} color="#28A745" /> Price:
+                </div>
+                <div>{category.price.toFixed(2)} ETB</div>
+              </div>
+              <div>
+                <div>
+                  <FontAwesomeIcon icon={faHotel} color="#6C757D" /> Total
+                  Rooms:
+                </div>
+                <div>{category.total_rooms}</div>
+              </div>
+              <div>
+                <div>
+                  <FontAwesomeIcon icon={faCheck} color="#007BFF" /> Available
+                  Rooms:
+                </div>
+                <div>{category.available_rooms}</div>
               </div>
             </div>
-            <hr className="property-card-divider" />
+            <hr className={styles.propertyCardDivider} />
             <div className={styles.bookNow}>
               <button onClick={() => handleCardClick(category)}>
                 BOOK NOW

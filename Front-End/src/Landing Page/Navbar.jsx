@@ -3,12 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Notification from "./Notification";
+import ConfirmationModal from "../Admin/ConfirmationModal"; // Import the ConfirmationModal
 import { useAuth } from "../authcontext"; // Import useAuth from your context
 import styles from "./Navbar.module.css";
 
 const Navbar = () => {
   const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
   const notificationRef = useRef(null);
   const navigate = useNavigate();
 
@@ -20,17 +22,18 @@ const Navbar = () => {
 
   const handleLinkClick = (e, targetId) => {
     e.preventDefault();
-    const targetElement = document.getElementById(targetId);
 
-    if (targetElement) {
-      window.scrollTo({
-        top: targetElement.offsetTop,
-        behavior: "smooth",
-      });
+    if (window.location.pathname !== "/") {
+      navigate("/", { state: { targetId } });
+    } else {
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: "smooth" });
+      }
     }
 
     if (isMobileMenuActive) {
-      setIsMobileMenuActive(false);
+      setIsMobileMenuActive(false); // Close mobile menu on link click
     }
   };
 
@@ -39,7 +42,12 @@ const Navbar = () => {
     setIsNotificationVisible((prev) => !prev);
   };
 
-  const handleLogout = () => {
+  const handleLogoutClick = () => {
+    setIsModalOpen(true); // Open the confirmation modal
+  };
+
+  const handleConfirmLogout = () => {
+    setIsModalOpen(false);
     logout(); // Call the logout function from your context
     navigate("/"); // Redirect to home page after logout
   };
@@ -80,46 +88,42 @@ const Navbar = () => {
           isMobileMenuActive ? styles.active : ""
         }`}
       >
-        <Link
-          to="#home"
+        <a
+          href="#home"
           className={styles.navLink}
           onClick={(e) => handleLinkClick(e, "home")}
         >
           Home
-        </Link>
-        <Link
-          to="#hot-deals"
+        </a>
+        <a
+          href="#hot-deals"
           className={styles.navLink}
           onClick={(e) => handleLinkClick(e, "hot-deals")}
         >
           Hot Deals
-        </Link>
-        <Link
-          to="#about-us"
+        </a>
+        <a
+          href="#about-us"
           className={styles.navLink}
           onClick={(e) => handleLinkClick(e, "about-us")}
         >
           About Us
-        </Link>
-        <Link
-          to="#contact-us"
+        </a>
+        <a
+          href="#contact-us"
           className={styles.navLink}
           onClick={(e) => handleLinkClick(e, "contact-us")}
         >
           Contact Us
-        </Link>
+        </a>
         {isAuthenticated && (
-          <Link
-            to="/reservations"
+          <a
+            href="#reservations"
             className={styles.navLink}
-            onClick={(e) => {
-              e.preventDefault();
-              handleMenuToggle();
-              navigate("/reservations");
-            }}
+            onClick={() => navigate("/reservations")}
           >
             Status
-          </Link>
+          </a>
         )}
       </div>
       <div className={styles.navButtons}>
@@ -131,25 +135,22 @@ const Navbar = () => {
             >
               <FontAwesomeIcon icon={faBell} />
             </button>
-            <button className={styles.navButton} onClick={handleLogout}>
+            <button className={styles.navButton} onClick={handleLogoutClick}>
               Log Out
             </button>
           </>
         ) : (
-          <Link
-            to="/registration"
+          <a
+            href="#registration"
             className={styles.navButton}
-            onClick={handleMenuToggle}
+            onClick={() => navigate("/registration")}
           >
             Sign Up / Login
-          </Link>
+          </a>
         )}
       </div>
       {isNotificationVisible && (
-        <div
-          ref={notificationRef}
-          className={styles.notificationOverlay}
-        >
+        <div ref={notificationRef} className={styles.notificationOverlay}>
           <Notification />
         </div>
       )}
@@ -158,61 +159,69 @@ const Navbar = () => {
           isMobileMenuActive ? styles.active : ""
         }`}
       >
-        <Link
-          to="#home"
+        <a
+          href="#home"
           className={styles.navLink}
           onClick={(e) => handleLinkClick(e, "home")}
         >
           Home
-        </Link>
-        <Link
-          to="#hot-deals"
+        </a>
+        <a
+          href="#hot-deals"
           className={styles.navLink}
           onClick={(e) => handleLinkClick(e, "hot-deals")}
         >
           Hot Deals
-        </Link>
-        <Link
-          to="#about-us"
+        </a>
+        <a
+          href="#about-us"
           className={styles.navLink}
           onClick={(e) => handleLinkClick(e, "about-us")}
         >
           About Us
-        </Link>
-        <Link
-          to="#contact-us"
+        </a>
+        <a
+          href="#contact-us"
           className={styles.navLink}
           onClick={(e) => handleLinkClick(e, "contact-us")}
         >
           Contact Us
-        </Link>
+        </a>
         {isAuthenticated && (
-          <Link
-            to="/reservations"
+          <a
+            href="#reservations"
             className={styles.navLink}
-            onClick={(e) => {
-              e.preventDefault();
+            onClick={() => {
               handleMenuToggle();
               navigate("/reservations");
             }}
           >
             Status
-          </Link>
+          </a>
         )}
         {isAuthenticated ? (
-          <button className={styles.navButton} onClick={handleLogout}>
+          <button className={styles.navButton} onClick={handleLogoutClick}>
             Log Out
           </button>
         ) : (
-          <Link
-            to="/registration"
+          <a
+            href="#registration"
             className={styles.navButton}
-            onClick={handleMenuToggle}
+            onClick={() => {
+              handleMenuToggle();
+              navigate("/registration");
+            }}
           >
             Sign Up / Login
-          </Link>
+          </a>
         )}
       </div>
+      {/* Confirmation Modal for Logout */}
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleConfirmLogout}
+      />
     </nav>
   );
 };

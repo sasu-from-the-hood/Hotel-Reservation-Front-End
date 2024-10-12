@@ -5,8 +5,14 @@ main {
   padding: 1rem 4rem;
   background-color: #fff;
 }
+.title {
+  font-size: 2.5rem;
+  color: #af8c53;
+  letter-spacing: 0.2rem;
+  padding: 2% 0;
+}
 .hotelListContainer h1 {
-  color: #000;
+  color: #fff;
   font-size: 3.4rem;
   letter-spacing: 0.3rem;
 }
@@ -20,26 +26,17 @@ main {
 }
 .hotelListGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
   gap: 2rem;
-  /* justify-content: center; */
 }
 .hotelListGrid img {
   width: 100%;
   height: 40vh;
   object-fit: cover;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
 }
 .hotel {
   background-color: rgba(0, 0, 0, 0.3);
-  border-top-right-radius: 22px;
-  border-top-left-radius: 22px;
-  border-bottom-left-radius: 22px;
-  border-bottom-right-radius: 22px;
-  max-width: 23rem;
   width: 100%;
-  margin: 0 auto;
 }
 .sortBtn {
   border: none;
@@ -73,7 +70,7 @@ main {
   color: rgb(47, 47, 250);
 }
 .icon {
-  color: #2c2b2b;
+  color: #000;
 }
 .hotelServices div a {
   color: rgb(106, 183, 209);
@@ -92,8 +89,6 @@ main {
 .hotelServicesCon {
   padding: 10px;
   background-color: rgb(240, 240, 240);
-  border-bottom-left-radius: 22px;
-  border-bottom-right-radius: 22px;
 }
 .hotelServicesCon h2 {
   text-align: center;
@@ -136,7 +131,7 @@ main {
   border: 1px solid #d49d44;
 }
 @media (max-width: 600px) {
-  .hotelListContainer h1 {
+  .hotelListContainer h3 {
     font-size: 2.4rem;
   }
 }

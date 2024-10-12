@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from "../authcontext";
 import "./registration.css";
+import BackToHome from "./BackToHome";
 
 const VAPID_PUBLIC_KEY =
   "BIhj2zEAAFg6PBWWA54Zu_c3gmDsm-p5U_0fPUI22hK3QLb03BAR-FatR2sI5u2OqVeuEshruPDE_PXJ6Nrlr_8";
@@ -189,11 +190,7 @@ const Registration = () => {
 
   return (
     <div>
-      <Link to="/">
-        <div className="registration-logo">
-          <img src="img/nafLogo.png" alt="Logo" />
-        </div>
-      </Link>
+      <BackToHome />
       <div className="registration-container">
         <div className={`wrapper ${isSignup ? "active" : ""}`}>
           <div className="form signup">

@@ -4,7 +4,7 @@ import Dashboard from "./Dashboard";
 import RoomManagement from "./RoomManagement";
 import Bookings from "./Bookings";
 import ChangePassword from "./ChangePassword";
-import HotelSetting from "./HotelSetting";
+import HotelSetting from "./Hotel Setting/HotelSetting";
 import ManualReservation from "./ManualReservation";
 import styles from "./AdminDashboard.module.css";
 import { useState } from "react";

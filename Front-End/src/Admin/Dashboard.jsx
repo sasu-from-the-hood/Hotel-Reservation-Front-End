@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBed,
@@ -27,8 +27,8 @@ const Dashboard = () => {
   const handleDeclineClick = () => {
     setShowDeclineForm(true);
   };
+
   useEffect(() => {
-    // Fetch dashboard info
     axios
       .get("http://localhost:5000/admin/dashboard", {
         headers: {
@@ -40,13 +40,11 @@ const Dashboard = () => {
       });
   }, []);
 
-
   const toggleNotifications = () => {
     setShowNotifications(!showNotifications);
   };
 
   const handleViewDetail = (id) => {
-    alert(id)
     axios
       .get(`http://localhost:5000/admin/reservation/${id}`, {
         headers: {
@@ -60,13 +58,12 @@ const Dashboard = () => {
   };
 
   const handleAccept = () => {
-    const id = selectedReservation.reservation_id; // Get the ID from the selectedReservation state
-  
+    const id = selectedReservation.reservation_id;
+
     setSelectedReservation((prev) => ({
       ...prev,
-      // Optional: You can add any changes to the selectedReservation state here if needed
     }));
-  
+
     axios
       .post(
         `http://localhost:5000/admin/reservation/${id}/action`,
@@ -85,7 +82,7 @@ const Dashboard = () => {
         }, 1500);
       });
   };
-  
+
   const handleDeclineSubmit = () => {
     const id = selectedReservation.reservation_id;
 
@@ -112,6 +109,7 @@ const Dashboard = () => {
         }, 1500);
       });
   };
+
   return (
     <>
       <Header toggleNotifications={toggleNotifications} />
@@ -124,81 +122,98 @@ const Dashboard = () => {
           />
         </div>
         <div className={styles.bookingsContainerRight}>
-        <Modal isOpen={showNotifications}
-onRequestClose={toggleNotifications} className={styles.notificationModal} overlayClassName={styles.modalOverlay}>
-<Notification onClose={toggleNotifications} />
-</Modal>
+          <Modal
+            isOpen={showNotifications}
+            onRequestClose={toggleNotifications}
+            className={styles.notificationModal}
+            overlayClassName={styles.modalOverlay}
+          >
+            <Notification onClose={toggleNotifications} />
+          </Modal>
         </div>
       </div>
       <Modal
-      isOpen={isModalOpen}
-      onRequestClose={() => setIsModalOpen(false)}
-      className={styles.modalContent}
-      overlayClassName={styles.modalOverlay}
-    >
-      {selectedReservation && (
-        <div>
-          <button
-            className={styles.closeButton}
-            onClick={() => setIsModalOpen(false)}
-          >
-            X
-          </button>
-          <h2 className={styles.modalHeader}>Reservation Details</h2>
-          <p><b>Name</b>: {selectedReservation.name}</p>
-          <p><b>Email</b>: {selectedReservation.email}</p>
-          <p><b>Phone</b>: {selectedReservation.phone_number}</p>
-          <p><b>ID Card Front</b>: <br />
-            <img
-              src={`http://localhost:5000/uploads/${selectedReservation.id_card_photo_front}`}
-              alt="ID"
-              height={180}
-              width={300}
-            />
-          </p>
-          <p><b>ID Card Back</b>: <br />
-            <img
-              src={`http://localhost:5000/uploads/${selectedReservation.id_card_photo_back}`}
-              alt="ID"
-              height={180}
-              width={300}
-            />
-          </p>
-          <button
-            className={`${styles.modalButton} ${styles.modalButtonAccept}`}
-            onClick={() => handleAccept(selectedReservation.id)}
-          >
-            Accept
-          </button>
-          <button
-            className={`${styles.modalButton} ${styles.modalButtonDecline}`}
-            onClick={handleDeclineClick}
-          >
-            Decline
-          </button>
-
-          {showDeclineForm && (
-            <div className={styles.declineForm}>
-              <label htmlFor="declineReason">Reason for Declining:</label>
-              <textarea
-                id="declineReason"
-                value={declineReason}
-                onChange={(e) => setDeclineReason(e.target.value)}
-                rows={4}
-              />
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        className={styles.modalContent}
+        overlayClassName={styles.modalOverlay}
+      >
+        {selectedReservation && (
+          <div className={styles.modalInner}>
+            <button
+              className={styles.closeButton}
+              onClick={() => setIsModalOpen(false)}
+            >
+              <FontAwesomeIcon icon={faTimesCircle} />
+            </button>
+            <h2 className={styles.modalHeader}>Reservation Details</h2>
+            <div className={styles.modalBody}>
+              <p>
+                <strong>Name:</strong> {selectedReservation.name}
+              </p>
+              <p>
+                <strong>Email:</strong> {selectedReservation.email}
+              </p>
+              <p>
+                <strong>Phone:</strong> {selectedReservation.phone_number}
+              </p>
+              <div className={styles.idImages}>
+                <div>
+                  <p>
+                    <strong>ID Card Front:</strong>
+                  </p>
+                  <img
+                    src={`http://localhost:5000/uploads/${selectedReservation.id_card_photo_front}`}
+                    alt="ID Front"
+                    className={styles.idImage}
+                  />
+                </div>
+                <div>
+                  <p>
+                    <strong>ID Card Back:</strong>
+                  </p>
+                  <img
+                    src={`http://localhost:5000/uploads/${selectedReservation.id_card_photo_back}`}
+                    alt="ID Back"
+                    className={styles.idImage}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className={styles.modalActions}>
               <button
-                className={`${styles.modalButton} ${styles.modalButtonDeclineSubmit}`}
-                onClick={handleDeclineSubmit}
+                className={`${styles.modalButton} ${styles.modalButtonAccept}`}
+                onClick={() => handleAccept(selectedReservation.id)}
               >
-                Submit Decline
+                Accept
+              </button>
+              <button
+                className={`${styles.modalButton} ${styles.modalButtonDecline}`}
+                onClick={handleDeclineClick}
+              >
+                Decline
               </button>
             </div>
-          )}
-        </div>
-      )}
-    </Modal>
-
-
+            {showDeclineForm && (
+              <div className={styles.declineForm}>
+                <label htmlFor="declineReason">Reason for Declining:</label>
+                <textarea
+                  id="declineReason"
+                  value={declineReason}
+                  onChange={(e) => setDeclineReason(e.target.value)}
+                  rows={4}
+                />
+                <button
+                  className={`${styles.modalButton} ${styles.modalButtonDeclineSubmit}`}
+                  onClick={handleDeclineSubmit}
+                >
+                  Submit Decline
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </Modal>
     </>
   );
 };
@@ -225,7 +240,6 @@ function Header({ toggleNotifications }) {
 }
 
 function Analytics({ dashboardInfo }) {
-
   return (
     <div className={styles.analyticsGrid}>
       <div className={styles.analyticsRow}>
@@ -234,7 +248,7 @@ function Analytics({ dashboardInfo }) {
           className={styles.iconBed}
           style={{ color: "#d49d44" }}
         />
-        <h4>{dashboardInfo.stats?dashboardInfo.stats.total_rooms:0}</h4>
+        <h4>{dashboardInfo.stats ? dashboardInfo.stats.total_rooms : 0}</h4>
         <span>Total Rooms</span>
       </div>
       <div className={styles.analyticsRow}>
@@ -243,7 +257,7 @@ function Analytics({ dashboardInfo }) {
           className={styles.iconBed}
           style={{ color: "#32CD32" }}
         />
-        <h4>{dashboardInfo.stats?dashboardInfo.stats.booked_rooms:0}</h4>
+        <h4>{dashboardInfo.stats ? dashboardInfo.stats.booked_rooms : 0}</h4>
         <span>Booked Rooms</span>
       </div>
       <div className={styles.analyticsRow}>
@@ -252,7 +266,7 @@ function Analytics({ dashboardInfo }) {
           className={styles.iconBed}
           style={{ color: "blue" }}
         />
-        <h4>{dashboardInfo.stats?dashboardInfo.stats.available_rooms:0}</h4>
+        <h4>{dashboardInfo.stats ? dashboardInfo.stats.available_rooms : 0}</h4>
         <span>Available Rooms</span>
       </div>
       <div className={styles.analyticsRow}>
@@ -261,7 +275,11 @@ function Analytics({ dashboardInfo }) {
           className={styles.iconBed}
           style={{ color: "#d49d" }}
         />
-        <h4>{dashboardInfo.stats?dashboardInfo.stats.pending_reservations_count:0}</h4>
+        <h4>
+          {dashboardInfo.stats
+            ? dashboardInfo.stats.pending_reservations_count
+            : 0}
+        </h4>
         <span>Pending Approvals</span>
       </div>
       <div className={styles.analyticsRow}>
@@ -270,7 +288,7 @@ function Analytics({ dashboardInfo }) {
           className={styles.iconBed}
           style={{ color: "yellow" }}
         />
-        <h4>{dashboardInfo.stats?dashboardInfo.stats.averageRating:0}</h4>
+        <h4>{dashboardInfo.stats ? dashboardInfo.stats.averageRating : 0}</h4>
         <span>Average Rating</span>
       </div>
     </div>
@@ -303,7 +321,9 @@ function UpcomingBooking({ reservations, onViewDetail }) {
               <td>{item.category}</td>
               <td>{item.availability}</td>
               <td>
-                <button onClick={() => onViewDetail(item.id)}>View Detail</button>
+                <button onClick={() => onViewDetail(item.id)}>
+                  View Detail
+                </button>
               </td>
             </tr>
           ))}
@@ -367,8 +387,9 @@ function Notification({ onClose }) {
               <FontAwesomeIcon
                 icon={faExclamationTriangle}
                 className={styles.noti}
-              />{notification.message}
-                <span>{notification.time}</span>
+              />
+              {notification.message}
+              <span>{notification.time}</span>
             </div>
           ))
         ) : (
