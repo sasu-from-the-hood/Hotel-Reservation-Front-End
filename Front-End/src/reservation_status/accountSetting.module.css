@@ -1,0 +1,149 @@
+/* reserv.module.css */
+
+/* Main container for the account settings */
+.container {
+    max-width: 600px;
+    /* Limit the max width for larger screens */
+    width: 90%;
+    /* Use 90% of the screen width on smaller screens */
+    margin: 10px auto;
+    /* Center the container with margin */
+    padding: 20px;
+    /* Padding inside the container */
+    background-color: #f8f9fa;
+    /* Light background */
+    border-radius: 8px;
+    /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+}
+
+/* Styling for the account form */
+.accountForm {
+    display: flex;
+    /* Flexbox layout */
+    flex-direction: column;
+    /* Column direction */
+    gap: 15px;
+    /* Space between form elements */
+}
+
+/* Label styles */
+label {
+    display: flex;
+    /* Flexbox for labels */
+    flex-direction: column;
+    /* Column direction for label and input */
+    font-weight: 500;
+    /* Medium weight font */
+    color: #343a40;
+    /* Darker text for better readability */
+}
+
+/* Input styles */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="file"] {
+    padding: 12px;
+    /* Increased padding for better touch targets */
+    border: 1px solid #ced4da;
+    /* Border color */
+    border-radius: 5px;
+    /* Rounded corners */
+    transition: border-color 0.3s, box-shadow 0.3s;
+    /* Transition for border color and shadow */
+    font-size: 16px;
+    /* Larger font for better readability */
+    background-color: white;
+    /* White background for inputs */
+}
+
+/* Input styles for file inputs */
+input[type="file"] {
+    border: none;
+    /* Remove border for file input */
+    padding: 0;
+    /* Remove padding */
+}
+
+/* Focus state for inputs */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #007bff;
+    /* Highlight color on focus */
+    outline: none;
+    /* Remove default outline */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    /* Subtle shadow on focus */
+}
+
+/* Button styles */
+button.saveButton {
+    padding: 12px;
+    /* Increased padding for better touch targets */
+    background-color: #007bff;
+    /* Bootstrap primary color */
+    color: white;
+    /* Text color */
+    border: none;
+    /* No border */
+    border-radius: 5px;
+    /* Rounded corners */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.2s;
+    /* Transition for background color and transform */
+    font-size: 16px;
+    /* Larger font size */
+}
+
+/* Button hover state */
+button.saveButton:hover {
+    background-color: #0056b3;
+    /* Darker shade on hover */
+    transform: translateY(-1px);
+    /* Subtle lift effect on hover */
+}
+
+/* Loading message styles */
+.loading {
+    text-align: center;
+    /* Centered text */
+    color: #007bff;
+    /* Color for loading text */
+    font-size: 18px;
+    /* Larger font size */
+}
+
+/* Error message styles */
+.error {
+    text-align: center;
+    /* Centered text */
+    color: red;
+    /* Red color for error */
+    font-size: 18px;
+    /* Larger font size */
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        /* Reduce padding for smaller screens */
+    }
+
+    button.saveButton {
+        font-size: 14px;
+        /* Smaller font size for buttons */
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="file"] {
+        font-size: 14px;
+        /* Smaller font size for inputs */
+    }
+}

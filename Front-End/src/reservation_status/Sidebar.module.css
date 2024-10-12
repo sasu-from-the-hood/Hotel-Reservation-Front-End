@@ -1,18 +1,22 @@
 .container {
   display: flex;
   height: 100vh;
+  overflow: hidden;
+  transition: margin-left 0.3s ease;
+  /* Smooth transition for layout shift */
 }
 
 .sidebar {
   width: 250px;
   background-color: #2c3e50;
   color: white;
-  transition: width 0.3s ease;
+  transition: width 0.3s ease, padding-left 0.3s ease;
   position: relative;
 }
 
 .sidebar.minimized {
-  width: 60px;
+  width: 80px;
+  padding-left: 7px;
 }
 
 .toggleButton {
@@ -37,6 +41,18 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  opacity: 1;
+  /* Visible by default */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  /* Smooth opacity & movement */
+}
+
+/* Hide the name when minimized */
+.sidebar.minimized .name {
+  opacity: 0;
+  transform: translateX(-10px);
+  /* Slide text slightly left for a smoother exit */
+  pointer-events: none;
 }
 
 .nav {
@@ -45,6 +61,7 @@
   gap: 10px;
 }
 
+/* Ensure alignment and hide text smoothly when minimized */
 .navButton {
   display: flex;
   align-items: center;
@@ -56,16 +73,51 @@
   cursor: pointer;
   padding: 10px;
   border-radius: 5px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, padding 0.3s ease;
 }
 
+/* Minimized state: Hide text smoothly */
+.sidebar.minimized .navButton span {
+  opacity: 0;
+  transform: translateX(-10px);
+  /* Smooth slide-out effect */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.sidebar .navButton span {
+  opacity: 1;
+  transform: translateX(0);
+  /* Reset when not minimized */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Icon stays aligned to the left */
+.sidebar.minimized .navButton {
+  justify-content: flex-start;
+  padding: 10px;
+}
+
+/* Button hover and active states */
 .navButton:hover,
 .navButton.active {
   background-color: #34495e;
+}
+
+.navButton .icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+  /* Optional hover effect */
+}
+
+/* Optional: Icon scales slightly on hover */
+.navButton:hover .icon {
+  transform: scale(1.1);
 }
 
 .content {
   flex-grow: 1;
   padding: 20px;
   background-color: #ecf0f1;
+  transition: margin-left 0.3s ease;
+  /* Smooth content shift */
 }

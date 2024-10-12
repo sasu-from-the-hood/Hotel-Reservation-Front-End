@@ -35,11 +35,9 @@
 }
 
 .contentArea {
-  background: radial-gradient(
-    circle,
-    rgba(251, 250, 247, 1) 0%,
-    rgba(180, 199, 200, 1) 84%
-  );
+  background: radial-gradient(circle,
+      rgba(251, 250, 247, 1) 0%,
+      rgba(180, 199, 200, 1) 84%);
   flex-grow: 1;
   padding: 2rem;
 }
@@ -72,7 +70,8 @@
 }
 
 .checkoutContainer {
-  margin-top: 20px; /* Add margin to ensure it is spaced properly */
+  margin-top: 20px;
+  /* Add margin to ensure it is spaced properly */
 }
 
 .error {
