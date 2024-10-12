@@ -13,6 +13,7 @@ const HotelSetting = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7;
   const [editingCategory, setEditingCategory] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchCategories = () => {
     fetch("http://localhost:5000/admin/category", {
@@ -84,24 +85,24 @@ const HotelSetting = () => {
       .catch((error) => console.error("Error adding category:", error));
   };
 
-  const handleUpdateCategory = (e, category) => {
+  const handleUpdateCategory = (e) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("category_id", category.category_id);
+    formData.append("category_id", editingCategory.category_id);
     formData.append(
       "category_name",
-      newCategory.name || category.category_name
+      newCategory.name || editingCategory.category_name
     );
-    formData.append("price", newCategory.price || category.price);
+    formData.append("price", newCategory.price || editingCategory.price);
     formData.append(
       "description",
-      newCategory.description || category.description
+      newCategory.description || editingCategory.description
     );
-    formData.append("photo", newCategory.photo || category.photo);
+    formData.append("photo", newCategory.photo || editingCategory.photo);
 
     fetch(
-      `http://localhost:5000/admin/category/update/${category.category_id}`,
+      `http://localhost:5000/admin/category/update/${editingCategory.category_id}`,
       {
         method: "PUT",
         headers: {
@@ -115,6 +116,7 @@ const HotelSetting = () => {
         alert("Category updated successfully");
         fetchCategories(); // Refresh categories after updating
         setEditingCategory(null);
+        setIsModalOpen(false);
       })
       .catch((error) => console.error("Error updating category:", error));
   };
@@ -122,11 +124,27 @@ const HotelSetting = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentCategories = categories.slice(indexOfFirstItem, indexOfLastItem);
-
   const totalPages = Math.ceil(categories.length / itemsPerPage);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+  };
+
+  const openModal = (category) => {
+    setEditingCategory(category);
+    setNewCategory({
+      name: category.category_name,
+      price: category.price,
+      description: category.description,
+      rooms: category.total_rooms, // Assuming you want to show total rooms
+      photo: null,
+    });
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setEditingCategory(null);
   };
 
   return (
@@ -166,41 +184,11 @@ const HotelSetting = () => {
                 </td>
                 <td>
                   <button
-                    onClick={() => setEditingCategory(category)}
+                    onClick={() => openModal(category)}
                     className={styles.actionButton}
                   >
                     Edit
                   </button>
-                  {editingCategory &&
-                    editingCategory.category_id === category.category_id && (
-                      <form onSubmit={(e) => handleUpdateCategory(e, category)}>
-                        <div>
-                          <input
-                            type="text"
-                            name="name"
-                            defaultValue={category.category_name}
-                            onChange={handleInputChange}
-                          />
-                          <input
-                            type="number"
-                            name="price"
-                            defaultValue={category.price}
-                            onChange={handleInputChange}
-                          />
-                          <textarea
-                            name="description"
-                            defaultValue={category.description}
-                            onChange={handleInputChange}
-                          ></textarea>
-                          <input
-                            type="file"
-                            name="photo"
-                            onChange={handleFileChange}
-                          />
-                          <button type="submit">Update</button>
-                        </div>
-                      </form>
-                    )}
                 </td>
               </tr>
             ))}
@@ -288,6 +276,66 @@ const HotelSetting = () => {
           </div>
         </form>
       </div>
+
+      {/* Modal for Editing Category */}
+      {isModalOpen && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <span className={styles.close} onClick={closeModal}>
+              &times;
+            </span>
+            <h2>Edit Category</h2>
+            <form onSubmit={handleUpdateCategory}>
+              <div>
+                <label>Category Name:</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={newCategory.name}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div>
+                <label>Price:</label>
+                <input
+                  type="number"
+                  name="price"
+                  value={newCategory.price}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div>
+                <label>Description:</label>
+                <textarea
+                  name="description"
+                  value={newCategory.description}
+                  onChange={handleInputChange}
+                  required
+                ></textarea>
+              </div>
+              <div>
+                <label>Rooms (comma-separated):</label>
+                <input
+                  type="text"
+                  name="rooms"
+                  value={newCategory.rooms}
+                  onChange={handleRoomsChange}
+                  required
+                />
+              </div>
+              <div>
+                <label>Photo:</label>
+                <input type="file" name="photo" onChange={handleFileChange} />
+              </div>
+              <div className={styles.btn}>
+                <button type="submit">Update Category</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
