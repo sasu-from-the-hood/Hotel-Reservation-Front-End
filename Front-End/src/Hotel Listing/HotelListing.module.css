@@ -7,7 +7,6 @@ main {
 }
 .title {
   font-size: 2.5rem;
-  text-align: center;
   color: #af8c53;
   letter-spacing: 0.2rem;
   padding: 2% 0;
@@ -71,7 +70,7 @@ main {
   color: rgb(47, 47, 250);
 }
 .icon {
-  color: #fff;
+  color: #000;
 }
 .hotelServices div a {
   color: rgb(106, 183, 209);
@@ -132,7 +131,7 @@ main {
   border: 1px solid #d49d44;
 }
 @media (max-width: 600px) {
-  .hotelListContainer h1 {
+  .hotelListContainer h3 {
     font-size: 2.4rem;
   }
 }

@@ -62,7 +62,7 @@ export default function HotelListing() {
   return (
     <main>
       <div className={styles.hotelListContainer}>
-        <h1>Hotel Listing</h1>
+        <h3 className={styles.title}>Hotel Listing</h3>
         <div>
           <input
             className={styles.search}

@@ -45,7 +45,7 @@ export default function HotDeals() {
   return (
     <main>
       <div className={styles.hotelListContainer}>
-        <h3 className={styles.title}>Top 3 Rated Hotels</h3>
+        <h3 className={styles.title}>Hot Deals</h3>
         <div className={styles.hotelListGrid}>
           {topHotels.map((hotel) => (
             <div className={styles.hotel} key={hotel.hotel_id}>
